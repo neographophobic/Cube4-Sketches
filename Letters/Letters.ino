@@ -26,7 +26,7 @@ void loop() {
   
   // Display all of the supported characters
   displayText("abcdefghijklmnopqrstuvwxyz", GREEN, 750, 100);
-  displayText("0123456789", RED, 750, 100);
+  displayText("0123456789", BLACK, 750, 100);
 }
 
 void displayText(char message[], rgb_t theColour, int theDelay, int betweenCharDelay) {
