@@ -30,12 +30,30 @@ void loop() {
 }
 
 void displayText(char message[], rgb_t theColour, int theDelay, int betweenCharDelay) {
+  /*
+   * displayText will print letters on the Y0 plane of the cube
+   *   message          = Message to display one character at 
+   *                      a time.
+   *                        - Allowed characters are A-Z, 0-9,
+   *                          and a space
+   *                        - Invalid characters show all RED
+   *   theColour        = Colour to display the message in. 
+   *                      If set to BLACK, then a random colour 
+   *                      is picked for each character
+   *   theDelay         = Time in milliseconds to show each 
+   *                      character
+   *   betweenCharDelay = Time in milliseconds to show black
+   *                      between each character
+   */
+
+  // Define variables used by the function
   char letter;
   bool useRandomColour = 0;
   byte randomColour = 0;
   byte lastRandomColour = 0;
-  rgb_t colours[8] = {BLUE, GREEN, ORANGE, PINK, PURPLE, RED, WHITE, YELLOW};
   int i = 0;
+  // List of colours to pick from if BLACK (random) is selected
+  rgb_t colours[8] = {BLUE, GREEN, ORANGE, PINK, PURPLE, RED, WHITE, YELLOW};
 
   // If the user set the colour to BLACK, pick a random colour for each letter
   if (theColour.color[0] == 0 && theColour.color[1] == 0 && theColour.color[2] == 0) {
@@ -48,7 +66,7 @@ void displayText(char message[], rgb_t theColour, int theDelay, int betweenCharD
 
     if (useRandomColour) {
       // Use a random colour, so pick from one of the predefined 
-      // colours.
+      // colours
       while(randomColour == lastRandomColour) {
         randomColour = random(0,8);
       }
@@ -56,7 +74,7 @@ void displayText(char message[], rgb_t theColour, int theDelay, int betweenCharD
       lastRandomColour = randomColour;
     }
 
-    // Turn all LEDs off
+    // Turn all LEDs off, and pause.
     cube.all(BLACK);
     delay(betweenCharDelay);
     
@@ -232,9 +250,11 @@ void displayText(char message[], rgb_t theColour, int theDelay, int betweenCharD
       cube.line(1, 0, 1, 2, 0, 1, theColour);
       cube.line(3, 0, 0, 3, 0, 2, theColour);
     } else if (letter == ' ') {
+      // Space character, so show all black for the 
+      // time a normal character is shown
       cube.all(BLACK);
     } else {
-      // Unknown Letter
+      // Unknown Letter, so show all red as an error
       cube.all(RED);
     }
 
