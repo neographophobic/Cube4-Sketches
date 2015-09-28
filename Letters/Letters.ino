@@ -20,16 +20,16 @@ void setup() {
 
 void loop() {
   // Display a message
-  displayText("Hello World", BLUE, 750);
+  displayText("Hello World", BLUE, 750, 100);
   cube.all(BLACK);
   delay(1000);
   
   // Display all of the supported characters
-  displayText("abcdefghijklmnopqrstuvwxyz", GREEN, 750);
-  displayText("0123456789", RED, 750);
+  displayText("abcdefghijklmnopqrstuvwxyz", GREEN, 750, 100);
+  displayText("0123456789", RED, 750, 100);
 }
 
-void displayText(char message[], rgb_t theColour, int theDelay) {
+void displayText(char message[], rgb_t theColour, int theDelay, int betweenCharDelay) {
   char letter;
   bool useRandomColour = 0;
   byte randomColour = 0;
@@ -58,7 +58,8 @@ void displayText(char message[], rgb_t theColour, int theDelay) {
 
     // Turn all LEDs off
     cube.all(BLACK);
-
+    delay(betweenCharDelay);
+    
     // Draw the character
     if (letter == 'A') {
       cube.line(0, 0, 0, 0, 0, 3, theColour);
