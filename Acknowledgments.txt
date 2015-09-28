@@ -1,0 +1,6 @@
+Acknowledgments
+
+* Freetronics Hardware Profile
+The hardware profile was downloaded from https://github.com/freetronics/LeoStickBoardProfile/ as 
+of commit 157a55138128dc2e2c9e4c43e10c561e6ad4ee54.
+
