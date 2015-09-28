@@ -4,3 +4,5 @@ Acknowledgments
 The hardware profile was downloaded from https://github.com/freetronics/LeoStickBoardProfile/ as 
 of commit 157a55138128dc2e2c9e4c43e10c561e6ad4ee54.
 
+* Freetronics Cube4 Matrix.pdf
+Created by user ponch58, and posted to http://forum.freetronics.com/viewtopic.php?f=32&t=5562
