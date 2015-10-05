@@ -3,7 +3,7 @@
  * Version: 1.0
  * Author:  Adam Reed (adam@secretcode.ninja)
  * License: BSD 3-Clause Licence
- * 
+ *
  * Inspired by Trilobyte Projects "4x4x4 Led cube demo"
  * at https://www.youtube.com/watch?v=adXXSitxPdo&t=18
  */
@@ -12,14 +12,14 @@
  * There are 3 2x2x2 mini cubes that roam around the larger 4x4x4 cube. The
  * mini cubes move in a random direction either left, right, back, forward,
  * up, or down.
- * 
- * The movement is only allowed if there are not already 2 cubes in the 
+ *
+ * The movement is only allowed if there are not already 2 cubes in the
  * destination plane, and that the destination location isn't occupied.
- * 
- * There are 24 valid moves in total. The cube broken into 4 quadrants on 
- * the bottom, and another 4 on the top. Each of the quadrants is assigned a 
- * number which is used to determine where the mini cubes are, and where 
- * they can move to. From any location, there are three possible moves, but 
+ *
+ * There are 24 valid moves in total. The cube broken into 4 quadrants on
+ * the bottom, and another 4 on the top. Each of the quadrants is assigned a
+ * number which is used to determine where the mini cubes are, and where
+ * they can move to. From any location, there are three possible moves, but
  * due to the above, some of these locations may not be allowed.
  *
  * The Layout of the locations is as follows:-
@@ -33,7 +33,7 @@
  *   | 7 (T3) | 8 (T4) |
  *   |        |        |
  *   -------------------
- * 
+ *
  * Bottom
  * -------------------
  * |        |        |
@@ -60,7 +60,7 @@ Cube cube;
 // to the serial console.
 // #define DEBUG
 
-// Define the 3 colours to use. You can use any three colours you like. 
+// Define the 3 colours to use. You can use any three colours you like.
 rgb_t colours[3] = {RED, GREEN, BLUE};
 
 // Define delays in the animations
@@ -93,7 +93,7 @@ void setup(void) {
   // 1: Control via the RXD and TXD pins on the main board.
   // -1: Don't attach any serial port to interact with the Cube.
   cube.begin(0, 115200); // Start on serial port 0 (USB) at 115200 baud
-  while(!Serial) {
+  while (!Serial) {
   }
   randomSeed(1);
 
@@ -130,7 +130,7 @@ void loop(void) {
   byte i = 0;
   byte validMoves[3];
 
-  // Constantly loop through each of the colours, and move the matching 
+  // Constantly loop through each of the colours, and move the matching
   // cube
   while (i < 3)
   {
@@ -208,10 +208,10 @@ void loop(void) {
 
 void moveCube(byte startLocation, byte moves[], rgb_t theColour, byte theCube)
 {
-  /* 
-   * Move theCube from it's startLocation, to a valid location within the moves 
+  /*
+   * Move theCube from it's startLocation, to a valid location within the moves
    * array ensuring it keeps theColour that was provided.
-   */  
+   */
 
   // Define a variable to hold the index within the moves array that we will try
   byte randomIndex;
@@ -239,16 +239,16 @@ void moveCube(byte startLocation, byte moves[], rgb_t theColour, byte theCube)
     // Sanity checker that will stop the sketch if we haven't managed to find
     // a valid move after 100 attempts.
     loopKiller++;
-    if(loopKiller > 100) {
+    if (loopKiller > 100) {
       serial->println("Endless Loop - Killing...");
-      while(true) {
+      while (true) {
         // Do nothing and just loop endlessly.
       }
     }
-#endif    
+#endif
 
-  // Keep looping until we have found a move that is a valid move according to
-  // our rules.
+    // Keep looping until we have found a move that is a valid move according to
+    // our rules.
   } while (isThisAValidMove(startLocation, moves[randomIndex], theCube) == false);
 
   // Move to the new location. The code looks firstly at the startLocation, then
@@ -390,16 +390,16 @@ void moveCube(byte startLocation, byte moves[], rgb_t theColour, byte theCube)
 boolean isThisAValidMove(byte startLocation, byte destination, byte theCube)
 {
   /*
-   * Compares the startLocationto the destination for theCube and determines 
+   * Compares the startLocationto the destination for theCube and determines
    * whether it is a valid move according to the rules. If it is we return
    * true, otherwise we return false.
    */
 
-  // Default to it being an invalid move   
+  // Default to it being an invalid move
   boolean result = false;
 
   // Determine if the move would not result in more than 2 cubes on any plane.
-  // The code looks firstly at the startLocation, then at the destination, and 
+  // The code looks firstly at the startLocation, then at the destination, and
   // if the destination plane based of the direction of movement will have less
   // than 3 cubes, allow the move.
   switch (startLocation)
@@ -568,22 +568,22 @@ boolean isThisAValidMove(byte startLocation, byte destination, byte theCube)
 
   // Ensure that where we plan on moving a cube to isn't already used by
   // a different cube. If so, don't allow the move.
-  switch(theCube)
+  switch (theCube)
   {
     case 0: // Cube 1
-      if(cube2Loc == destination || cube3Loc == destination)
+      if (cube2Loc == destination || cube3Loc == destination)
       {
         result = false;
       }
       break;
     case 1: // Cube 2
-      if(cube1Loc == destination || cube3Loc == destination)
+      if (cube1Loc == destination || cube3Loc == destination)
       {
         result = false;
       }
       break;
     case 2: // Cube 3
-      if(cube2Loc == destination || cube1Loc == destination)
+      if (cube2Loc == destination || cube1Loc == destination)
       {
         result = false;
       }
@@ -624,17 +624,17 @@ boolean isThisAValidMove(byte startLocation, byte destination, byte theCube)
  * The following set of 24 functions handle the actual movement of cubes.
  * Each function is named after the quadrant that the move starts from,
  * and the quadrant that the move finishes at.
- * 
+ *
  * They all have the same basic structure. It is:-
  *   - Hide one part of the cube, and show the next part (the "half move")
- *   - delay for the duringMoveDelay time 
- *   - Hide the last part of the original cube and show the final part of the 
+ *   - delay for the duringMoveDelay time
+ *   - Hide the last part of the original cube and show the final part of the
  *     destination cube (completing the move)
  *   - delay for the betweenMovesDelay time
  *   - update the plane counts by subtracting 1 from the plane we moved from,
  *     and adding 1 to the plane we moved to
  */
- 
+
 void t1t2(rgb_t theColour)
 {
   cube.box(0, 2, 2, 0, 3, 3, BLACK);
