@@ -191,7 +191,7 @@ void loop(void) {
     }
 
     // Move the cube
-    moveBox(cubeToMove, validMoves, colours[i], i);
+    moveCube(cubeToMove, validMoves, colours[i], i);
 
     // Increment counter so that we move the next cube
     i++;
@@ -202,15 +202,15 @@ void loop(void) {
   }
 }
 
-void moveBox(int location, int moves[], rgb_t theColour, int box)
+void moveCube(int location, int moves[], rgb_t theColour, int theCube)
 {
   // replaced moves[randomIndex] with destination
   int randomIndex;
   // Pick the location to move to, ensuring it's a valid move
   serial->print("Move: ");
   serial->print(count);
-  serial->print(" Box: ");
-  serial->println(box);
+  serial->print(" Cube: ");
+  serial->println(theCube);
 
   int loopKiller = 0;
   do
@@ -224,7 +224,7 @@ void moveBox(int location, int moves[], rgb_t theColour, int box)
       }
     }
     
-  } while (isThisAValidMove(location, moves[randomIndex], box) == false);
+  } while (isThisAValidMove(location, moves[randomIndex], theCube) == false);
 
   // Move to the new location
   switch (location)
@@ -343,7 +343,7 @@ void moveBox(int location, int moves[], rgb_t theColour, int box)
       break;
   }
 
-  switch (box)
+  switch (theCube)
   {
     case 0: // Cube 1
       cube1Loc = moves[randomIndex];
@@ -359,7 +359,7 @@ void moveBox(int location, int moves[], rgb_t theColour, int box)
   count++;
 }
 
-boolean isThisAValidMove(int location, int destination, int box)
+boolean isThisAValidMove(int location, int destination, int theCube)
 {
   boolean result = false;
   switch (location)
@@ -526,7 +526,7 @@ boolean isThisAValidMove(int location, int destination, int box)
       break;
   }
 
-  switch(box)
+  switch(theCube)
   {
     case 0: // Cube 1
       if(cube2Loc == destination || cube3Loc == destination)
