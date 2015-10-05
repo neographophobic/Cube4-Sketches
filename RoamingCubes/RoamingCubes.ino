@@ -154,52 +154,46 @@ void loop(void) {
         validMoves[0] = 2;
         validMoves[1] = 3;
         validMoves[2] = 5;
-        moveBox(cubeToMove, validMoves, colours[i], i);
         break;
       case 2:
         validMoves[0] = 1;
         validMoves[1] = 4;
         validMoves[2] = 6;
-        moveBox(cubeToMove, validMoves, colours[i], i);
         break;
       case 3:
         validMoves[0] = 1;
         validMoves[1] = 4;
         validMoves[2] = 7;
-        moveBox(cubeToMove, validMoves, colours[i], i);
         break;
       case 4:
         validMoves[0] = 2;
         validMoves[1] = 3;
         validMoves[2] = 8;
-        moveBox(cubeToMove, validMoves, colours[i], i);
         break;
       case 5:
         validMoves[0] = 1;
         validMoves[1] = 6;
         validMoves[2] = 7;
-        moveBox(cubeToMove, validMoves, colours[i], i);
         break;
       case 6:
         validMoves[0] = 2;
         validMoves[1] = 5;
         validMoves[2] = 8;
-        moveBox(cubeToMove, validMoves, colours[i], i);
         break;
       case 7:
         validMoves[0] = 3;
         validMoves[1] = 5;
         validMoves[2] = 8;
-        moveBox(cubeToMove, validMoves, colours[i], i);
         break;
       case 8:
         validMoves[0] = 4;
         validMoves[1] = 6;
         validMoves[2] = 7;
-        moveBox(cubeToMove, validMoves, colours[i], i);
         break;
     }
 
+    // Move the cube
+    moveBox(cubeToMove, validMoves, colours[i], i);
     i++;
     if (i == 3) {
       i = 0;
