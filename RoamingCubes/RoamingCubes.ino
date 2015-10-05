@@ -14,7 +14,8 @@
 Cube cube;
 
 rgb_t colours[3] = {RED, GREEN, BLUE};
-int theDelay = 100;
+int duringMoveDelay = 100;
+int betweenMovesDelay = 200;
 
 int leftPlane   = 0;
 int rightPlane  = 0;
@@ -59,7 +60,7 @@ void setup(void) {
   bLoc = 4;
 
   // Initial delay before random movement loop
-  delay(theDelay);
+  delay(betweenMovesDelay);
 }
 
 /**
@@ -543,10 +544,10 @@ void t1t2(rgb_t theColour)
 {
   cube.box(0, 2, 2, 0, 3, 3, BLACK);
   cube.box(2, 2, 2, 2, 3, 3, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(1, 2, 2, 1, 3, 3, BLACK);
   cube.box(3, 2, 2, 3, 3, 3, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   leftPlane--;
   rightPlane++;
@@ -556,10 +557,10 @@ void t1t3(rgb_t theColour)
 {
   cube.box(0, 3, 2, 1, 3, 3, BLACK);
   cube.box(0, 1, 2, 1, 1, 3, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(0, 2, 2, 1, 2, 3, BLACK);
   cube.box(0, 0, 2, 1, 0, 3, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   backPlane--;
   frontPlane++;
@@ -569,10 +570,10 @@ void t1b1(rgb_t theColour)
 {
   cube.box(0, 2, 3, 1, 3, 3, BLACK);
   cube.box(0, 2, 1, 1, 3, 1, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(0, 2, 2, 1, 3, 2, BLACK);
   cube.box(0, 2, 0, 1, 3, 0, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   topPlane--;
   bottomPlane++;
@@ -582,10 +583,10 @@ void t2t1(rgb_t theColour)
 {
   cube.box(3, 2, 2, 3, 3, 3, BLACK);
   cube.box(1, 2, 2, 1, 3, 3, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(2, 2, 2, 2, 3, 3, BLACK);
   cube.box(0, 2, 2, 0, 3, 3, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   rightPlane--;
   leftPlane++;
@@ -595,10 +596,10 @@ void t2t4(rgb_t theColour)
 {
   cube.box(2, 3, 2, 3, 3, 3, BLACK);
   cube.box(2, 1, 2, 3, 1, 3, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(2, 2, 2, 3, 2, 3, BLACK);
   cube.box(2, 0, 2, 3, 0, 3, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   backPlane--;
   frontPlane++;
@@ -608,10 +609,10 @@ void t2b2(rgb_t theColour)
 {
   cube.box(2, 2, 3, 3, 3, 3, BLACK);
   cube.box(2, 2, 1, 3, 3, 1, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(2, 2, 2, 3, 3, 2, BLACK);
   cube.box(2, 2, 0, 3, 3, 0, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   topPlane--;
   bottomPlane++;
@@ -621,10 +622,10 @@ void t3t1(rgb_t theColour)
 {
   cube.box(0, 0, 2, 1, 0, 3, BLACK);
   cube.box(0, 2, 2, 1, 2, 3, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(0, 1, 2, 1, 1, 3, BLACK);
   cube.box(0, 3, 2, 1, 3, 3, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   frontPlane--;
   backPlane++;
@@ -634,10 +635,10 @@ void t3t4(rgb_t theColour)
 {
   cube.box(0, 0, 2, 0, 1, 3, BLACK);
   cube.box(2, 0, 2, 2, 1, 3, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(1, 0, 2, 1, 1, 3, BLACK);
   cube.box(3, 0, 2, 3, 1, 3, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   leftPlane--;
   rightPlane++;
@@ -647,10 +648,10 @@ void t3b3(rgb_t theColour)
 {
   cube.box(0, 0, 3, 1, 1, 3, BLACK);
   cube.box(0, 0, 1, 1, 1, 1, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(0, 0, 2, 1, 1, 2, BLACK);
   cube.box(0, 0, 0, 1, 1, 0, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   topPlane--;
   bottomPlane++;
@@ -660,10 +661,10 @@ void t4t3(rgb_t theColour)
 {
   cube.box(3, 0, 2, 3, 1, 3, BLACK);
   cube.box(1, 0, 2, 1, 1, 3, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(2, 0, 2, 2, 1, 3, BLACK);
   cube.box(0, 0, 2, 0, 1, 3, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   rightPlane--;
   leftPlane++;
@@ -673,10 +674,10 @@ void t4t2(rgb_t theColour)
 {
   cube.box(2, 0, 2, 3, 0, 3, BLACK);
   cube.box(2, 2, 2, 3, 2, 3, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(2, 1, 2, 3, 1, 3, BLACK);
   cube.box(2, 3, 2, 3, 3, 3, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   frontPlane--;
   backPlane++;
@@ -686,10 +687,10 @@ void t4b4(rgb_t theColour)
 {
   cube.box(2, 0, 3, 3, 1, 3, BLACK);
   cube.box(2, 0, 1, 3, 1, 1, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(2, 0, 2, 3, 1, 2, BLACK);
   cube.box(2, 0, 0, 3, 1, 0, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   topPlane--;
   bottomPlane++;
@@ -699,10 +700,10 @@ void b1b2(rgb_t theColour)
 {
   cube.box(0, 2, 0, 0, 3, 1, BLACK);
   cube.box(2, 2, 0, 2, 3, 1, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(1, 2, 0, 1, 3, 1, BLACK);
   cube.box(3, 2, 0, 3, 3, 1, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   leftPlane--;
   rightPlane++;
@@ -712,10 +713,10 @@ void b1b3(rgb_t theColour)
 {
   cube.box(0, 3, 0, 1, 3, 1, BLACK);
   cube.box(0, 1, 0, 1, 1, 1, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(0, 2, 0, 1, 2, 1, BLACK);
   cube.box(0, 0, 0, 1, 0, 1, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   backPlane--;
   frontPlane++;
@@ -725,10 +726,10 @@ void b1t1(rgb_t theColour)
 {
   cube.box(0, 2, 0, 1, 3, 0, BLACK);
   cube.box(0, 2, 2, 1, 3, 2, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(0, 2, 1, 1, 3, 1, BLACK);
   cube.box(0, 2, 3, 1, 3, 3, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   bottomPlane--;
   topPlane++;
@@ -738,10 +739,10 @@ void b2b1(rgb_t theColour)
 {
   cube.box(3, 2, 0, 3, 3, 1, BLACK);
   cube.box(1, 2, 0, 1, 3, 1, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(2, 2, 0, 2, 3, 1, BLACK);
   cube.box(0, 2, 0, 0, 3, 1, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   rightPlane--;
   leftPlane++;
@@ -751,10 +752,10 @@ void b2b4(rgb_t theColour)
 {
   cube.box(2, 3, 0, 3, 3, 1, BLACK);
   cube.box(2, 1, 0, 3, 1, 1, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(2, 2, 0, 3, 2, 1, BLACK);
   cube.box(2, 0, 0, 3, 0, 1, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   backPlane--;
   frontPlane++;
@@ -764,10 +765,10 @@ void b2t2(rgb_t theColour)
 {
   cube.box(2, 2, 0, 3, 3, 0, BLACK);
   cube.box(2, 2, 2, 3, 3, 2, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(2, 2, 1, 3, 3, 1, BLACK);
   cube.box(2, 2, 3, 3, 3, 3, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   bottomPlane--;
   topPlane++;
@@ -777,10 +778,10 @@ void b3b1(rgb_t theColour)
 {
   cube.box(0, 0, 0, 1, 0, 1, BLACK);
   cube.box(0, 2, 0, 1, 2, 1, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(0, 1, 0, 1, 1, 1, BLACK);
   cube.box(0, 3, 0, 1, 3, 1, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   frontPlane--;
   backPlane++;
@@ -790,10 +791,10 @@ void b3b4(rgb_t theColour)
 {
   cube.box(0, 0, 0, 0, 1, 1, BLACK);
   cube.box(2, 0, 0, 2, 1, 1, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(1, 0, 0, 1, 1, 1, BLACK);
   cube.box(3, 0, 0, 3, 1, 1, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   leftPlane--;
   rightPlane++;
@@ -803,10 +804,10 @@ void b3t3(rgb_t theColour)
 {
   cube.box(0, 0, 0, 1, 1, 0, BLACK);
   cube.box(0, 0, 2, 1, 1, 2, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(0, 0, 1, 1, 1, 1, BLACK);
   cube.box(0, 0, 3, 1, 1, 3, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   bottomPlane--;
   topPlane++;
@@ -816,10 +817,10 @@ void b4b3(rgb_t theColour)
 {
   cube.box(3, 0, 0, 3, 1, 1, BLACK);
   cube.box(1, 0, 0, 1, 1, 1, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(2, 0, 0, 2, 1, 1, BLACK);
   cube.box(0, 0, 0, 0, 1, 1, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   rightPlane--;
   leftPlane++;
@@ -829,10 +830,10 @@ void b4b2(rgb_t theColour)
 {
   cube.box(2, 0, 0, 3, 0, 1, BLACK);
   cube.box(2, 2, 0, 3, 2, 1, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(2, 1, 0, 3, 1, 1, BLACK);
   cube.box(2, 3, 0, 3, 3, 1, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   frontPlane--;
   backPlane++;
@@ -842,10 +843,10 @@ void b4t4(rgb_t theColour)
 {
   cube.box(2, 0, 0, 3, 1, 0, BLACK);
   cube.box(2, 0, 2, 3, 1, 2, theColour);
-  delay(theDelay);
+  delay(duringMoveDelay);
   cube.box(2, 0, 1, 3, 1, 1, BLACK);
   cube.box(2, 0, 3, 3, 1, 3, theColour);
-  delay(theDelay);
+  delay(betweenMovesDelay);
 
   bottomPlane--;
   topPlane++;
