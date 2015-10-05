@@ -389,7 +389,19 @@ void moveCube(byte startLocation, byte moves[], rgb_t theColour, byte theCube)
 
 boolean isThisAValidMove(byte startLocation, byte destination, byte theCube)
 {
+  /*
+   * Compares the startLocationto the destination for theCube and determines 
+   * whether it is a valid move according to the rules. If it is we return
+   * true, otherwise we return false.
+   */
+
+  // Default to it being an invalid move   
   boolean result = false;
+
+  // Determine if the move would not result in more than 2 cubes on any plane.
+  // The code looks firstly at the startLocation, then at the destination, and 
+  // if the destination plane based of the direction of movement will have less
+  // than 3 cubes, allow the move.
   switch (startLocation)
   {
     case 1:
@@ -554,6 +566,8 @@ boolean isThisAValidMove(byte startLocation, byte destination, byte theCube)
       break;
   }
 
+  // Ensure that where we plan on moving a cube to isn't already used by
+  // a different cube. If so, don't allow the move.
   switch(theCube)
   {
     case 0: // Cube 1
@@ -577,6 +591,12 @@ boolean isThisAValidMove(byte startLocation, byte destination, byte theCube)
   }
 
 #ifdef DEBUG
+  /*
+   * Print Debug Information including:-
+   *   - Start Location and Destination Location
+   *   - Plane Counts for all planes (this is the start locations details)
+   *   - Whether the move is allowed or not
+   */
   serial->print(startLocation);
   serial->print(" -> ");
   serial->print(destination);
@@ -596,6 +616,7 @@ boolean isThisAValidMove(byte startLocation, byte destination, byte theCube)
   serial->println(result);
 #endif
 
+  // Return whether the move should be allowed or not
   return (result);
 }
 
