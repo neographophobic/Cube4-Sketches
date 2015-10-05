@@ -64,28 +64,28 @@ Cube cube;
 rgb_t colours[3] = {RED, GREEN, BLUE};
 
 // Define delays in the animations
-int duringMoveDelay = 100;    // Delay during the move of a cube
-int betweenMovesDelay = 200;  // Delay between moving two cubes
+unsigned int duringMoveDelay = 100;    // Delay during the move of a cube
+unsigned int betweenMovesDelay = 200;  // Delay between moving two cubes
 
 /*
  * Don't change the following variables
  */
 
 // Track how many cubes are currently located on a given plane
-int leftPlane   = 0;
-int rightPlane  = 0;
-int topPlane    = 0;
-int bottomPlane = 0;
-int frontPlane  = 0;
-int backPlane   = 0;
+byte leftPlane   = 0;
+byte rightPlane  = 0;
+byte topPlane    = 0;
+byte bottomPlane = 0;
+byte frontPlane  = 0;
+byte backPlane   = 0;
 
 // Track the location of each cube
-int cube1Loc = 0;
-int cube2Loc = 0;
-int cube3Loc = 0;
+byte cube1Loc = 0;
+byte cube2Loc = 0;
+byte cube3Loc = 0;
 
 // Count how many times we have moved a cube
-int count = 1;
+unsigned int count = 1;
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
@@ -127,15 +127,15 @@ void setup(void) {
  */
 void loop(void) {
   // Declare tracking variables
-  int i = 0;
-  int validMoves[3];
+  byte i = 0;
+  byte validMoves[3];
 
   // Constantly loop through each of the colours, and move the matching 
   // cube
   while (i < 3)
   {
     // Determine which cube to move, and where it is
-    int cubeToMove = 0;
+    byte cubeToMove = 0;
     switch (i)
     {
       case 0: // Cube 1
@@ -206,10 +206,10 @@ void loop(void) {
   }
 }
 
-void moveCube(int startLocation, int moves[], rgb_t theColour, int theCube)
+void moveCube(byte startLocation, byte moves[], rgb_t theColour, byte theCube)
 {
   // replaced moves[randomIndex] with destination
-  int randomIndex;
+  byte randomIndex;
   // Pick the location to move to, ensuring it's a valid move
 #ifdef DEBUG
   serial->print("Move: ");
@@ -218,7 +218,7 @@ void moveCube(int startLocation, int moves[], rgb_t theColour, int theCube)
   serial->println(theCube);
 #endif
 
-  int loopKiller = 0;
+  byte loopKiller = 0;
   do
   {
     randomIndex = random(0, 3);
@@ -365,7 +365,7 @@ void moveCube(int startLocation, int moves[], rgb_t theColour, int theCube)
   count++;
 }
 
-boolean isThisAValidMove(int startLocation, int destination, int theCube)
+boolean isThisAValidMove(byte startLocation, byte destination, byte theCube)
 {
   boolean result = false;
   switch (startLocation)
