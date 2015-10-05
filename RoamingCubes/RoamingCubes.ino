@@ -122,11 +122,6 @@ void setup(void) {
 /**
  */
 void loop(void) {
-  smallCubesInMotion();
-}
-
-void smallCubesInMotion()
-{
   // Declare tracking variables
   int i = 0;
   int validMoves[3];
