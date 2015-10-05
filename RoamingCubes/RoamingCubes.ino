@@ -126,11 +126,10 @@ void loop(void) {
   int i = 0;
   int validMoves[3];
 
-  // Constantly loop through each of the colours,
-  // and move the matching cube
+  // Constantly loop through each of the colours, and move the matching 
+  // cube
   while (i < 3)
   {
-
     // Determine which cube to move, and where it is
     int cubeToMove = 0;
     switch (i)
@@ -146,11 +145,10 @@ void loop(void) {
         break;
     }
 
-    //
+    // Determine the valid moves based on the cubes location
     switch (cubeToMove)
     {
       case 1:
-        // Define valid moves from this location
         validMoves[0] = 2;
         validMoves[1] = 3;
         validMoves[2] = 5;
@@ -194,8 +192,11 @@ void loop(void) {
 
     // Move the cube
     moveBox(cubeToMove, validMoves, colours[i], i);
+
+    // Increment counter so that we move the next cube
     i++;
     if (i == 3) {
+      // At the end of the cubes, so set the counter back to the first cube
       i = 0;
     }
   }
