@@ -620,6 +620,21 @@ boolean isThisAValidMove(byte startLocation, byte destination, byte theCube)
   return (result);
 }
 
+/*
+ * The following set of 24 functions handle the actual movement of cubes.
+ * Each function is named after the quadrant that the move starts from,
+ * and the quadrant that the move finishes at.
+ * 
+ * They all have the same basic structure. It is:-
+ *   - Hide one part of the cube, and show the next part (the "half move")
+ *   - delay for the duringMoveDelay time 
+ *   - Hide the last part of the original cube and show the final part of the 
+ *     destination cube (completing the move)
+ *   - delay for the betweenMovesDelay time
+ *   - update the plane counts by subtracting 1 from the plane we moved from,
+ *     and adding 1 to the plane we moved to
+ */
+ 
 void t1t2(rgb_t theColour)
 {
   cube.box(0, 2, 2, 0, 3, 3, BLACK);
