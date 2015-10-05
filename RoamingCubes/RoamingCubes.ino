@@ -102,16 +102,25 @@ void setup(void) {
     waitCounter++;
   }
 
+  // Random Seed
+  // Set this to a static number to get the same sequence each time it starts,
+  // otherwise set it to analogRead(Unused Pin) to run a difference sequence
+  // each time it starts (where Unised Pin is an unused analog pin).
+  int theRandomSeed = analogRead(0);
+
   // Print Debug Info if a serial interface is present
   if (Serial) 
   {
     serial->println("RoamingCubes v1.0");
+    serial->print("Sequence: ");
+    serial->println(theRandomSeed);
 #ifndef DEBUG
     serial->println("DEBUG Mode off");
 #endif
   }
-  
-  randomSeed(1);
+
+  // Seed the random number generator
+  randomSeed(theRandomSeed);
 
   // Create the small cubes, and flag / track where they are
   // Cube 1
