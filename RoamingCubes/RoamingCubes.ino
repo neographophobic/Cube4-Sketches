@@ -208,31 +208,51 @@ void loop(void) {
 
 void moveCube(byte startLocation, byte moves[], rgb_t theColour, byte theCube)
 {
-  // replaced moves[randomIndex] with destination
+  /* 
+   * Move theCube from it's startLocation, to a valid location within the moves 
+   * array ensuring it keeps theColour that was provided.
+   */  
+
+  // Define a variable to hold the index within the moves array that we will try
   byte randomIndex;
-  // Pick the location to move to, ensuring it's a valid move
+
 #ifdef DEBUG
+  // Define a variable that we use mainly for debugging that stops trying to find
+  // a valid move
+  byte loopKiller = 0;
+
+  // Print Debug info, including which move this is, and for which cube
   serial->print("Move: ");
   serial->print(count);
   serial->print(" Cube: ");
   serial->println(theCube);
 #endif
 
-  byte loopKiller = 0;
+  // Pick the location to move to, ensuring it's a valid move
   do
   {
+    // Pick a random number between 0 and 2 to use as the index in the moves
+    // array
     randomIndex = random(0, 3);
+
+#ifdef DEBUG
+    // Sanity checker that will stop the sketch if we haven't managed to find
+    // a valid move after 100 attempts.
     loopKiller++;
     if(loopKiller > 100) {
       serial->println("Endless Loop - Killing...");
       while(true) {
-        
+        // Do nothing and just loop endlessly.
       }
     }
-    
+#endif    
+
+  // Keep looping until we have found a move that is a valid move according to
+  // our rules.
   } while (isThisAValidMove(startLocation, moves[randomIndex], theCube) == false);
 
-  // Move to the new location
+  // Move to the new location. The code looks firstly at the startLocation, then
+  // at the destination, and calls the appropriate function to make the move.
   switch (startLocation)
   {
     case 1:
@@ -349,6 +369,7 @@ void moveCube(byte startLocation, byte moves[], rgb_t theColour, byte theCube)
       break;
   }
 
+  // Track where the cube moved to
   switch (theCube)
   {
     case 0: // Cube 1
@@ -362,6 +383,7 @@ void moveCube(byte startLocation, byte moves[], rgb_t theColour, byte theCube)
       break;
   }
 
+  // Increment the moves counter
   count++;
 }
 
