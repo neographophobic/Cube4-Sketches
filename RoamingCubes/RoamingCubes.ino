@@ -202,7 +202,7 @@ void loop(void) {
   }
 }
 
-void moveCube(int location, int moves[], rgb_t theColour, int theCube)
+void moveCube(int startLocation, int moves[], rgb_t theColour, int theCube)
 {
   // replaced moves[randomIndex] with destination
   int randomIndex;
@@ -224,10 +224,10 @@ void moveCube(int location, int moves[], rgb_t theColour, int theCube)
       }
     }
     
-  } while (isThisAValidMove(location, moves[randomIndex], theCube) == false);
+  } while (isThisAValidMove(startLocation, moves[randomIndex], theCube) == false);
 
   // Move to the new location
-  switch (location)
+  switch (startLocation)
   {
     case 1:
       switch (moves[randomIndex])
@@ -359,10 +359,10 @@ void moveCube(int location, int moves[], rgb_t theColour, int theCube)
   count++;
 }
 
-boolean isThisAValidMove(int location, int destination, int theCube)
+boolean isThisAValidMove(int startLocation, int destination, int theCube)
 {
   boolean result = false;
-  switch (location)
+  switch (startLocation)
   {
     case 1:
       switch (destination)
@@ -548,7 +548,7 @@ boolean isThisAValidMove(int location, int destination, int theCube)
       break;
   }
 
-  serial->print(location);
+  serial->print(startLocation);
   serial->print(" -> ");
   serial->print(destination);
   serial->print(" | leftPlane: ");
