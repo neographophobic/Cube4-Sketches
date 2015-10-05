@@ -8,15 +8,66 @@
  * at https://www.youtube.com/watch?v=adXXSitxPdo&t=18
  */
 
+/*
+ * There are 3 2x2x2 mini cubes that roam around the larger 4x4x4 cube. The
+ * mini cubes move in a random direction either left, right, back, forward,
+ * up, or down.
+ * 
+ * The movement is only allowed if there are not already 2 cubes in the 
+ * destination plane, and that the destination location isn't occupied.
+ * 
+ * There are 24 valid moves in total. The cube broken into 4 quadrants on 
+ * the bottom, and another 4 on the top. Each of the quadrants is assigned a 
+ * number which is used to determine where the mini cubes are, and where 
+ * they can move to. From any location, there are three possible moves, but 
+ * due to the above, some of these locations may not be allowed.
+ *
+ * The Layout of the locations is as follows:-
+ * Top
+ *   -------------------
+ *   |        |        |
+ *   | 5 (T1) | 6 (T2) |
+ *   |        |        |
+ *   -------------------
+ *   |        |        |
+ *   | 7 (T3) | 8 (T4) |
+ *   |        |        |
+ *   -------------------
+ * 
+ * Bottom
+ * -------------------
+ * |        |        |
+ * | 1 (B1) | 2 (B2) |
+ * |        |        |
+ * -------------------
+ * |        |        |
+ * | 3 (B3) | 4 (B4) |
+ * |        |        |
+ * -------------------
+ *
+ */
+
 #include "SPI.h"
 #include "Cube.h"
 
 Cube cube;
 
-rgb_t colours[3] = {RED, GREEN, BLUE};
-int duringMoveDelay = 100;
-int betweenMovesDelay = 200;
+/*
+ * User editable variables
+ */
 
+// Define the 3 colours to use. You can use any three colours you like. 
+rgb_t colours[3] = {RED, GREEN, BLUE};
+
+// Define delays in the animations
+int duringMoveDelay = 100;    // Delay during the move of a cube
+int betweenMovesDelay = 200;  // Delay between moving two cubes
+
+/*
+ * Don't change the following variables
+ */
+
+// Track how many cubes are currently located on a given plane
 int leftPlane   = 0;
 int rightPlane  = 0;
 int topPlane    = 0;
@@ -24,10 +75,12 @@ int bottomPlane = 0;
 int frontPlane  = 0;
 int backPlane   = 0;
 
+// Track the location of each cube
 int rLoc = 0;
 int gLoc = 0;
 int bLoc = 0;
 
+// Count how many times we have moved a cube
 int count = 1;
 
 void setup(void) {
@@ -40,26 +93,29 @@ void setup(void) {
   }
   randomSeed(1);
 
-  // Create the small cubes, and flag where they are
+  // Create the small cubes, and flag / track where they are
+  // Cube 1
   cube.box(0, 2, 0, 1, 3, 1, RED);
   leftPlane++;
   bottomPlane++;
   backPlane++;
   rLoc = 1;
 
+  // Cube 2
   cube.box(0, 0, 2, 1, 1, 3, GREEN);
   leftPlane++;
   topPlane++;
   frontPlane++;
   gLoc = 7;
 
+  // Cube 3
   cube.box(2, 0, 0, 3, 1, 1, BLUE);
   rightPlane++;
   bottomPlane++;
   frontPlane++;
   bLoc = 4;
 
-  // Initial delay before random movement loop
+  // Initial delay before we start moving the cubes
   delay(betweenMovesDelay);
 }
 
@@ -523,23 +579,6 @@ boolean isThisAValidMove(int location, int destination, int box)
   return (result);
 }
 
-/*
- * 24 Valid moves in total. Cube broken into 4 quadrants, on the bottom, and
- * another 4 on the top. Valid moves are left, right, forward, backwards, up
- * and down.
- *
- *   -----------------
- *   | T1(5) | T2(6) |
- *   -----------------
- *   | T3(7) | T4(8) |
- *   -----------------
- * -----------------
- * | B1(1) | B2(2) |
- * -----------------
- * | B3(3) | B4(4) |
- * -----------------
- *
- */
 void t1t2(rgb_t theColour)
 {
   cube.box(0, 2, 2, 0, 3, 3, BLACK);
