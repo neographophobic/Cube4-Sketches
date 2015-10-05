@@ -76,9 +76,9 @@ int frontPlane  = 0;
 int backPlane   = 0;
 
 // Track the location of each cube
-int rLoc = 0;
-int gLoc = 0;
-int bLoc = 0;
+int cube1Loc = 0;
+int cube2Loc = 0;
+int cube3Loc = 0;
 
 // Count how many times we have moved a cube
 int count = 1;
@@ -95,25 +95,25 @@ void setup(void) {
 
   // Create the small cubes, and flag / track where they are
   // Cube 1
-  cube.box(0, 2, 0, 1, 3, 1, RED);
+  cube.box(0, 2, 0, 1, 3, 1, colours[0]);
   leftPlane++;
   bottomPlane++;
   backPlane++;
-  rLoc = 1;
+  cube1Loc = 1;
 
   // Cube 2
-  cube.box(0, 0, 2, 1, 1, 3, GREEN);
+  cube.box(0, 0, 2, 1, 1, 3, colours[1]);
   leftPlane++;
   topPlane++;
   frontPlane++;
-  gLoc = 7;
+  cube2Loc = 7;
 
   // Cube 3
-  cube.box(2, 0, 0, 3, 1, 1, BLUE);
+  cube.box(2, 0, 0, 3, 1, 1, colours[2]);
   rightPlane++;
   bottomPlane++;
   frontPlane++;
-  bLoc = 4;
+  cube3Loc = 4;
 
   // Initial delay before we start moving the cubes
   delay(betweenMovesDelay);
@@ -140,14 +140,14 @@ void smallCubesInMotion()
     int cubeToMove = 0;
     switch (i)
     {
-      case 0: // Red
-        cubeToMove = rLoc;
+      case 0: // Cube 1
+        cubeToMove = cube1Loc;
         break;
-      case 1: // Green
-        cubeToMove = gLoc;
+      case 1: // Cube 2
+        cubeToMove = cube2Loc;
         break;
-      case 2: // Blue
-        cubeToMove = bLoc;
+      case 2: // Cube 3
+        cubeToMove = cube3Loc;
         break;
     }
 
@@ -355,14 +355,14 @@ void moveBox(int location, int moves[], rgb_t theColour, int box)
 
   switch (box)
   {
-    case 0: // Red
-      rLoc = moves[randomIndex];
+    case 0: // Cube 1
+      cube1Loc = moves[randomIndex];
       break;
-    case 1: // Green
-      gLoc = moves[randomIndex];
+    case 1: // Cube 2
+      cube2Loc = moves[randomIndex];
       break;
-    case 2: // Blue
-      bLoc = moves[randomIndex];
+    case 2: // Cube 3
+      cube3Loc = moves[randomIndex];
       break;
   }
 
@@ -538,20 +538,20 @@ boolean isThisAValidMove(int location, int destination, int box)
 
   switch(box)
   {
-    case 0: //Red
-      if(gLoc == destination || bLoc == destination)
+    case 0: // Cube 1
+      if(cube2Loc == destination || cube3Loc == destination)
       {
         result = false;
       }
       break;
-    case 1: //Green
-      if(rLoc == destination || bLoc == destination)
+    case 1: // Cube 2
+      if(cube1Loc == destination || cube3Loc == destination)
       {
         result = false;
       }
       break;
-    case 2: //Blue
-      if(gLoc == destination || rLoc == destination)
+    case 2: // Cube 3
+      if(cube2Loc == destination || cube1Loc == destination)
       {
         result = false;
       }
