@@ -56,6 +56,10 @@ Cube cube;
  * User editable variables
  */
 
+// Uncomment to enable debug mode, which prints information about the moves
+// to the serial console.
+// #define DEBUG
+
 // Define the 3 colours to use. You can use any three colours you like. 
 rgb_t colours[3] = {RED, GREEN, BLUE};
 
@@ -207,10 +211,12 @@ void moveCube(int startLocation, int moves[], rgb_t theColour, int theCube)
   // replaced moves[randomIndex] with destination
   int randomIndex;
   // Pick the location to move to, ensuring it's a valid move
+#ifdef DEBUG
   serial->print("Move: ");
   serial->print(count);
   serial->print(" Cube: ");
   serial->println(theCube);
+#endif
 
   int loopKiller = 0;
   do
@@ -548,6 +554,7 @@ boolean isThisAValidMove(int startLocation, int destination, int theCube)
       break;
   }
 
+#ifdef DEBUG
   serial->print(startLocation);
   serial->print(" -> ");
   serial->print(destination);
@@ -565,6 +572,7 @@ boolean isThisAValidMove(int startLocation, int destination, int theCube)
   serial->print(backPlane);
   serial->print(" | Result: ");
   serial->println(result);
+#endif
 
   return (result);
 }
