@@ -13,6 +13,16 @@
 
 Cube cube;
 
+/*
+ * User editable variables
+ */
+
+// Define the colour to use
+rgb_t theColour = GREEN;
+
+// Define the delay between lighting up each LED
+int theDelay = 100;
+
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
   // 0: Control via the USB connector (most common).
@@ -37,14 +47,13 @@ void setup(void) {
 
 void loop(void) {
   // Always call as 3,3,3, true
-  snake(3, 3, 3, true, GREEN);
+  snake(3, 3, 3, true, theColour);
   snake(3, 3, 3, true, BLACK);
 }
 
 void snake(byte xPos, byte yPos, byte zPos, bool topToBottom, rgb_t theColour)
 {
   int loopCount = 0;
-  int theDelay = 100;
   bool forwardMotion = false;
 
   int xLoop = 0;
