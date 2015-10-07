@@ -53,7 +53,11 @@ void loop(void) {
 
 void snake(byte xPos, byte yPos, byte zPos, bool topToBottom, rgb_t theColour)
 {
-  bool forwardMotion = false;
+  // Track the direction the "Snake" moves
+  bool leftToRightMovement = false;
+  if (xPos == 0) {
+    leftToRightMovement = true;
+  }
 
   int xLoop = 0;
   int zLoop = 0;
@@ -63,7 +67,7 @@ void snake(byte xPos, byte yPos, byte zPos, bool topToBottom, rgb_t theColour)
     {
       cube.set(xPos, yPos, zPos, theColour);
       delay(theDelay);
-      if (forwardMotion) {
+      if (leftToRightMovement) {
         xPos++;
       } else {
         xPos--;
@@ -71,11 +75,11 @@ void snake(byte xPos, byte yPos, byte zPos, bool topToBottom, rgb_t theColour)
       xLoop++;
     }
 
-    if (forwardMotion) {
-      forwardMotion = false;
+    if (leftToRightMovement) {
+      leftToRightMovement = false;
       xPos = 3;
     } else {
-      forwardMotion = true;
+      leftToRightMovement = true;
       xPos = 0;
     }
     if (topToBottom) {
