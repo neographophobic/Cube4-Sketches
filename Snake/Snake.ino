@@ -53,7 +53,6 @@ void loop(void) {
 
 void snake(byte xPos, byte yPos, byte zPos, bool topToBottom, rgb_t theColour)
 {
-  int loopCount = 0;
   bool forwardMotion = false;
 
   int xLoop = 0;
