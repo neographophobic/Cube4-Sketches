@@ -46,12 +46,11 @@ void setup(void) {
 }
 
 void loop(void) {
-  // Always call as 3,3,3, true
-  snake(3, 3, 3, true, theColour);
-  snake(3, 3, 3, true, BLACK);
+  snake(3, 3, 0, theColour);
+  snake(3, 3, 0, BLACK);
 }
 
-void snake(byte xPos, byte yPos, byte zPos, bool topToBottom, rgb_t theColour)
+void snake(byte xPos, byte yPos, byte zPos, rgb_t theColour)
 {
   // Track the direction the "Snake" moves
   bool leftToRightMovement = false;
@@ -59,6 +58,11 @@ void snake(byte xPos, byte yPos, byte zPos, bool topToBottom, rgb_t theColour)
     leftToRightMovement = true;
   }
 
+  bool topToBottom = false;
+  if (zPos == 3) {
+     topToBottom = true;
+  }
+  
   int xLoop = 0;
   int zLoop = 0;
   while (zLoop < 4)
@@ -94,10 +98,10 @@ void snake(byte xPos, byte yPos, byte zPos, bool topToBottom, rgb_t theColour)
     yPos--;
     if (topToBottom) {
       zPos = 0;
-      snake(xPos, yPos, zPos, false, theColour);
+      snake(xPos, yPos, zPos, theColour);
     } else {
       zPos = 3;
-      snake(xPos, yPos, zPos, true, theColour);
+      snake(xPos, yPos, zPos, theColour);
     }
   }
 }
