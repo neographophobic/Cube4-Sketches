@@ -4,6 +4,10 @@
  * Version: 1.0
  * Author:  Adam Reed (adam@secretcode.ninja)
  * License: BSD 3-Clause Licence
+ * 
+ * TODO: Consider modifying so that you don't have to
+ *       specify every move of the animation, and so that
+ *       you can go right to left or up and down.
  */
 
 #include "SPI.h"
