@@ -27,7 +27,6 @@ void setup(void) {
 }
 
 void loop(void) {
-  rgb_t theColour = BLUE;
   int theDelay = 100;
 
   cube.all(BLACK);
