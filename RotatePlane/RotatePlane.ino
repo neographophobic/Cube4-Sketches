@@ -4,10 +4,8 @@
  * Version: 1.0
  * Author:  Adam Reed (adam@secretcode.ninja)
  * License: BSD 3-Clause Licence
- * 
- * TODO: Consider modifying so that you don't have to
- *       specify every move of the animation, and so that
- *       you can go right to left or up and down.
+ *
+ * TODO: Consider adding an up and down version
  */
 
 #include "SPI.h"
@@ -18,9 +16,6 @@ Cube cube;
 /*
  * User editable variables
  */
-
-// Define the colour to use
-rgb_t theColour = BLUE;
 
 // Define the delay between each step of an animation
 int theDelay = 100;
@@ -48,42 +43,122 @@ void setup(void) {
 }
 
 void loop(void) {
+  // Sweep from Left to Right, in a clockwise motion 7 times
+  for (byte i = 0; i < 7; i++)
+  {
+    sweep(true, true, BLUE, theDelay);
+  }
 
-  sweep(0, 0, 1, 1, 2, 2, 3, 3, theColour, theDelay);
-  sweep(0, 1, 1, 1, 2, 2, 3, 2, theColour, theDelay);
-  sweep(0, 2, 1, 2, 2, 1, 3, 1, theColour, theDelay);
-  sweep(0, 3, 1, 2, 2, 1, 3, 0, theColour, theDelay);
-  sweep(1, 2, 1, 3, 2, 0, 2, 1, theColour, theDelay);
-  sweep(1, 0, 1, 1, 2, 2, 2, 3, theColour, theDelay);
+  // Clear the cube
+  cube.all(BLACK);
+  
+  // Sweep from Left to Right, in a anticlockwise motion 7 times
+  for (byte i = 0; i < 7; i++)
+  {
+    sweep(true, false, GREEN, theDelay);
+  }
 
+  // Clear the cube
+  cube.all(BLACK);
 }
 
 /*
- * Create a line from top to bottom of the cube at the given
- * x and y coordinates, and then repeat this for the 3 other
- * provided xy coordinates.
+ * Run a sweeping animation, starting on either the left or right hand side, and running
+ * in a clockwise or anticlockwise motion, using the provided colour, and pausing for
+ * the period specified in theDelay
  */
-void sweep(byte x1, byte y1,
-           byte x2, byte y2,
-           byte x3, byte y3,
-           byte x4, byte y4,
-           rgb_t theColour, int theDelay)
+void sweep(bool startFromLeftHandSide, bool clockwise, rgb_t theColour, int theDelay)
 {
+  // Sequence of frames to display for clockwise motion
+  byte clockwiseSequence[] = {1, 2, 3, 4, 5, 6};
 
+  // Sequence of frames to display for anticlockwise motion
+  byte antiClockwiseSequence[] = {1, 6, 5, 4, 3, 2};
+
+  // The position to start from within the sequence arrays
+  byte arrayPosition = 0;
+
+  // If not starting on the left hand side of the cube, start from position 3 in the
+  // array, not position 0.
+  if (!startFromLeftHandSide)
+  {
+    arrayPosition = 3;
+  }
+
+  // Loop through the six frames that make up the animation
+  for (byte i = 1; i <= 6; i++)
+  {
+
+    if (clockwise) {
+      // Show the appropriate from from the clockwise array
+      animationFrame(clockwiseSequence[arrayPosition], theColour, theDelay);
+    } else {
+      // Show the appropriate from from the anticlockwise array
+      animationFrame(antiClockwiseSequence[arrayPosition], theColour, theDelay);
+    }
+
+    // Move to the next frame within the sequence array
+    arrayPosition++;
+
+    if (arrayPosition == 6)
+    {
+      // If we get to an array position > 5 we run out of frames, so reset it back to
+      // zero. This is useful when starting from the right hand side of the cube
+      arrayPosition = 0;
+    }
+  }
+}
+
+/*
+ * Show the specified frame of the animation, using the provided
+ * colour, pausing for the set delay time.
+ */
+void animationFrame(byte theFrame, rgb_t theColour, int theDelay)
+{
   // Clear the Cube
   cube.all(BLACK);
 
-  // Create the first line from x1 and y1 coordinates
-  cube.line(x1, y1, 0, x1, y1, 3, theColour);
-
-  // Create the second line from x2 and y2 coordinates
-  cube.line(x2, y2, 0, x2, y2, 3, theColour);
-
-  // Create the third line from x3 and y3 coordinates
-  cube.line(x3, y3, 0, x3, y3, 3, theColour);
-
-  // Create the fourth line from x4 and y4 coordinates
-  cube.line(x4, y4, 0, x4, y4, 3, theColour);
+  // There are 6 possible animation frames. This switch will show
+  // the requested frame by drawing the appropriate lines.
+  switch (theFrame)
+  {
+    case 1:
+      cube.line(0, 0, 0, 0, 0, 3, theColour);
+      cube.line(1, 1, 0, 1, 1, 3, theColour);
+      cube.line(2, 2, 0, 2, 2, 3, theColour);
+      cube.line(3, 3, 0, 3, 3, 3, theColour);
+      break;
+    case 2:
+      cube.line(0, 1, 0, 0, 1, 3, theColour);
+      cube.line(1, 1, 0, 1, 1, 3, theColour);
+      cube.line(2, 2, 0, 2, 2, 3, theColour);
+      cube.line(3, 2, 0, 3, 2, 3, theColour);
+      break;
+    case 3:
+      cube.line(0, 2, 0, 0, 2, 3, theColour);
+      cube.line(1, 2, 0, 1, 2, 3, theColour);
+      cube.line(2, 1, 0, 2, 1, 3, theColour);
+      cube.line(3, 1, 0, 3, 1, 3, theColour);
+      break;
+    case 4:
+      cube.line(0, 3, 0, 0, 3, 3, theColour);
+      cube.line(1, 2, 0, 1, 2, 3, theColour);
+      cube.line(2, 1, 0, 2, 1, 3, theColour);
+      cube.line(3, 0, 0, 3, 0, 3, theColour);
+      break;
+    case 5:
+      cube.line(1, 2, 0, 1, 2, 3, theColour);
+      cube.line(1, 3, 0, 1, 3, 3, theColour);
+      cube.line(2, 0, 0, 2, 0, 3, theColour);
+      cube.line(2, 1, 0, 2, 1, 3, theColour);
+      break;
+    case 6:
+      cube.line(1, 0, 0, 1, 0, 3, theColour);
+      cube.line(1, 1, 0, 1, 1, 3, theColour);
+      cube.line(2, 2, 0, 2, 2, 3, theColour);
+      cube.line(2, 3, 0, 2, 3, 3, theColour);
+      break;
+  }
 
   // Display the lines for the provided delay period.
   delay(theDelay);
