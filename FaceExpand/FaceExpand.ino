@@ -41,9 +41,6 @@ void loop(void) {
   int theDelay = 100;
   rgb_t theColour = ORANGE;
   
-  cube.all(BLACK);
-  delay(theDelay);
-
   // Expand out on first face
   cube.box(3,0,0, 3,0,0, theColour);
   delay(theDelay);
@@ -63,6 +60,63 @@ void loop(void) {
   delay(theDelay);
   cube.all(BLACK);
   cube.box(0,0,3, 0,0,3, theColour);
+  delay(theDelay);
+
+  // Expand out on second face
+  cube.box(0,0,2, 0,1,3, theColour);
+  delay(theDelay);
+  cube.box(0,0,1, 0,2,3, theColour);
+  delay(theDelay);
+  cube.box(0,0,0, 0,3,3, theColour);
+  delay(theDelay);
+
+  // Contract on second face
+  cube.all(BLACK);
+  cube.box(0,1,0, 0,3,2, theColour);
+  delay(theDelay);
+  cube.all(BLACK);
+  cube.box(0,2,0, 0,3,1, theColour);
+  delay(theDelay);
+  cube.all(BLACK);
+  cube.box(0,3,0, 0,3,0, theColour);
+  delay(theDelay);
+
+  // Expand out on third face
+  cube.box(0,3,0, 1,3,1, theColour);
+  delay(theDelay);
+  cube.box(0,3,0, 2,3,2, theColour);
+  delay(theDelay);
+  cube.box(0,3,0, 3,3,3, theColour);
+  delay(theDelay);
+
+  // Contract on second face
+  cube.all(BLACK);
+  cube.box(1,3,1, 3,3,3, theColour);
+  delay(theDelay);
+  cube.all(BLACK);
+  cube.box(2,3,2, 3,3,3, theColour);
+  delay(theDelay);
+  cube.all(BLACK);
+  cube.box(3,3,3, 3,3,3, theColour);
+  delay(theDelay);
+
+  // Expand out on fourth face
+  cube.box(3,2,2, 3,3,3, theColour);
+  delay(theDelay);
+  cube.box(3,1,1, 3,3,3, theColour);
+  delay(theDelay);
+  cube.box(3,0,0, 3,3,3, theColour);
+  delay(theDelay);
+
+  // Contract on fourth face
+  cube.all(BLACK);
+  cube.box(3,0,0, 3,2,2, theColour);
+  delay(theDelay);
+  cube.all(BLACK);
+  cube.box(3,0,0, 3,1,1, theColour);
+  delay(theDelay);
+  cube.all(BLACK);
+  cube.box(3,0,0, 3,0,0, theColour);
   delay(theDelay);
 }
 
