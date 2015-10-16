@@ -41,6 +41,11 @@ void loop(void) {
   int theDelay = 100;
   rgb_t theColour = ORANGE;
   
+  faceExpand(theColour, theDelay);
+}
+
+void faceExpand(rgb_t theColour, int theDelay)
+{
   // Expand out on first face
   cube.box(3,0,0, 3,0,0, theColour);
   delay(theDelay);
@@ -117,6 +122,6 @@ void loop(void) {
   delay(theDelay);
   cube.all(BLACK);
   cube.box(3,0,0, 3,0,0, theColour);
-  delay(theDelay);
+  delay(theDelay);  
 }
 
