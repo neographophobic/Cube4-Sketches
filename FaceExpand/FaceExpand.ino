@@ -47,20 +47,46 @@ void loop(void) {
   int theDelay = 100;
   rgb_t theColour = GREEN;
 
-  faceExpand(theColour, theDelay);
+  faceExpand(1, theColour, theDelay);
 }
 
-void faceExpand(rgb_t theColour, int theDelay)
+void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
 {
-  byte startX = 3;
-  byte startY = 0;
-  byte startZ = 0;
-  byte endX = startX;
-  byte endY = startY;
-  byte endZ = startZ;
+  byte startX;
+  byte startY;
+  byte startZ;
+  byte endX;
+  byte endY;
+  byte endZ;
+  byte move = startPosition;
+  byte movesCompleted = 0;
 
-  byte move = 1;
-  bool movesRemaining = true;
+  switch(startPosition) {
+    case 1:
+      startX = 3;
+      startY = 0;
+      startZ = 0;
+      break;
+    case 2:
+      startX = 0;
+      startY = 0;
+      startZ = 3;
+      break;
+    case 3:
+      startX = 0;
+      startY = 3;
+      startZ = 0;
+      break;
+    case 4:
+      startX = 3;
+      startY = 3;
+      startZ = 3;
+      break;
+  }
+
+  endX = startX;
+  endY = startY;
+  endZ = startZ;
 
   if (firstRun) 
   {
@@ -69,7 +95,7 @@ void faceExpand(rgb_t theColour, int theDelay)
     firstRun = false;
   }
   
-  while (movesRemaining)
+  while (movesCompleted < 4)
   {
 
     // Expand
@@ -123,8 +149,9 @@ void faceExpand(rgb_t theColour, int theDelay)
 
     move++;
     if (move > 4 ) {
-      movesRemaining = false;
+      move = 1;
     }
+    movesCompleted++;
   }
 }
 
