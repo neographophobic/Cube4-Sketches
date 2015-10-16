@@ -15,6 +15,12 @@ Cube cube;
  * User editable variables
  */
 
+/*
+ * Don't edit these variables
+ */
+
+bool firstRun = true;
+
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
   // 0: Control via the USB connector (most common).
@@ -56,9 +62,13 @@ void faceExpand(rgb_t theColour, int theDelay)
   byte move = 1;
   bool movesRemaining = true;
 
-  cube.box(startX, startY, startZ, endX, endY, endZ, theColour);
-  delay(theDelay);
-
+  if (firstRun) 
+  {
+    cube.box(startX, startY, startZ, endX, endY, endZ, theColour); 
+    delay(theDelay);
+    firstRun = false;
+  }
+  
   while (movesRemaining)
   {
 
