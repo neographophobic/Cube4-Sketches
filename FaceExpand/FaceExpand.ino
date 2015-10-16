@@ -45,16 +45,33 @@ void setup(void) {
 }
 
 void loop(void) {
-  int theDelay = 100;
+  int theDelay = 75;
   rgb_t theColour = GREEN;
 
-  // Loop the animation, starting from position 1 (3,0,0)
+  // Loop the animation, starting from position 5 (0,0,0)
   // using the provided colour and delay
-  faceExpand(1, theColour, theDelay);
+  faceExpand(5, theColour, theDelay);
 }
 
+/*
+ * faceExpands starts in a corner then diagnoally expands to the 
+ * other corner on the same face. It then contracts in the same
+ * maner towards the opposite corner. It requires the colour to
+ * use, and the delay between each frame. Finally it also requires
+ * a starting position. The valid positions are:-
+ *    
+ *    1: 3,0,0 moving right to left (towards 0,0,3)
+ *    2: 0,0,3 moving top to bottom (towards 0,3,0)
+ *    3: 0,3,0 moving left to right (towards 3,3,3)
+ *    4: 3,3,3 moving top to bottom (towards 0,0,0)
+ *    
+ *    5: 0,0,0 moving left to right (towards 3,0,3)
+ *    6: 3,0,3 moving top to bottom (towards 3,3,0)
+ *    7: 3,3,0 moving right to left (towards 0,3,3)
+ *    8: 0,3,3 moving top to bottom (towards 0,0,0)
+ */
 void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
-{
+{ 
   // Track the coordinates to use for the boxes we draw
   byte startX;
   byte startY;
@@ -67,6 +84,13 @@ void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
   // 4 steps).
   byte move = startPosition;
   byte movesCompleted = 0;
+
+  // Track whether we are moving left to right (moves 5 -> 8)
+  // or right to left (moves 1 -> 4)
+  bool leftToRightMovement = true;
+  if (startPosition <= 4) {
+    leftToRightMovement = false;
+  }
 
   // Set the start position coordinates based of the users
   // choice.
@@ -88,6 +112,26 @@ void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
       break;
     case 4:
       startX = 3;
+      startY = 3;
+      startZ = 3;
+      break;
+    case 5:
+      startX = 0;
+      startY = 0;
+      startZ = 0;
+      break;
+    case 6:
+      startX = 3;
+      startY = 0;
+      startZ = 3;
+      break;
+    case 7:
+      startX = 3;
+      startY = 3;
+      startZ = 0;
+      break;
+    case 8:
+      startX = 0;
       startY = 3;
       startZ = 3;
       break;
@@ -135,6 +179,22 @@ void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
           startY--;
           startZ--;
           break;
+        case 5:
+          endX++;
+          endZ++;
+          break;
+        case 6:
+          startZ--;
+          endY++;
+          break;
+        case 7:
+          startX--;
+          endZ++;
+          break;
+        case 8:
+          startY--;
+          startZ--;
+          break;
       }
 
       // Draw the box in the given colour and then pause for the
@@ -164,8 +224,23 @@ void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
           endY--;
           endZ--;
           break;
+        case 5:
+          startX++;
+          startZ++;
+          break;
+        case 6:
+          startY++;
+          endZ--;
+          break;
+        case 7:
+          startZ++;
+          endX--;
+          break;
+        case 8:
+          endY--;
+          endZ--;
+          break;
       }
-
 
       // Draw the box in the given colour and then pause for the
       // provided delay, after blanking all of the LEDs.
@@ -176,9 +251,17 @@ void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
 
     // Increment the move count
     move++;
-    if (move > 4 ) {
-      // As we can start at any of the 4 moves, if we get to
-      // the 4th one, start back at move 1.
+    if (leftToRightMovement && move > 8 ) {
+      // As we can start at any of the 4 moves (5 to 8) that move
+      // left to right, if we get to the 8th one, start back at 
+      // move 5.
+      move = 5;
+    }
+    
+    if (!leftToRightMovement && move > 4 ) {
+      // As we can start at any of the 4 moves (1 to 4) that move
+      // right to left, if we get to the 4th one, start back at 
+      // move 1.
       move = 1;
     }
 
