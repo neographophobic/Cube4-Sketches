@@ -18,7 +18,8 @@ Cube cube;
 /*
  * Don't edit these variables
  */
-
+// Used to ensure that there isn't a double pause if
+// the animation keeps running in a loop
 bool firstRun = true;
 
 void setup(void) {
@@ -47,21 +48,29 @@ void loop(void) {
   int theDelay = 100;
   rgb_t theColour = GREEN;
 
+  // Loop the animation, starting from position 1 (3,0,0)
+  // using the provided colour and delay
   faceExpand(1, theColour, theDelay);
 }
 
 void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
 {
+  // Track the coordinates to use for the boxes we draw
   byte startX;
   byte startY;
   byte startZ;
   byte endX;
   byte endY;
   byte endZ;
+
+  // Track where we are in the animation sequence (there are
+  // 4 steps).
   byte move = startPosition;
   byte movesCompleted = 0;
 
-  switch(startPosition) {
+  // Set the start position coordinates based of the users
+  // choice.
+  switch (startPosition) {
     case 1:
       startX = 3;
       startY = 0;
@@ -84,22 +93,31 @@ void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
       break;
   }
 
+  // Match the end coordinates for the box to the start
+  // coordinates so that only a single LED is lit up.
   endX = startX;
   endY = startY;
   endZ = startZ;
 
-  if (firstRun) 
+  if (firstRun)
   {
-    cube.box(startX, startY, startZ, endX, endY, endZ, theColour); 
+    // As it's the first time the animation has run, illuminate
+    // the start position, and then flag that this isn't
+    // required for subsquent loops (as the last step of the loop
+    // lights up the start positon for then next time through)
+    cube.box(startX, startY, startZ, endX, endY, endZ, theColour);
     delay(theDelay);
     firstRun = false;
   }
-  
+
+  // There are 4 moves to complete, so loop 4 times (starting from zero)
   while (movesCompleted < 4)
   {
 
-    // Expand
+    // Expand animation - repeat 3 times.
     for (byte i = 1; i <= 3; i++) {
+      // Determine the change in coordinates for the start and end
+      // point.
       switch (move) {
         case 1:
           startX--;
@@ -118,12 +136,17 @@ void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
           startZ--;
           break;
       }
+
+      // Draw the box in the given colour and then pause for the
+      // provided delay.
       cube.box(startX, startY, startZ, endX, endY, endZ, theColour);
       delay(theDelay);
     }
 
-    // Contract
+    // Contract animation - repeat 3 times.
     for (byte i = 1; i <= 3; i++) {
+      // Determine the change in coordinates for the start and end
+      // point.
       switch (move) {
         case 1:
           startZ++;
@@ -142,15 +165,24 @@ void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
           endZ--;
           break;
       }
+
+
+      // Draw the box in the given colour and then pause for the
+      // provided delay, after blanking all of the LEDs.
       cube.all(BLACK);
       cube.box(startX, startY, startZ, endX, endY, endZ, theColour);
       delay(theDelay);
     }
 
+    // Increment the move count
     move++;
     if (move > 4 ) {
+      // As we can start at any of the 4 moves, if we get to
+      // the 4th one, start back at move 1.
       move = 1;
     }
+
+    // Track how many moves total we have done
     movesCompleted++;
   }
 }
