@@ -45,11 +45,11 @@ void loop(void) {
   delay(theDelay * 2);
 
   // 030 out
-  lightUp(0,3,0, theColour, theDelay);
-}
+  byte startX = 0;
+  byte startY = 3;
+  byte startZ = 0;
 
-void lightUp(byte startX, byte startY, byte startZ, rgb_t theColour, int theDelay)
-{
+  // From first point
   cube.set(startX, startY, startZ, theColour);
   delay(theDelay);
 
@@ -57,6 +57,15 @@ void lightUp(byte startX, byte startY, byte startZ, rgb_t theColour, int theDela
   cube.set(startX, startY - 1, startZ, theColour);
   cube.set(startX, startY, startZ + 1, theColour);
   delay(theDelay);
-  
+
+  cube.set(startX + 2, startY, startZ, theColour);
+  cube.set(startX, startY - 2, startZ, theColour);
+  cube.set(startX, startY, startZ + 2, theColour);
+  delay(theDelay);
+
+  cube.set(startX + 3, startY, startZ, theColour);
+  cube.set(startX, startY - 3, startZ, theColour);
+  cube.set(startX, startY, startZ + 3, theColour);
+  delay(theDelay);
 }
 
