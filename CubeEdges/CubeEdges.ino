@@ -4,6 +4,9 @@
  * Version: 1.0
  * Author:  Adam Reed (adam@secretcode.ninja)
  * License: BSD 3-Clause Licence
+ * 
+ * Inspired by Trilobyte Projects "4x4x4 Led cube demo"
+ * at https://www.youtube.com/watch?v=adXXSitxPdo&t=91
  */
 
 #include "SPI.h"
