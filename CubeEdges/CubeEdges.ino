@@ -67,5 +67,51 @@ void loop(void) {
   cube.set(startX, startY - 3, startZ, theColour);
   cube.set(startX, startY, startZ + 3, theColour);
   delay(theDelay);
+
+  // Second Part - from the three new points
+  byte point2X = 0;
+  byte point2Y = 0;
+  byte point2Z = 0;
+
+  byte point3X = 0;
+  byte point3Y = 3;
+  byte point3Z = 3;
+
+  byte point4X = 3;
+  byte point4Y = 3;
+  byte point4Z = 0;
+
+  cube.set(point2X + 1, point2Y, point2Z, theColour);
+  cube.set(point2X, point2Y + 1, point2Z, theColour);
+  cube.set(point2X, point2Y, point2Z + 1, theColour);
+  cube.set(point3X + 1, point3Y, point3Z, theColour);
+  cube.set(point3X, point3Y - 1, point3Z, theColour);
+  cube.set(point3X, point3Y, point3Z - 1, theColour);
+  cube.set(point4X - 1, point4Y, point4Z, theColour);
+  cube.set(point4X, point4Y - 1, point4Z, theColour);
+  cube.set(point4X, point4Y, point4Z + 1, theColour);
+  delay(theDelay);
+
+  cube.set(point2X + 2, point2Y, point2Z, theColour);
+  cube.set(point2X, point2Y + 2, point2Z, theColour);
+  cube.set(point2X, point2Y, point2Z + 2, theColour);
+  cube.set(point3X + 2, point3Y, point3Z, theColour);
+  cube.set(point3X, point3Y - 2, point3Z, theColour);
+  cube.set(point3X, point3Y, point3Z - 2, theColour);
+  cube.set(point4X - 2, point4Y, point4Z, theColour);
+  cube.set(point4X, point4Y - 2, point4Z, theColour);
+  cube.set(point4X, point4Y, point4Z + 2, theColour);
+  delay(theDelay);
+
+  cube.set(point2X + 3, point2Y, point2Z, theColour);
+  cube.set(point2X, point2Y + 3, point2Z, theColour);
+  cube.set(point2X, point2Y, point2Z + 3, theColour);
+  cube.set(point3X + 3, point3Y, point3Z, theColour);
+  cube.set(point3X, point3Y - 3, point3Z, theColour);
+  cube.set(point3X, point3Y, point3Z - 3, theColour);
+  cube.set(point4X - 3, point4Y, point4Z, theColour);
+  cube.set(point4X, point4Y - 3, point4Z, theColour);
+  cube.set(point4X, point4Y, point4Z + 3, theColour);
+  delay(theDelay * 3);
 }
 
