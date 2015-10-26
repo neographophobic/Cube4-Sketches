@@ -62,12 +62,20 @@ void loop(void) {
   rgb_t theColour = BLUE;
   int theDelay = 250;
 
-  // Blank the cube
-  cube.all(BLACK);
-  delay(theDelay * 2);
+  // Animate the edges of the cube, starting from 033
+  cubeEdge(0,3,3, theColour, theDelay);
+  // Wipe the edges, starting from 000
+  cubeEdge(0,0,0, BLACK, theDelay);
 
-  // Animate the edges of the cube, starting from 030
-  cubeEdge(0,3,0, theColour, theDelay);
+  // Animate the edges of the cube, starting from 000
+  cubeEdge(0,0,0, theColour, theDelay);
+  // Wipe the edges, starting from 303
+  cubeEdge(3,0,3, BLACK, theDelay);
+
+  // Animate the edges of the cube, starting from 303
+  cubeEdge(3,0,3, theColour, theDelay);
+  // Wipe the edges, starting from 033
+  cubeEdge(0,3,3, BLACK, theDelay);
 }
 
 void cubeEdge(byte X, byte Y, byte Z, rgb_t theColour, int theDelay)
