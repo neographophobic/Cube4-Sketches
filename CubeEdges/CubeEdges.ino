@@ -14,6 +14,8 @@ Cube cube;
 /*
  * User editable variables
  */
+rgb_t theColour = BLUE;   // The colour to use
+int theDelay = 100;       // How long to pause between each step
 
 /*
  * Don't edit these variables
@@ -59,9 +61,6 @@ void setup(void) {
 }
 
 void loop(void) {
-  rgb_t theColour = BLUE;
-  int theDelay = 250;
-
   // Animate the edges of the cube, starting from 033
   cubeEdge(0,3,3, theColour, theDelay);
   // Wipe the edges, starting from 000
