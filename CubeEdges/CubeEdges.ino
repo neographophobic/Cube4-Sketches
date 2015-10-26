@@ -38,6 +38,25 @@ void setup(void) {
 }
 
 void loop(void) {
+  rgb_t theColour = BLUE;
+  int theDelay = 250;
 
+  cube.all(BLACK);
+  delay(theDelay * 2);
+
+  // 030 out
+  lightUp(0,3,0, theColour, theDelay);
+}
+
+void lightUp(byte startX, byte startY, byte startZ, rgb_t theColour, int theDelay)
+{
+  cube.set(startX, startY, startZ, theColour);
+  delay(theDelay);
+
+  cube.set(startX + 1, startY, startZ, theColour);
+  cube.set(startX, startY - 1, startZ, theColour);
+  cube.set(startX, startY, startZ + 1, theColour);
+  delay(theDelay);
+  
 }
 
