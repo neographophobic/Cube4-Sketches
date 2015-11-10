@@ -507,7 +507,8 @@ void drawLine(struct point startPoint, struct point endPoint, rgb_t theColour, i
 {
   if (startPoint.Y > endPoint.Y && startPoint.Z < endPoint.Z ||
       startPoint.X > endPoint.X && startPoint.Z == endPoint.Z ||
-      startPoint.X > endPoint.X && startPoint.Y == endPoint.Y
+      startPoint.X > endPoint.X && startPoint.Y == endPoint.Y ||
+      startPoint.Y > endPoint.Y && startPoint.X == endPoint.X
      ) {
     // Work around bug in line drawing code by swapping start and
     // end point if particular condiations are meet
