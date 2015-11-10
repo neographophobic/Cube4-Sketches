@@ -512,6 +512,18 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
     lines[i].endPoint.Y = lines[i-1].endPoint.Y;
     lines[i].endPoint.Z = lines[i-1].endPoint.Z;
 
+    if (startPosition == 5 && stopPosition == 7) {
+      lines[i].startPoint.X++;
+      lines[i].endPoint.Y++;
+    }
+    if (startPosition == 6 && stopPosition == 8) {
+      lines[i].startPoint.Y--;
+      lines[i].endPoint.X++;
+    }
+    if (startPosition == 7 && stopPosition == 5) {
+      lines[i].startPoint.X--;
+      lines[i].endPoint.Y--;
+    }
     if (startPosition == 8 && stopPosition == 6) {
       lines[i].startPoint.X--;
       lines[i].endPoint.Y++;
@@ -526,6 +538,18 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
     lines[i].endPoint.Y = lines[i-1].endPoint.Y;
     lines[i].endPoint.Z = lines[i-1].endPoint.Z;
 
+    if (startPosition == 5 && stopPosition == 7) {
+      lines[i].startPoint.Y++;
+      lines[i].endPoint.X++;
+    }
+    if (startPosition == 6 && stopPosition == 8) {
+      lines[i].startPoint.X++;
+      lines[i].endPoint.Y--;
+    }
+    if (startPosition == 7 && stopPosition == 5) {
+      lines[i].startPoint.Y--;
+      lines[i].endPoint.X--;
+    }
     if (startPosition == 8 && stopPosition == 6) {
       lines[i].startPoint.Y++;
       lines[i].endPoint.X--;
