@@ -55,276 +55,149 @@ void loop(void) {
   rgb_t theColour = BLUE;
   int theDelay = 100;
 
-  while (1 == 0) {
-    // 1 -> 3
-    faceDraw(0, 0, 0, 3, 3, 0, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
+  // 1 -> 3
+  faceDraw(0, 0, 0, 3, 3, 0, theColour, theDelay);
+  peel(0, 0, 0, 3, 3, 0, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
 
-    // 1 -> 6
-    faceDraw(0, 0, 0, 0, 3, 3, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
+  // 1 -> 6
+  faceDraw(0, 0, 0, 0, 3, 3, theColour, theDelay);
+  peel(0, 0, 0, 0, 3, 3, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
 
-    // 1 -> 8
-    faceDraw(0, 0, 0, 3, 0, 3, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
+  // 1 -> 8
+  faceDraw(0, 0, 0, 3, 0, 3, theColour, theDelay);
+  peel(0, 0, 0, 3, 0, 3, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
 
-    // 2 -> 4
-    faceDraw(0, 3, 0, 3, 0, 0, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
+  // 2 -> 4
+  faceDraw(0, 3, 0, 3, 0, 0, theColour, theDelay);
+  peel(0, 3, 0, 3, 0, 0, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
 
-    // 2 -> 5
-    faceDraw(0, 3, 0, 0, 0, 3, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
+  // 2 -> 5
+  faceDraw(0, 3, 0, 0, 0, 3, theColour, theDelay);
+  peel(0, 3, 0, 0, 0, 3, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
 
-    // 2 -> 7
-    faceDraw(0, 3, 0, 3, 3, 3, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
+  // 2 -> 7
+  faceDraw(0, 3, 0, 3, 3, 3, theColour, theDelay);
+  peel(0, 3, 0, 3, 3, 3, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
 
-    // 3 -> 1
-    faceDraw(3, 3, 0, 0, 0, 0, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
+  // 3 -> 1
+  faceDraw(3, 3, 0, 0, 0, 0, theColour, theDelay);
+  peel(3, 3, 0, 0, 0, 0, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
 
-    // 3 -> 6
-    faceDraw(3, 3, 0, 0, 3, 3, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
+  // 3 -> 6
+  faceDraw(3, 3, 0, 0, 3, 3, theColour, theDelay);
+  peel(3, 3, 0, 0, 3, 3, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
 
-    // 3 -> 8
-    faceDraw(3, 3, 0, 3, 0, 3, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 4 -> 2
-    faceDraw(3, 0, 0, 0, 3, 0, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 4 -> 5
-    faceDraw(3, 0, 0, 0, 0, 3, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 4 -> 7
-    faceDraw(3, 0, 0, 3, 3, 3, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 5 -> 2
-    faceDraw(0, 0, 3, 0, 3, 0, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 5 -> 4
-    faceDraw(0, 0, 3, 3, 0, 0, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 5 -> 7
-    faceDraw(0, 0, 3, 3, 3, 3, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 6 -> 1
-    faceDraw(0, 3, 3, 0, 0, 0, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 6 -> 3
-    faceDraw(0, 3, 3, 3, 3, 0, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 6 -> 8
-    faceDraw(0, 3, 3, 3, 0, 3, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 7 -> 2
-    faceDraw(3, 3, 3, 0, 3, 0, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 7 -> 4
-    faceDraw(3, 3, 3, 3, 0, 0, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 7 -> 5
-    faceDraw(3, 3, 3, 0, 0, 3, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 8 -> 1
-    faceDraw(3, 0, 3, 0, 0, 0, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 8 -> 3
-    faceDraw(3, 0, 3, 3, 3, 0, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-
-    // 8 -> 6
-    faceDraw(3, 0, 3, 0, 3, 3, theColour, theDelay);
-    delay(theDelay);
-    cube.all(BLACK);
-    delay(theDelay);
-  }
-  // Top to Bottom
-//  faceDraw(0, 0, 3, 3, 3, 3, theColour, theDelay);
-//  peel(0, 0, 3, 3, 3, 3, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(0, 3, 3, 3, 0, 3, theColour, theDelay);
-//  peel(0, 3, 3, 3, 0, 3, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(3, 3, 3, 0, 0, 3, theColour, theDelay);
-//  peel(3, 3, 3, 0, 0, 3, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(3, 0, 3, 0, 3, 3, theColour, theDelay);
-//  peel(3, 0, 3, 0, 3, 3, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-  // Bottom to Top
-//  faceDraw(0, 0, 0, 3, 3, 0, theColour, theDelay);
-//  peel(0, 0, 0, 3, 3, 0, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(0, 3, 0, 3, 0, 0, theColour, theDelay);
-//  peel(0, 3, 0, 3, 0, 0, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(3, 3, 0, 0, 0, 0, theColour, theDelay);
-//  peel(3, 3, 0, 0, 0, 0, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(3, 0, 0, 0, 3, 0, theColour, theDelay);
-//  peel(3, 0, 0, 0, 3, 0, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-  // Front to back
-//  faceDraw(0, 0, 0, 3, 0, 3, theColour, theDelay);
-//  peel(0, 0, 0, 3, 0, 3, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(0, 0, 3, 3, 0, 0, theColour, theDelay);
-//  peel(0, 0, 3, 3, 0, 0, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(3, 0, 3, 0, 0, 0, theColour, theDelay);
-//  peel(3, 0, 3, 0, 0, 0, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(3, 0, 0, 0, 0, 3, theColour, theDelay);
-//  peel(3, 0, 0, 0, 0, 3, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);  
-
-  // Back to Front
-//  faceDraw(0, 3, 0, 3, 3, 3, theColour, theDelay);
-//  peel(0, 3, 0, 3, 3, 3, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(0, 3, 3, 3, 3, 0, theColour, theDelay);
-//  peel(0, 3, 3, 3, 3, 0, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(3, 3, 3, 0, 3, 0, theColour, theDelay);
-//  peel(3, 3, 3, 0, 3, 0, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(3, 3, 0, 0, 3, 3, theColour, theDelay);
-//  peel(3, 3, 0, 0, 3, 3, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);  
-
-  // Left to Right
-//  faceDraw(0, 0, 0, 0, 3, 3, theColour, theDelay);
-//  peel(0, 0, 0, 0, 3, 3, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(0, 3, 0, 0, 0, 3, theColour, theDelay);
-//  peel(0, 3, 0, 0, 0, 3, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(0, 3, 3, 0, 0, 0, theColour, theDelay);
-//  peel(0, 3, 3, 0, 0, 0, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);
-
-//  faceDraw(0, 0, 3, 0, 3, 0, theColour, theDelay);
-//  peel(0, 0, 3, 0, 3, 0, theColour, theDelay);
-//  cube.all(BLACK);
-//  delay(theDelay);  
-
-  // Right to Left
+  // 3 -> 8
   faceDraw(3, 3, 0, 3, 0, 3, theColour, theDelay);
   peel(3, 3, 0, 3, 0, 3, theColour, theDelay);
   cube.all(BLACK);
   delay(theDelay);
 
+  // 4 -> 2
+  faceDraw(3, 0, 0, 0, 3, 0, theColour, theDelay);
+  peel(3, 0, 0, 0, 3, 0, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
+
+  // 4 -> 5
+  faceDraw(3, 0, 0, 0, 0, 3, theColour, theDelay);
+  peel(3, 0, 0, 0, 0, 3, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
+
+  // 4 -> 7
   faceDraw(3, 0, 0, 3, 3, 3, theColour, theDelay);
   peel(3, 0, 0, 3, 3, 3, theColour, theDelay);
   cube.all(BLACK);
   delay(theDelay);
 
+  // 5 -> 2
+  faceDraw(0, 0, 3, 0, 3, 0, theColour, theDelay);
+  peel(0, 0, 3, 0, 3, 0, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
+
+  // 5 -> 4
+  faceDraw(0, 0, 3, 3, 0, 0, theColour, theDelay);
+  peel(0, 0, 3, 3, 0, 0, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
+
+  // 5 -> 7
+  faceDraw(0, 0, 3, 3, 3, 3, theColour, theDelay);
+  peel(0, 0, 3, 3, 3, 3, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
+
+  // 6 -> 1
+  faceDraw(0, 3, 3, 0, 0, 0, theColour, theDelay);
+  peel(0, 3, 3, 0, 0, 0, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
+
+  // 6 -> 3
+  faceDraw(0, 3, 3, 3, 3, 0, theColour, theDelay);
+  peel(0, 3, 3, 3, 3, 0, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
+
+  // 6 -> 8
+  faceDraw(0, 3, 3, 3, 0, 3, theColour, theDelay);
+  peel(0, 3, 3, 3, 0, 3, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
+
+  // 7 -> 2
+  faceDraw(3, 3, 3, 0, 3, 0, theColour, theDelay);
+  peel(3, 3, 3, 0, 3, 0, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
+
+  // 7 -> 4
+  faceDraw(3, 3, 3, 3, 0, 0, theColour, theDelay);
+  peel(3, 3, 3, 3, 0, 0, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
+
+  // 7 -> 5
+  faceDraw(3, 3, 3, 0, 0, 3, theColour, theDelay);
+  peel(3, 3, 3, 0, 0, 3, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
+
+  // 8 -> 1
+  faceDraw(3, 0, 3, 0, 0, 0, theColour, theDelay);
+  peel(3, 0, 3, 0, 0, 0, theColour, theDelay);
+  cube.all(BLACK);
+  delay(theDelay);
+
+  // 8 -> 3
   faceDraw(3, 0, 3, 3, 3, 0, theColour, theDelay);
   peel(3, 0, 3, 3, 3, 0, theColour, theDelay);
   cube.all(BLACK);
   delay(theDelay);
 
-  faceDraw(3, 3, 3, 3, 0, 0, theColour, theDelay);
-  peel(3, 3, 3, 3, 0, 0, theColour, theDelay);
+  // 8 -> 6
+  faceDraw(3, 0, 3, 0, 3, 3, theColour, theDelay);
+  peel(3, 0, 3, 0, 3, 3, theColour, theDelay);
   cube.all(BLACK);
-  delay(theDelay);  
+  delay(theDelay);
 }
 
 void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour, int theDelay)
@@ -573,11 +446,11 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
     if (startPosition == 1 && stopPosition == 6) {
       lines[i].startPoint.Z++;
       lines[i].endPoint.Y++;
-    }    
+    }
     if (startPosition == 1 && stopPosition == 8) {
       lines[i].startPoint.Z++;
       lines[i].endPoint.X++;
-    }    
+    }
     if (startPosition == 2 && stopPosition == 4) {
       lines[i].startPoint.X++;
       lines[i].endPoint.Y--;
@@ -680,11 +553,11 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
     if (startPosition == 1 && stopPosition == 6) {
       lines[i].startPoint.Y++;
       lines[i].endPoint.Z++;
-    }    
+    }
     if (startPosition == 1 && stopPosition == 8) {
       lines[i].startPoint.X++;
       lines[i].endPoint.Z++;
-    }   
+    }
     if (startPosition == 2 && stopPosition == 4) {
       lines[i].startPoint.Y--;
       lines[i].endPoint.X++;
@@ -795,30 +668,30 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
             (startPosition == 8 && stopPosition == 1) ||
             (startPosition == 4 && stopPosition == 5)) {
           lines[j].startPoint.Y++;
-          lines[j].endPoint.Y++;        
-            }
+          lines[j].endPoint.Y++;
+        }
         if ((startPosition == 2 && stopPosition == 7) ||
             (startPosition == 6 && stopPosition == 3) ||
             (startPosition == 7 && stopPosition == 2) ||
             (startPosition == 3 && stopPosition == 6)) {
           lines[j].startPoint.Y--;
-          lines[j].endPoint.Y--;        
-            }
+          lines[j].endPoint.Y--;
+        }
         if ((startPosition == 1 && stopPosition == 6) ||
             (startPosition == 2 && stopPosition == 5) ||
             (startPosition == 5 && stopPosition == 2) ||
             (startPosition == 6 && stopPosition == 1)) {
           lines[j].startPoint.X++;
-          lines[j].endPoint.X++;        
-            }
+          lines[j].endPoint.X++;
+        }
         if ((startPosition == 3 && stopPosition == 8) ||
             (startPosition == 4 && stopPosition == 7) ||
             (startPosition == 7 && stopPosition == 4) ||
             (startPosition == 8 && stopPosition == 3)) {
           lines[j].startPoint.X--;
-          lines[j].endPoint.X--;        
-            }
-            drawLine(lines[j].startPoint, lines[j].endPoint, theColour, 0);
+          lines[j].endPoint.X--;
+        }
+        drawLine(lines[j].startPoint, lines[j].endPoint, theColour, 0);
       }
 
       count[j]++;
@@ -844,6 +717,6 @@ byte getPosition(byte X, byte Y, byte Z) {
     return 7;
   } else if (X == 3 && Y == 0 && Z == 3) {
     return 8;
-  }  
+  }
 }
 
