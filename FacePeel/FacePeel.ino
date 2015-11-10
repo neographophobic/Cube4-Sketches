@@ -569,55 +569,39 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
   }
 
   // Figure out where the lines to move are
-  if (startPosition == 8 && stopPosition == 6) {
-    lines[0].startPoint.X = x1;
-    lines[0].startPoint.Y = y1;
-    lines[0].startPoint.Z = z1;
-    lines[0].endPoint.X = x1;
-    lines[0].endPoint.Y = y1;
-    lines[0].endPoint.Z = z1;
+  lines[0].startPoint.X = x1;
+  lines[0].startPoint.Y = y1;
+  lines[0].startPoint.Z = z1;
+  lines[0].endPoint.X = x1;
+  lines[0].endPoint.Y = y1;
+  lines[0].endPoint.Z = z1;
 
-    lines[1].startPoint.X = x1 - 1;
-    lines[1].startPoint.Y = y1;
-    lines[1].startPoint.Z = z1;
-    lines[1].endPoint.X = x1;
-    lines[1].endPoint.Y = y1 + 1;
-    lines[1].endPoint.Z = z1;
+  for(byte i = 1; i <= 3; i++) {
+    lines[i].startPoint.X = lines[i-1].startPoint.X;
+    lines[i].startPoint.Y = lines[i-1].startPoint.Y;
+    lines[i].startPoint.Z = lines[i-1].startPoint.Z;
+    lines[i].endPoint.X = lines[i-1].endPoint.X;
+    lines[i].endPoint.Y = lines[i-1].endPoint.Y;
+    lines[i].endPoint.Z = lines[i-1].endPoint.Z;
 
-    lines[2].startPoint.X = x1 - 2;
-    lines[2].startPoint.Y = y1;
-    lines[2].startPoint.Z = z1;
-    lines[2].endPoint.X = x1;
-    lines[2].endPoint.Y = y1 + 2;
-    lines[2].endPoint.Z = z1;
+    if (startPosition == 8 && stopPosition == 6) {
+      lines[i].startPoint.X--;
+      lines[i].endPoint.Y++;
+    }
+  }
 
-    lines[3].startPoint.X = x1 - 3;
-    lines[3].startPoint.Y = y1;
-    lines[3].startPoint.Z = z1;
-    lines[3].endPoint.X = x1;
-    lines[3].endPoint.Y = y1 + 3;
-    lines[3].endPoint.Z = z1;
+  for(byte i = 4; i <= 6; i++) {
+    lines[i].startPoint.X = lines[i-1].startPoint.X;
+    lines[i].startPoint.Y = lines[i-1].startPoint.Y;
+    lines[i].startPoint.Z = lines[i-1].startPoint.Z;
+    lines[i].endPoint.X = lines[i-1].endPoint.X;
+    lines[i].endPoint.Y = lines[i-1].endPoint.Y;
+    lines[i].endPoint.Z = lines[i-1].endPoint.Z;
 
-    lines[4].startPoint.X = x1 - 3;
-    lines[4].startPoint.Y = y1 + 1;
-    lines[4].startPoint.Z = z1;
-    lines[4].endPoint.X = x1 - 1;
-    lines[4].endPoint.Y = y1 + 3;
-    lines[4].endPoint.Z = z1;
-
-    lines[5].startPoint.X = x1 - 3;
-    lines[5].startPoint.Y = y1 + 2;
-    lines[5].startPoint.Z = z1;
-    lines[5].endPoint.X = x1 - 2;
-    lines[5].endPoint.Y = y1 + 3;
-    lines[5].endPoint.Z = z1;
-
-    lines[6].startPoint.X = x1 - 3;
-    lines[6].startPoint.Y = y1 + 3;
-    lines[6].startPoint.Z = z1;
-    lines[6].endPoint.X = x1 - 3;
-    lines[6].endPoint.Y = y1 + 3;
-    lines[6].endPoint.Z = z1;
+    if (startPosition == 8 && stopPosition == 6) {
+      lines[i].startPoint.Y++;
+      lines[i].endPoint.X--;
+    }
   }
 
   int count[7];
