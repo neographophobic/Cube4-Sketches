@@ -15,6 +15,14 @@ Cube cube;
  * User editable variables
  */
 
+// Struct to track the X,Y,Z position
+struct point
+{
+  byte X;
+  byte Y;
+  byte Z;
+};
+
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
   // 0: Control via the USB connector (most common).
@@ -41,8 +49,151 @@ void loop(void) {
   rgb_t theColour = BLUE;
   int theDelay = 100;
 
-  cube.all(BLACK);
-  delay(theDelay);
+  while (1 == 1) {
+    // 1 -> 3
+    faceDraw(0, 0, 0, 3, 3, 0, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 1 -> 6
+    faceDraw(0, 0, 0, 0, 3, 3, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 1 -> 8
+    faceDraw(0, 0, 0, 3, 0, 3, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 2 -> 4
+    faceDraw(0, 3, 0, 3, 0, 0, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 2 -> 5
+    faceDraw(0, 3, 0, 0, 0, 3, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 2 -> 7
+    faceDraw(0, 3, 0, 3, 3, 3, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 3 -> 1
+    faceDraw(3, 3, 0, 0, 0, 0, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 3 -> 6
+    faceDraw(3, 3, 0, 0, 3, 3, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 3 -> 8
+    faceDraw(3, 3, 0, 3, 0, 3, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 4 -> 2
+    faceDraw(3, 0, 0, 0, 3, 0, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 4 -> 5
+    faceDraw(3, 0, 0, 0, 0, 3, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+    
+    // 4 -> 7
+    faceDraw(3, 0, 0, 3, 3, 3, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 5 -> 2
+    faceDraw(0, 0, 3, 0, 3, 0, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 5 -> 4
+    faceDraw(0, 0, 3, 3, 0, 0, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+    
+    // 5 -> 7
+    faceDraw(0, 0, 3, 3, 3, 3, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+ 
+    // 6 -> 1
+    faceDraw(0, 3, 3, 0, 0, 0, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 6 -> 3
+    faceDraw(0, 3, 3, 3, 3, 0, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+    
+    // 6 -> 8
+    faceDraw(0, 3, 3, 3, 0, 3, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 7 -> 2
+    faceDraw(3, 3, 3, 0, 3, 0, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 7 -> 4
+    faceDraw(3, 3, 3, 3, 0, 0, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+    
+    // 7 -> 5
+    faceDraw(3, 3, 3, 0, 0, 3, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 8 -> 1
+    faceDraw(3, 0, 3, 0, 0, 0, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+
+    // 8 -> 3
+    faceDraw(3, 0, 3, 3, 3, 0, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+    
+    // 8 -> 6
+    faceDraw(3, 0, 3, 0, 3, 3, theColour, theDelay);
+    delay(theDelay);
+    cube.all(BLACK);
+    delay(theDelay);
+ }
 
   // Complete Top Face
   cube.set(0, 0, 3, theColour);
@@ -150,5 +301,256 @@ void loop(void) {
   delay(theDelay);
 
   delay(1000);
+}
+
+void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour, int theDelay)
+{
+  // 8 Corners to the cube. Determine which ones to use
+  byte startPosition;
+  byte stopPosition;
+
+  if (x1 == 0 && y1 == 0 && z1 == 0) {
+    startPosition = 1;
+  } else if (x1 == 0 && y1 == 3 && z1 == 0) {
+    startPosition = 2;
+  } else if (x1 == 3 && y1 == 3 && z1 == 0) {
+    startPosition = 3;
+  } else if (x1 == 3 && y1 == 0 && z1 == 0) {
+    startPosition = 4;
+  } else if (x1 == 0 && y1 == 0 && z1 == 3) {
+    startPosition = 5;
+  } else if (x1 == 0 && y1 == 3 && z1 == 3) {
+    startPosition = 6;
+  } else if (x1 == 3 && y1 == 3 && z1 == 3) {
+    startPosition = 7;
+  } else if (x1 == 3 && y1 == 0 && z1 == 3) {
+    startPosition = 8;
+  }
+
+  if (x2 == 0 && y2 == 0 && z2 == 0) {
+    stopPosition = 1;
+  } else if (x2 == 0 && y2 == 3 && z2 == 0) {
+    stopPosition = 2;
+  } else if (x2 == 3 && y2 == 3 && z2 == 0) {
+    stopPosition = 3;
+  } else if (x2 == 3 && y2 == 0 && z2 == 0) {
+    stopPosition = 4;
+  } else if (x2 == 0 && y2 == 0 && z2 == 3) {
+    stopPosition = 5;
+  } else if (x2 == 0 && y2 == 3 && z2 == 3) {
+    stopPosition = 6;
+  } else if (x2 == 3 && y2 == 3 && z2 == 3) {
+    stopPosition = 7;
+  } else if (x2 == 3 && y2 == 0 && z2 == 3) {
+    stopPosition = 8;
+  }
+
+  // From each of the 8 corners there are 3 valid directions
+  // broken into 2 sections (start -> middle -> end)
+
+  struct point startPoint;
+  struct point endPoint;
+
+  startPoint.X = x1;
+  startPoint.Y = y1;
+  startPoint.Z = z1;
+
+  endPoint.X = x1;
+  endPoint.Y = y1;
+  endPoint.Z = z1;
+
+  // First part of the move
+  cube.set(startPoint.X, startPoint.Y, startPoint.Z, theColour);
+  delay(theDelay);
+
+  // Next 3 steps
+  for (byte i = 1; i <= 3; i++) {
+    if (startPosition == 1 && stopPosition == 3) {
+      startPoint.Y++;
+      endPoint.X++;
+    } else if (startPosition == 1 && stopPosition == 6) {
+      startPoint.Y++;
+      endPoint.Z++;
+    } else if (startPosition == 1 && stopPosition == 8) {
+      startPoint.Z++;
+      endPoint.X++;
+    }
+    if (startPosition == 2 && stopPosition == 4) {
+      startPoint.Y--;
+      endPoint.X++;
+    } else if (startPosition == 2 && stopPosition == 5) {
+      startPoint.Y--;
+      endPoint.Z++;
+    } else if (startPosition == 2 && stopPosition == 7) {
+      startPoint.Z++;
+      endPoint.X++;
+    }
+    if (startPosition == 3 && stopPosition == 1) {
+      startPoint.X--;
+      endPoint.Y--;
+    } else if (startPosition == 3 && stopPosition == 6) {
+      startPoint.X--;
+      endPoint.Z++;
+    } else if (startPosition == 3 && stopPosition == 8) {
+      startPoint.Y--;
+      endPoint.Z++;
+    }
+    if (startPosition == 4 && stopPosition == 2) {
+      startPoint.X--;
+      endPoint.Y++;
+    } else if (startPosition == 4 && stopPosition == 5) {
+      startPoint.X--;
+      endPoint.Z++;
+    } else if (startPosition == 4 && stopPosition == 7) {
+      startPoint.Z++;
+      endPoint.Y++;
+    }
+    if (startPosition == 5 && stopPosition == 2) {
+      startPoint.Z--;
+      endPoint.Y++;
+    } else if (startPosition == 5 && stopPosition == 4) {
+      startPoint.Z--;
+      endPoint.X++;
+    } else if (startPosition == 5 && stopPosition == 7) {
+      startPoint.X++;
+      endPoint.Y++;
+    }
+    if (startPosition == 6 && stopPosition == 1) {
+      startPoint.Y--;
+      endPoint.Z--;
+    } else if (startPosition == 6 && stopPosition == 3) {
+      startPoint.X++;
+      endPoint.Z--;
+    } else if (startPosition == 6 && stopPosition == 8) {
+      startPoint.Y--;
+      endPoint.X++;
+    }
+    if (startPosition == 7 && stopPosition == 2) {
+      startPoint.X--;
+      endPoint.Z--;
+    } else if (startPosition == 7 && stopPosition == 4) {
+      startPoint.Y--;
+      endPoint.Z--;
+    } else if (startPosition == 7 && stopPosition == 5) {
+      startPoint.X--;
+      endPoint.Y--;
+    }    
+    if (startPosition == 8 && stopPosition == 1) {
+      startPoint.X--;
+      endPoint.Z--;
+    } else if (startPosition == 8 && stopPosition == 3) {
+      startPoint.Z--;
+      endPoint.Y++;
+    } else if (startPosition == 8 && stopPosition == 6) {
+      startPoint.X--;
+      endPoint.Y++;
+    }
+
+    drawLine(startPoint, endPoint, theColour, theDelay);
+  }
+
+  // Final 3 steps
+  serial->println("Loop 2");
+  for (byte i = 1; i <= 3; i++) {
+    if (startPosition == 1 && stopPosition == 3) {
+      startPoint.X++;
+      endPoint.Y++;
+    } else if (startPosition == 1 && stopPosition == 6) {
+      startPoint.Z++;
+      endPoint.Y++;
+    } else if (startPosition == 1 && stopPosition == 8) {
+      startPoint.X++;
+      endPoint.Z++;
+    }
+    if (startPosition == 2 && stopPosition == 4) {
+      startPoint.X++;
+      endPoint.Y--;
+    } else if (startPosition == 2 && stopPosition == 5) {
+      startPoint.Z++;
+      endPoint.Y--;
+    } else if (startPosition == 2 && stopPosition == 7) {
+      startPoint.X++;
+      endPoint.Z++;
+    }
+    if (startPosition == 3 && stopPosition == 1) {
+      startPoint.Y--;
+      endPoint.X--;
+    } else if (startPosition == 3 && stopPosition == 6) {
+      startPoint.Z++;
+      endPoint.X--;
+    } else if (startPosition == 3 && stopPosition == 8) {
+      startPoint.Z++;
+      endPoint.Y--;
+    }
+    if (startPosition == 4 && stopPosition == 2) {
+      startPoint.Y++;
+      endPoint.X--;
+    } else if (startPosition == 4 && stopPosition == 5) {
+      startPoint.Z++;
+      endPoint.X--;
+    } else if (startPosition == 4 && stopPosition == 7) {
+      startPoint.Y++;
+      endPoint.Z++;
+    }
+    if (startPosition == 5 && stopPosition == 2) {
+      startPoint.Y++;
+      endPoint.Z--;
+    } else if (startPosition == 5 && stopPosition == 4) {
+      startPoint.X++;
+      endPoint.Z--;
+    } else if (startPosition == 5 && stopPosition == 7) {
+      startPoint.Y++;
+      endPoint.X++;
+    }
+    if (startPosition == 6 && stopPosition == 1) {
+      startPoint.Z--;
+      endPoint.Y--;
+    } else if (startPosition == 6 && stopPosition == 3) {
+      startPoint.Z--;
+      endPoint.X++;
+    } else if (startPosition == 6 && stopPosition == 8) {
+      startPoint.X++;
+      endPoint.Y--;
+    }
+    if (startPosition == 7 && stopPosition == 2) {
+      startPoint.Z--;
+      endPoint.X--;
+    } else if (startPosition == 7 && stopPosition == 4) {
+      startPoint.Z--;
+      endPoint.Y--;
+    } else if (startPosition == 7 && stopPosition == 5) {
+      startPoint.Y--;
+      endPoint.X--;
+    }    
+    if (startPosition == 8 && stopPosition == 1) {
+      startPoint.Z--;
+      endPoint.X--;
+    } else if (startPosition == 8 && stopPosition == 3) {
+      startPoint.Y++;
+      endPoint.Z--;
+    } else if (startPosition == 8 && stopPosition == 6) {
+      startPoint.Y++;
+      endPoint.X--;
+    }
+
+    drawLine(startPoint, endPoint, theColour, theDelay);
+  }
+}
+
+void drawLine(struct point startPoint, struct point endPoint, rgb_t theColour, int theDelay)
+{
+    if (startPoint.Y > endPoint.Y && startPoint.Z < endPoint.Z ||
+        startPoint.X > endPoint.X && startPoint.Z == endPoint.Z ||
+        startPoint.X > endPoint.X && startPoint.Y == endPoint.Y
+        ) {
+      // Work around bug in line drawing code by swapping start and
+      // end point if particular condiations are meet
+      cube.line(endPoint.X, endPoint.Y, endPoint.Z,
+                startPoint.X, startPoint.Y, startPoint.Z, theColour);      
+    } else {
+      cube.line(startPoint.X, startPoint.Y, startPoint.Z,
+                endPoint.X, endPoint.Y, endPoint.Z, theColour);
+    }
+    delay(theDelay);
 }
 
