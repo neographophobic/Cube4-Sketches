@@ -196,26 +196,7 @@ void loop(void) {
  }
 
   // Complete Top Face
-  cube.set(0, 0, 3, theColour);
-  delay(theDelay);
-
-  cube.line(1, 0, 3, 0, 1, 3, theColour);
-  delay(theDelay);
-
-  cube.line(2, 0, 3, 0, 2, 3, theColour);
-  delay(theDelay);
-
-  cube.line(0, 3, 3, 3, 0, 3, theColour);
-  delay(theDelay);
-
-  cube.line(1, 3, 3, 3, 1, 3,  theColour);
-  delay(theDelay);
-
-  cube.line(2, 3, 3, 3, 2, 3, theColour);
-  delay(theDelay);
-
-  cube.set(3, 3, 3, theColour);
-  delay(theDelay);
+  faceDraw(0, 0, 3, 3, 3, 3, theColour, theDelay);
 
   // Start Peel
   cube.set(3, 0, 3, BLACK);
@@ -279,26 +260,7 @@ void loop(void) {
   delay(theDelay);
 
   // Wipe the bottom
-  cube.set(0, 0, 0, BLACK);
-  delay(theDelay);
-
-  cube.line(0, 1, 0, 1, 0, 0, BLACK);
-  delay(theDelay);
-
-  cube.line(0, 2, 0, 2, 0, 0, BLACK);
-  delay(theDelay);
-
-  cube.line(0, 3, 0, 3, 0, 0, BLACK);
-  delay(theDelay);
-
-  cube.line(1, 3, 0, 3, 1, 0, BLACK);
-  delay(theDelay);
-
-  cube.line(2, 3, 0, 3, 2, 0, BLACK);
-  delay(theDelay);
-
-  cube.set(3, 3, 0, BLACK);
-  delay(theDelay);
+  faceDraw(0, 0, 0, 3, 3, 0, BLACK, theDelay);
 
   delay(1000);
 }
