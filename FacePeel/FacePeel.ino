@@ -49,7 +49,7 @@ void loop(void) {
   rgb_t theColour = BLUE;
   int theDelay = 100;
 
-  while (1 == 1) {
+  while (1 == 0) {
     // 1 -> 3
     faceDraw(0, 0, 0, 3, 3, 0, theColour, theDelay);
     delay(theDelay);
