@@ -243,23 +243,44 @@ void loop(void) {
 //  delay(theDelay);
 
   // Front to back
-  faceDraw(0, 0, 0, 3, 0, 3, theColour, theDelay);
-  peel(0, 0, 0, 3, 0, 3, theColour, theDelay);
+//  faceDraw(0, 0, 0, 3, 0, 3, theColour, theDelay);
+//  peel(0, 0, 0, 3, 0, 3, theColour, theDelay);
+//  cube.all(BLACK);
+//  delay(theDelay);
+
+//  faceDraw(0, 0, 3, 3, 0, 0, theColour, theDelay);
+//  peel(0, 0, 3, 3, 0, 0, theColour, theDelay);
+//  cube.all(BLACK);
+//  delay(theDelay);
+
+//  faceDraw(3, 0, 3, 0, 0, 0, theColour, theDelay);
+//  peel(3, 0, 3, 0, 0, 0, theColour, theDelay);
+//  cube.all(BLACK);
+//  delay(theDelay);
+
+//  faceDraw(3, 0, 0, 0, 0, 3, theColour, theDelay);
+//  peel(3, 0, 0, 0, 0, 3, theColour, theDelay);
+//  cube.all(BLACK);
+//  delay(theDelay);  
+
+  // Back to Front
+  faceDraw(0, 3, 0, 3, 3, 3, theColour, theDelay);
+  peel(0, 3, 0, 3, 3, 3, theColour, theDelay);
   cube.all(BLACK);
   delay(theDelay);
 
-  faceDraw(0, 0, 3, 3, 0, 0, theColour, theDelay);
-  peel(0, 0, 3, 3, 0, 0, theColour, theDelay);
+  faceDraw(0, 3, 3, 3, 3, 0, theColour, theDelay);
+  peel(0, 3, 3, 3, 3, 0, theColour, theDelay);
   cube.all(BLACK);
   delay(theDelay);
 
-  faceDraw(3, 0, 3, 0, 0, 0, theColour, theDelay);
-  peel(3, 0, 3, 0, 0, 0, theColour, theDelay);
+  faceDraw(3, 3, 3, 0, 3, 0, theColour, theDelay);
+  peel(3, 3, 3, 0, 3, 0, theColour, theDelay);
   cube.all(BLACK);
   delay(theDelay);
 
-  faceDraw(3, 0, 0, 0, 0, 3, theColour, theDelay);
-  peel(3, 0, 0, 0, 0, 3, theColour, theDelay);
+  faceDraw(3, 3, 0, 0, 3, 3, theColour, theDelay);
+  peel(3, 3, 0, 0, 3, 3, theColour, theDelay);
   cube.all(BLACK);
   delay(theDelay);  
 }
@@ -514,9 +535,17 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
       lines[i].startPoint.X++;
       lines[i].endPoint.Y--;
     }
+    if (startPosition == 2 && stopPosition == 7) {
+      lines[i].startPoint.Z++;
+      lines[i].endPoint.X++;
+    }
     if (startPosition == 3 && stopPosition == 1) {
       lines[i].startPoint.X--;
       lines[i].endPoint.Y--;
+    }
+    if (startPosition == 3 && stopPosition == 6) {
+      lines[i].startPoint.X--;
+      lines[i].endPoint.Z++;
     }
     if (startPosition == 4 && stopPosition == 2) {
       lines[i].startPoint.X--;
@@ -534,9 +563,17 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
       lines[i].startPoint.X++;
       lines[i].endPoint.Y++;
     }
+    if (startPosition == 6 && stopPosition == 3) {
+      lines[i].startPoint.Z--;
+      lines[i].endPoint.X++;
+    }
     if (startPosition == 6 && stopPosition == 8) {
       lines[i].startPoint.Y--;
       lines[i].endPoint.X++;
+    }
+    if (startPosition == 7 && stopPosition == 2) {
+      lines[i].startPoint.X--;
+      lines[i].endPoint.Z--;
     }
     if (startPosition == 7 && stopPosition == 5) {
       lines[i].startPoint.X--;
@@ -573,8 +610,16 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
       lines[i].startPoint.Y--;
       lines[i].endPoint.X++;
     }
+    if (startPosition == 2 && stopPosition == 7) {
+      lines[i].startPoint.X++;
+      lines[i].endPoint.Z++;
+    }
     if (startPosition == 3 && stopPosition == 1) {
       lines[i].startPoint.Y++;
+      lines[i].endPoint.X--;
+    }
+    if (startPosition == 3 && stopPosition == 6) {
+      lines[i].startPoint.Z++;
       lines[i].endPoint.X--;
     }
     if (startPosition == 4 && stopPosition == 2) {
@@ -593,9 +638,17 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
       lines[i].startPoint.Y++;
       lines[i].endPoint.X++;
     }
+    if (startPosition == 6 && stopPosition == 3) {
+      lines[i].startPoint.X++;
+      lines[i].endPoint.Z--;
+    }
     if (startPosition == 6 && stopPosition == 8) {
       lines[i].startPoint.X++;
       lines[i].endPoint.Y--;
+    }
+    if (startPosition == 7 && stopPosition == 2) {
+      lines[i].startPoint.Z--;
+      lines[i].endPoint.X--;
     }
     if (startPosition == 7 && stopPosition == 5) {
       lines[i].startPoint.Y--;
@@ -636,6 +689,13 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
             (startPosition == 4 && stopPosition == 5)) {
           lines[j].startPoint.Y++;
           lines[j].endPoint.Y++;        
+            }
+        if ((startPosition == 2 && stopPosition == 7) ||
+            (startPosition == 6 && stopPosition == 3) ||
+            (startPosition == 7 && stopPosition == 2) ||
+            (startPosition == 3 && stopPosition == 6)) {
+          lines[j].startPoint.Y--;
+          lines[j].endPoint.Y--;        
             }
         drawLine(lines[j].startPoint, lines[j].endPoint, theColour, 0);
       }
