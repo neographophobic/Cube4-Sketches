@@ -121,7 +121,7 @@ void loop(void) {
     delay(theDelay);
     cube.all(BLACK);
     delay(theDelay);
-    
+
     // 4 -> 7
     faceDraw(3, 0, 0, 3, 3, 3, theColour, theDelay);
     delay(theDelay);
@@ -139,13 +139,13 @@ void loop(void) {
     delay(theDelay);
     cube.all(BLACK);
     delay(theDelay);
-    
+
     // 5 -> 7
     faceDraw(0, 0, 3, 3, 3, 3, theColour, theDelay);
     delay(theDelay);
     cube.all(BLACK);
     delay(theDelay);
- 
+
     // 6 -> 1
     faceDraw(0, 3, 3, 0, 0, 0, theColour, theDelay);
     delay(theDelay);
@@ -157,7 +157,7 @@ void loop(void) {
     delay(theDelay);
     cube.all(BLACK);
     delay(theDelay);
-    
+
     // 6 -> 8
     faceDraw(0, 3, 3, 3, 0, 3, theColour, theDelay);
     delay(theDelay);
@@ -175,7 +175,7 @@ void loop(void) {
     delay(theDelay);
     cube.all(BLACK);
     delay(theDelay);
-    
+
     // 7 -> 5
     faceDraw(3, 3, 3, 0, 0, 3, theColour, theDelay);
     delay(theDelay);
@@ -193,20 +193,20 @@ void loop(void) {
     delay(theDelay);
     cube.all(BLACK);
     delay(theDelay);
-    
+
     // 8 -> 6
     faceDraw(3, 0, 3, 0, 3, 3, theColour, theDelay);
     delay(theDelay);
     cube.all(BLACK);
     delay(theDelay);
- }
+  }
 
   // Complete Top Face
-  while(1==1) {
-  faceDraw(0, 0, 3, 3, 3, 3, theColour, theDelay);
-  peel(3, 0, 3, 0, 3, 3, theColour, theDelay);
-  faceDraw(0, 0, 0, 3, 3, 0, BLACK, theDelay);
-  }  
+  while (1 == 1) {
+    faceDraw(0, 0, 3, 3, 3, 3, theColour, theDelay);
+    peel(3, 0, 3, 0, 3, 3, theColour, theDelay);
+    faceDraw(0, 0, 0, 3, 3, 0, BLACK, theDelay);
+  }
   // Start Peel
   cube.set(3, 0, 3, BLACK);
   cube.set(3, 0, 2, theColour);
@@ -405,7 +405,7 @@ void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theCol
     } else if (startPosition == 7 && stopPosition == 5) {
       startPoint.X--;
       endPoint.Y--;
-    }    
+    }
     if (startPosition == 8 && stopPosition == 1) {
       startPoint.X--;
       endPoint.Z--;
@@ -491,7 +491,7 @@ void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theCol
     } else if (startPosition == 7 && stopPosition == 5) {
       startPoint.Y--;
       endPoint.X--;
-    }    
+    }
     if (startPosition == 8 && stopPosition == 1) {
       startPoint.Z--;
       endPoint.X--;
@@ -509,19 +509,19 @@ void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theCol
 
 void drawLine(struct point startPoint, struct point endPoint, rgb_t theColour, int theDelay)
 {
-    if (startPoint.Y > endPoint.Y && startPoint.Z < endPoint.Z ||
-        startPoint.X > endPoint.X && startPoint.Z == endPoint.Z ||
-        startPoint.X > endPoint.X && startPoint.Y == endPoint.Y
-        ) {
-      // Work around bug in line drawing code by swapping start and
-      // end point if particular condiations are meet
-      cube.line(endPoint.X, endPoint.Y, endPoint.Z,
-                startPoint.X, startPoint.Y, startPoint.Z, theColour);      
-    } else {
-      cube.line(startPoint.X, startPoint.Y, startPoint.Z,
-                endPoint.X, endPoint.Y, endPoint.Z, theColour);
-    }
-    delay(theDelay);
+  if (startPoint.Y > endPoint.Y && startPoint.Z < endPoint.Z ||
+      startPoint.X > endPoint.X && startPoint.Z == endPoint.Z ||
+      startPoint.X > endPoint.X && startPoint.Y == endPoint.Y
+     ) {
+    // Work around bug in line drawing code by swapping start and
+    // end point if particular condiations are meet
+    cube.line(endPoint.X, endPoint.Y, endPoint.Z,
+              startPoint.X, startPoint.Y, startPoint.Z, theColour);
+  } else {
+    cube.line(startPoint.X, startPoint.Y, startPoint.Z,
+              endPoint.X, endPoint.Y, endPoint.Z, theColour);
+  }
+  delay(theDelay);
 }
 
 void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour, int theDelay)
