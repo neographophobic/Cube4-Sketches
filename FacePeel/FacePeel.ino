@@ -200,78 +200,47 @@ void loop(void) {
     cube.all(BLACK);
     delay(theDelay);
   }
-
-  // Complete Top Face
-  while (1 == 1) {
-    faceDraw(0, 0, 3, 3, 3, 3, theColour, theDelay);
-    peel(3, 0, 3, 0, 3, 3, theColour, theDelay);
-    faceDraw(0, 0, 0, 3, 3, 0, BLACK, theDelay);
-  }
-  // Start Peel
-  cube.set(3, 0, 3, BLACK);
-  cube.set(3, 0, 2, theColour);
+  // Top to Bottom
+  faceDraw(0, 0, 3, 3, 3, 3, theColour, theDelay);
+  peel(0, 0, 3, 3, 3, 3, theColour, theDelay);
+  cube.all(BLACK);
   delay(theDelay);
 
-  cube.set(3, 0, 2, BLACK);
-  cube.set(3, 0, 1, theColour);
-  cube.line(2, 0, 3, 3, 1, 3, BLACK);
-  cube.line(2, 0, 2, 3, 1, 2, theColour);
+  faceDraw(0, 3, 3, 3, 0, 3, theColour, theDelay);
+  peel(0, 3, 3, 3, 0, 3, theColour, theDelay);
+  cube.all(BLACK);
   delay(theDelay);
 
-  cube.set(3, 0, 1, BLACK);
-  cube.set(3, 0, 0, theColour);
-  cube.line(2, 0, 2, 3, 1, 2, BLACK);
-  cube.line(2, 0, 1, 3, 1, 1, theColour);
-  cube.line(1, 0, 3, 3, 2, 3, BLACK);
-  cube.line(1, 0, 2, 3, 2, 2, theColour);
+  faceDraw(3, 3, 3, 0, 0, 3, theColour, theDelay);
+  peel(3, 3, 3, 0, 0, 3, theColour, theDelay);
+  cube.all(BLACK);
   delay(theDelay);
 
-  cube.line(2, 0, 1, 3, 1, 1, BLACK);
-  cube.line(2, 0, 0, 3, 1, 0, theColour);
-  cube.line(1, 0, 2, 3, 2, 2, BLACK);
-  cube.line(1, 0, 1, 3, 2, 1, theColour);
-  cube.line(0, 0, 3, 3, 3, 3, BLACK);
-  cube.line(0, 0, 2, 3, 3, 2, theColour);
+  faceDraw(3, 0, 3, 0, 3, 3, theColour, theDelay);
+  peel(3, 0, 3, 0, 3, 3, theColour, theDelay);
+  cube.all(BLACK);
   delay(theDelay);
 
-  cube.line(1, 0, 1, 3, 2, 1, BLACK);
-  cube.line(1, 0, 0, 3, 2, 0, theColour);
-  cube.line(0, 0, 2, 3, 3, 2, BLACK);
-  cube.line(0, 0, 1, 3, 3, 1, theColour);
-  cube.line(0, 1, 3, 2, 3, 3, BLACK);
-  cube.line(0, 1, 2, 2, 3, 2, theColour);
+  // Bottom to Top
+  faceDraw(0, 0, 0, 3, 3, 0, theColour, theDelay);
+  peel(0, 0, 0, 3, 3, 0, theColour, theDelay);
+  cube.all(BLACK);
   delay(theDelay);
 
-  cube.line(0, 0, 1, 3, 3, 1, BLACK);
-  cube.line(0, 0, 0, 3, 3, 0, theColour);
-  cube.line(0, 1, 2, 2, 3, 2, BLACK);
-  cube.line(0, 1, 1, 2, 3, 1, theColour);
-  cube.line(0, 2, 3, 1, 3, 3, BLACK);
-  cube.line(0, 2, 2, 1, 3, 2, theColour);
+  faceDraw(0, 3, 0, 3, 0, 0, theColour, theDelay);
+  peel(0, 3, 0, 3, 0, 0, theColour, theDelay);
+  cube.all(BLACK);
   delay(theDelay);
 
-  cube.line(0, 1, 1, 2, 3, 1, BLACK);
-  cube.line(0, 1, 0, 2, 3, 0, theColour);
-  cube.line(0, 2, 2, 1, 3, 2, BLACK);
-  cube.line(0, 2, 1, 1, 3, 1, theColour);
-  cube.set(0, 3, 3, BLACK);
-  cube.set(0, 3, 2, theColour);
+  faceDraw(3, 3, 0, 0, 0, 0, theColour, theDelay);
+  peel(3, 3, 0, 0, 0, 0, theColour, theDelay);
+  cube.all(BLACK);
   delay(theDelay);
 
-  cube.line(0, 2, 1, 1, 3, 1, BLACK);
-  cube.line(0, 2, 0, 1, 3, 0, theColour);
-  cube.set(0, 3, 2, BLACK);
-  cube.set(0, 3, 1, theColour);
+  faceDraw(3, 0, 0, 0, 3, 0, theColour, theDelay);
+  peel(3, 0, 0, 0, 3, 0, theColour, theDelay);
+  cube.all(BLACK);
   delay(theDelay);
-
-  cube.set(0, 3, 1, BLACK);
-  cube.set(0, 3, 0, theColour);
-  delay(theDelay);
-
-  // Wipe the bottom
-  faceDraw(0, 0, 0, 3, 3, 0, BLACK, theDelay);
-
-  delay(1000);
 }
 
 void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour, int theDelay)
@@ -512,6 +481,22 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
     lines[i].endPoint.Y = lines[i - 1].endPoint.Y;
     lines[i].endPoint.Z = lines[i - 1].endPoint.Z;
 
+    if (startPosition == 1 && stopPosition == 3) {
+      lines[i].startPoint.Y++;
+      lines[i].endPoint.X++;
+    }
+    if (startPosition == 2 && stopPosition == 4) {
+      lines[i].startPoint.X++;
+      lines[i].endPoint.Y--;
+    }
+    if (startPosition == 3 && stopPosition == 1) {
+      lines[i].startPoint.X--;
+      lines[i].endPoint.Y--;
+    }
+    if (startPosition == 4 && stopPosition == 2) {
+      lines[i].startPoint.X--;
+      lines[i].endPoint.Y++;
+    }
     if (startPosition == 5 && stopPosition == 7) {
       lines[i].startPoint.X++;
       lines[i].endPoint.Y++;
@@ -538,6 +523,23 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
     lines[i].endPoint.Y = lines[i - 1].endPoint.Y;
     lines[i].endPoint.Z = lines[i - 1].endPoint.Z;
 
+
+    if (startPosition == 1 && stopPosition == 3) {
+      lines[i].startPoint.X++;
+      lines[i].endPoint.Y++;
+    }
+    if (startPosition == 2 && stopPosition == 4) {
+      lines[i].startPoint.Y--;
+      lines[i].endPoint.X++;
+    }
+    if (startPosition == 3 && stopPosition == 1) {
+      lines[i].startPoint.Y++;
+      lines[i].endPoint.X--;
+    }
+    if (startPosition == 4 && stopPosition == 2) {
+      lines[i].startPoint.Y++;
+      lines[i].endPoint.X--;
+    }
     if (startPosition == 5 && stopPosition == 7) {
       lines[i].startPoint.Y++;
       lines[i].endPoint.X++;
@@ -567,8 +569,14 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
     for (byte j = 0; j <= 6; j++) {
       if (count[j] >= 1 && count[j] <= 3) {
         drawLine(lines[j].startPoint, lines[j].endPoint, BLACK, 0);
-        lines[j].startPoint.Z--;
-        lines[j].endPoint.Z--;
+        if (startPosition >= 5 && stopPosition >= 5) {
+          lines[j].startPoint.Z--;
+          lines[j].endPoint.Z--;
+        }
+        if (startPosition <= 4 && stopPosition <= 4) {
+          lines[j].startPoint.Z++;
+          lines[j].endPoint.Z++;
+        }
         drawLine(lines[j].startPoint, lines[j].endPoint, theColour, 0);
       }
 
