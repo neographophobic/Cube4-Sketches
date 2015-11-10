@@ -558,13 +558,13 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
 
   int count[7];
   int startingCount = 1;
-  for (byte i = 0; i <= 7; i++) {
+  for (byte i = 0; i <= 6; i++) {
     count[i] = startingCount;
     startingCount--;
   }
 
   for (byte i = 1; i <= 9; i++) {
-    for (byte j = 0; j <= 7; j++) {
+    for (byte j = 0; j <= 6; j++) {
       if (count[j] >= 1 && count[j] <= 3) {
         drawLine(lines[j].startPoint, lines[j].endPoint, BLACK, 0);
         lines[j].startPoint.Z--;
