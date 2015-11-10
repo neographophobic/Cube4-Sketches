@@ -412,7 +412,6 @@ void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theCol
   }
 
   // Final 3 steps
-  serial->println("Loop 2");
   for (byte i = 1; i <= 3; i++) {
     if (startPosition == 1 && stopPosition == 3) {
       startPoint.X++;
