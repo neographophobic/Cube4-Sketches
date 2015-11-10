@@ -530,6 +530,8 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
   byte startPosition;
   byte stopPosition;
 
+  aLine lines[7];
+
   if (x1 == 0 && y1 == 0 && z1 == 0) {
     startPosition = 1;
   } else if (x1 == 0 && y1 == 3 && z1 == 0) {
@@ -567,185 +569,75 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
   }
 
   // Figure out where the lines to move are
-  struct aLine line1;  
-  struct aLine line2;
-  struct aLine line3;
-  struct aLine line4;
-  struct aLine line5;
-  struct aLine line6;
-  struct aLine line7;
+  if (startPosition == 8 && stopPosition == 6) {
+    lines[0].startPoint.X = x1;
+    lines[0].startPoint.Y = y1;
+    lines[0].startPoint.Z = z1;
+    lines[0].endPoint.X = x1;
+    lines[0].endPoint.Y = y1;
+    lines[0].endPoint.Z = z1;
 
-  if(startPosition == 8 && stopPosition == 6) {
-    line1.startPoint.X = x1;
-    line1.startPoint.Y = y1;
-    line1.startPoint.Z = z1;
-    line1.endPoint.X = x1;
-    line1.endPoint.Y = y1;
-    line1.endPoint.Z = z1;
+    lines[1].startPoint.X = x1 - 1;
+    lines[1].startPoint.Y = y1;
+    lines[1].startPoint.Z = z1;
+    lines[1].endPoint.X = x1;
+    lines[1].endPoint.Y = y1 + 1;
+    lines[1].endPoint.Z = z1;
 
-    line2.startPoint.X = x1 - 1;
-    line2.startPoint.Y = y1;
-    line2.startPoint.Z = z1;
-    line2.endPoint.X = x1;
-    line2.endPoint.Y = y1 + 1;
-    line2.endPoint.Z = z1;
-  
-    line3.startPoint.X = x1 - 2;
-    line3.startPoint.Y = y1;
-    line3.startPoint.Z = z1;
-    line3.endPoint.X = x1;
-    line3.endPoint.Y = y1 + 2;
-    line3.endPoint.Z = z1;
+    lines[2].startPoint.X = x1 - 2;
+    lines[2].startPoint.Y = y1;
+    lines[2].startPoint.Z = z1;
+    lines[2].endPoint.X = x1;
+    lines[2].endPoint.Y = y1 + 2;
+    lines[2].endPoint.Z = z1;
 
-    line4.startPoint.X = x1 - 3;
-    line4.startPoint.Y = y1;
-    line4.startPoint.Z = z1;
-    line4.endPoint.X = x1;
-    line4.endPoint.Y = y1 + 3;
-    line4.endPoint.Z = z1;
+    lines[3].startPoint.X = x1 - 3;
+    lines[3].startPoint.Y = y1;
+    lines[3].startPoint.Z = z1;
+    lines[3].endPoint.X = x1;
+    lines[3].endPoint.Y = y1 + 3;
+    lines[3].endPoint.Z = z1;
 
-    line5.startPoint.X = x1 - 3;
-    line5.startPoint.Y = y1 + 1;
-    line5.startPoint.Z = z1;
-    line5.endPoint.X = x1 - 1;
-    line5.endPoint.Y = y1 + 3;
-    line5.endPoint.Z = z1;
+    lines[4].startPoint.X = x1 - 3;
+    lines[4].startPoint.Y = y1 + 1;
+    lines[4].startPoint.Z = z1;
+    lines[4].endPoint.X = x1 - 1;
+    lines[4].endPoint.Y = y1 + 3;
+    lines[4].endPoint.Z = z1;
 
-    line6.startPoint.X = x1 - 3;
-    line6.startPoint.Y = y1 + 2;
-    line6.startPoint.Z = z1;
-    line6.endPoint.X = x1 - 2;
-    line6.endPoint.Y = y1 + 3;
-    line6.endPoint.Z = z1;
+    lines[5].startPoint.X = x1 - 3;
+    lines[5].startPoint.Y = y1 + 2;
+    lines[5].startPoint.Z = z1;
+    lines[5].endPoint.X = x1 - 2;
+    lines[5].endPoint.Y = y1 + 3;
+    lines[5].endPoint.Z = z1;
 
-    line7.startPoint.X = x1 - 3;
-    line7.startPoint.Y = y1 + 3;
-    line7.startPoint.Z = z1;
-    line7.endPoint.X = x1 - 3;
-    line7.endPoint.Y = y1 + 3;
-    line7.endPoint.Z = z1;
+    lines[6].startPoint.X = x1 - 3;
+    lines[6].startPoint.Y = y1 + 3;
+    lines[6].startPoint.Z = z1;
+    lines[6].endPoint.X = x1 - 3;
+    lines[6].endPoint.Y = y1 + 3;
+    lines[6].endPoint.Z = z1;
   }
 
-  // Move 1
-  // Line 1
-  drawLine(line1.startPoint, line1.endPoint, BLACK, 0);
-  line1.startPoint.Z--;
-  line1.endPoint.Z--;
-  drawLine(line1.startPoint, line1.endPoint, theColour, theDelay);
-  
-  // Move 2
-  // Line 1
-  drawLine(line1.startPoint, line1.endPoint, BLACK, 0);
-  line1.startPoint.Z--;
-  line1.endPoint.Z--;
-  drawLine(line1.startPoint, line1.endPoint, theColour, 0);
-  // Line 2
-  drawLine(line2.startPoint, line2.endPoint, BLACK, 0);
-  line2.startPoint.Z--;
-  line2.endPoint.Z--;
-  drawLine(line2.startPoint, line2.endPoint, theColour, theDelay);
-  
-  // Move 3
-  // Line 1
-  drawLine(line1.startPoint, line1.endPoint, BLACK, 0);
-  line1.startPoint.Z--;
-  line1.endPoint.Z--;
-  drawLine(line1.startPoint, line1.endPoint, theColour, 0);
-  // Line 2
-  drawLine(line2.startPoint, line2.endPoint, BLACK, 0);
-  line2.startPoint.Z--;
-  line2.endPoint.Z--;
-  drawLine(line2.startPoint, line2.endPoint, theColour, 0);
-  // Line 3
-  drawLine(line3.startPoint, line3.endPoint, BLACK, 0);
-  line3.startPoint.Z--;
-  line3.endPoint.Z--;
-  drawLine(line3.startPoint, line3.endPoint, theColour, theDelay);
+  int count[7];
+  int startingCount = 1;
+  for (byte i = 0; i <= 7; i++) {
+    count[i] = startingCount;
+    startingCount--;
+  }
 
-  // Move 4
-  // Line 2
-  drawLine(line2.startPoint, line2.endPoint, BLACK, 0);
-  line2.startPoint.Z--;
-  line2.endPoint.Z--;
-  drawLine(line2.startPoint, line2.endPoint, theColour, 0);
-  // Line 3
-  drawLine(line3.startPoint, line3.endPoint, BLACK, 0);
-  line3.startPoint.Z--;
-  line3.endPoint.Z--;
-  drawLine(line3.startPoint, line3.endPoint, theColour, 0);
-  // Line 4
-  drawLine(line4.startPoint, line4.endPoint, BLACK, 0);
-  line4.startPoint.Z--;
-  line4.endPoint.Z--;
-  drawLine(line4.startPoint, line4.endPoint, theColour, theDelay);
+  for (byte i = 1; i <= 9; i++) {
+    for (byte j = 0; j <= 7; j++) {
+      if (count[j] >= 1 && count[j] <= 3) {
+        drawLine(lines[j].startPoint, lines[j].endPoint, BLACK, 0);
+        lines[j].startPoint.Z--;
+        lines[j].endPoint.Z--;
+        drawLine(lines[j].startPoint, lines[j].endPoint, theColour, 0);
+      }
 
-  // Move 5
-  // Line 3
-  drawLine(line3.startPoint, line3.endPoint, BLACK, 0);
-  line3.startPoint.Z--;
-  line3.endPoint.Z--;
-  drawLine(line3.startPoint, line3.endPoint, theColour, 0);
-  // Line 4
-  drawLine(line4.startPoint, line4.endPoint, BLACK, 0);
-  line4.startPoint.Z--;
-  line4.endPoint.Z--;
-  drawLine(line4.startPoint, line4.endPoint, theColour, 0);
-  // Line 5
-  drawLine(line5.startPoint, line5.endPoint, BLACK, 0);
-  line5.startPoint.Z--;
-  line5.endPoint.Z--;
-  drawLine(line5.startPoint, line5.endPoint, theColour, theDelay);
-
-  // Move 6
-  // Line 4
-  drawLine(line4.startPoint, line4.endPoint, BLACK, 0);
-  line4.startPoint.Z--;
-  line4.endPoint.Z--;
-  drawLine(line4.startPoint, line4.endPoint, theColour, 0);
-  // Line 5
-  drawLine(line5.startPoint, line5.endPoint, BLACK, 0);
-  line5.startPoint.Z--;
-  line5.endPoint.Z--;
-  drawLine(line5.startPoint, line5.endPoint, theColour, 0);
-  // Line 6
-  drawLine(line6.startPoint, line6.endPoint, BLACK, 0);
-  line6.startPoint.Z--;
-  line6.endPoint.Z--;
-  drawLine(line6.startPoint, line6.endPoint, theColour, theDelay);
-
-  // Move 7
-  // Line 5
-  drawLine(line5.startPoint, line5.endPoint, BLACK, 0);
-  line5.startPoint.Z--;
-  line5.endPoint.Z--;
-  drawLine(line5.startPoint, line5.endPoint, theColour, 0);
-  // Line 6
-  drawLine(line6.startPoint, line6.endPoint, BLACK, 0);
-  line6.startPoint.Z--;
-  line6.endPoint.Z--;
-  drawLine(line6.startPoint, line6.endPoint, theColour, 0);
-  // Line 7
-  drawLine(line7.startPoint, line7.endPoint, BLACK, 0);
-  line7.startPoint.Z--;
-  line7.endPoint.Z--;
-  drawLine(line7.startPoint, line7.endPoint, theColour, theDelay);
-
-  // Move 8
-  // Line 6
-  drawLine(line6.startPoint, line6.endPoint, BLACK, 0);
-  line6.startPoint.Z--;
-  line6.endPoint.Z--;
-  drawLine(line6.startPoint, line6.endPoint, theColour, 0);
-  // Line 7
-  drawLine(line7.startPoint, line7.endPoint, BLACK, 0);
-  line7.startPoint.Z--;
-  line7.endPoint.Z--;
-  drawLine(line7.startPoint, line7.endPoint, theColour, theDelay);
-
-  // Move 9
-  // Line 7
-  drawLine(line7.startPoint, line7.endPoint, BLACK, 0);
-  line7.startPoint.Z--;
-  line7.endPoint.Z--;
-  drawLine(line7.startPoint, line7.endPoint, theColour, theDelay);  
+      count[j]++;
+    }
+    delay(theDelay);
+  }
 }
