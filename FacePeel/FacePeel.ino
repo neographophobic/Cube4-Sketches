@@ -504,13 +504,13 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
   lines[0].endPoint.Y = y1;
   lines[0].endPoint.Z = z1;
 
-  for(byte i = 1; i <= 3; i++) {
-    lines[i].startPoint.X = lines[i-1].startPoint.X;
-    lines[i].startPoint.Y = lines[i-1].startPoint.Y;
-    lines[i].startPoint.Z = lines[i-1].startPoint.Z;
-    lines[i].endPoint.X = lines[i-1].endPoint.X;
-    lines[i].endPoint.Y = lines[i-1].endPoint.Y;
-    lines[i].endPoint.Z = lines[i-1].endPoint.Z;
+  for (byte i = 1; i <= 3; i++) {
+    lines[i].startPoint.X = lines[i - 1].startPoint.X;
+    lines[i].startPoint.Y = lines[i - 1].startPoint.Y;
+    lines[i].startPoint.Z = lines[i - 1].startPoint.Z;
+    lines[i].endPoint.X = lines[i - 1].endPoint.X;
+    lines[i].endPoint.Y = lines[i - 1].endPoint.Y;
+    lines[i].endPoint.Z = lines[i - 1].endPoint.Z;
 
     if (startPosition == 5 && stopPosition == 7) {
       lines[i].startPoint.X++;
@@ -530,13 +530,13 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
     }
   }
 
-  for(byte i = 4; i <= 6; i++) {
-    lines[i].startPoint.X = lines[i-1].startPoint.X;
-    lines[i].startPoint.Y = lines[i-1].startPoint.Y;
-    lines[i].startPoint.Z = lines[i-1].startPoint.Z;
-    lines[i].endPoint.X = lines[i-1].endPoint.X;
-    lines[i].endPoint.Y = lines[i-1].endPoint.Y;
-    lines[i].endPoint.Z = lines[i-1].endPoint.Z;
+  for (byte i = 4; i <= 6; i++) {
+    lines[i].startPoint.X = lines[i - 1].startPoint.X;
+    lines[i].startPoint.Y = lines[i - 1].startPoint.Y;
+    lines[i].startPoint.Z = lines[i - 1].startPoint.Z;
+    lines[i].endPoint.X = lines[i - 1].endPoint.X;
+    lines[i].endPoint.Y = lines[i - 1].endPoint.Y;
+    lines[i].endPoint.Z = lines[i - 1].endPoint.Z;
 
     if (startPosition == 5 && stopPosition == 7) {
       lines[i].startPoint.Y++;
