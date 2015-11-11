@@ -49,9 +49,16 @@ void setup(void) {
   {
     serial->println("FacePeel v1.0");
   }
+
+  //  test();
 }
 
 void loop(void) {
+  rgb_t theColour = BLUE;
+  int theDelay = 100;
+
+
+void test(void) {
   rgb_t theColour = BLUE;
   int theDelay = 100;
 
