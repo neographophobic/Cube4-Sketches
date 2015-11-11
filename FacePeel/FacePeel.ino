@@ -57,6 +57,18 @@ void loop(void) {
   rgb_t theColour = BLUE;
   int theDelay = 100;
 
+  faceDraw(0, 0, 3, 3, 3, 3, theColour, theDelay);
+  peel(3, 0, 3, 0, 3, 3, theColour, theDelay);
+  faceDraw(0, 0, 0, 3, 3, 0, BLACK, theDelay);
+
+  faceDraw(3, 0, 0, 0, 0, 3, theColour, theDelay);
+  peel(3, 0, 3, 0, 0, 0, theColour, theDelay);
+  faceDraw(3, 3, 0, 0, 3, 3, BLACK, theDelay);
+
+  faceDraw(3, 3, 3, 3, 0, 0, theColour, theDelay);
+  peel(3, 0, 3, 3, 3, 0, theColour, theDelay);
+  faceDraw(0, 3, 3, 0, 0, 0, BLACK, theDelay);
+}
 
 void test(void) {
   rgb_t theColour = BLUE;
