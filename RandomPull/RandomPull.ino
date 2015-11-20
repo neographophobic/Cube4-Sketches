@@ -94,7 +94,7 @@ void loop(void) {
   startPlane('X', 0, theColour, theDelay);
   delay(theDelay);
   cube.all(BLACK);
-      
+
   startPlane('X', 3, theColour, theDelay);
   delay(theDelay);
   cube.all(BLACK);
@@ -102,15 +102,15 @@ void loop(void) {
   startPlane('Y', 0, theColour, theDelay);
   delay(theDelay);
   cube.all(BLACK);
-  
+
   startPlane('Y', 3, theColour, theDelay);
   delay(theDelay);
   cube.all(BLACK);
-  
+
   startPlane('Z', 0, theColour, theDelay);
   delay(theDelay);
   cube.all(BLACK);
-  
+
   startPlane('Z', 3, theColour, theDelay);
   delay(theDelay);
   cube.all(BLACK);
@@ -118,7 +118,10 @@ void loop(void) {
 
 void startPlane(byte axis, byte offset, rgb_t theColour, int theDelay)
 {
+  // Array to hold the locations that we need to work with
   int points[16];
+
+  // Arrays identifying the 16 LEDs that make up the starting grid for the animation
   int x0Points[16] = {1, 2, 3, 4, 17, 18, 19, 20, 33, 34, 35, 36, 49, 50, 51, 52};
   int x3Points[16] = {13, 14, 15, 16, 29, 30, 31, 32, 45, 46, 47, 48, 61, 62, 63, 64};
   int y0Points[16] = {1, 5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53, 57, 61};
@@ -126,8 +129,11 @@ void startPlane(byte axis, byte offset, rgb_t theColour, int theDelay)
   int z0Points[16] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
   int z3Points[16] = {49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64};
 
+  // Build the full array of LEDs so that we have coordinates to match the above points
   buildLEDsArray();
 
+  // Copy the starting grid for the given axis and offset into the points array, and then
+  // illuminate that axis / offset combo to start the animation
   if (axis == 'X' && offset == 0) {
     for (byte i = 0; i < 16; i++) {
       points[i] = x0Points[i];
@@ -165,14 +171,17 @@ void startPlane(byte axis, byte offset, rgb_t theColour, int theDelay)
     cube.setplane(Z, 3, theColour);
   }
 
+  // Pause to ensure the starting position is shown before the animation
+  // starts
   delay(theDelay);
 
-  // Shuffle the array, so that we can illumante all LEDs in
-  // a random order
+  // Shuffle the array, so that we can move the LEDs in the starting grid
+  // in a random order
   shuffle(points, 16);
 
+  // Offset the starting position of the given axis so that we can more easily
+  // move multiple LEDs at the same time
   int startPosition = offset;
-
   for (byte i = 0; i < 16; i++) {
     if (axis == 'X') {
       leds[points[i]].X = startPosition;
@@ -190,10 +199,16 @@ void startPlane(byte axis, byte offset, rgb_t theColour, int theDelay)
     }
   }
 
-  // Loop through the shuffled array, turning the LEDs on
+  // There are 19 moves in the animation, so loop 19 times to draw each frame
   for (byte j = 0; j < 19; j++) {
+    // For each frame, look at each of the possible 16 LEDs, and determine if it should
+    // be on or off
     for (byte i = 0; i < 16; i++) {
       if (offset == 0) {
+        // Moving in a positive direction, so turn the LED "behind" the given spot off, and
+        // the new one on if the axis' position is within the expected range.
+        // Regardless of whether it was in range or not, increment it's axis position at the end
+        // of processing. This is what allows multiple LEDs to appear to move at once.
         if (axis == 'X') {
           if (leds[points[i]].X >= 1 && leds[points[i]].X <= 3) {
             cube.set(leds[points[i]].X - 1, leds[points[i]].Y, leds[points[i]].Z, BLACK);
@@ -216,6 +231,10 @@ void startPlane(byte axis, byte offset, rgb_t theColour, int theDelay)
           leds[points[i]].Z++;
         }
       } else {
+        // Moving in a negative direction, so turn the LED "in front" of the given spot off, and
+        // the new one on if the axis' position is within the expected range.
+        // Regardless of whether it was in range or not, decrement it's axis position at the end
+        // of processing. This is what allows multiple LEDs to appear to move at once.
         if (axis == 'X') {
           if (leds[points[i]].X >= 0 && leds[points[i]].X <= 2) {
             cube.set(leds[points[i]].X + 1, leds[points[i]].Y, leds[points[i]].Z, BLACK);
@@ -239,6 +258,7 @@ void startPlane(byte axis, byte offset, rgb_t theColour, int theDelay)
         }
       }
     }
+    // Processed each of the 16 LEDs so pause for the given period before trying again
     delay(theDelay);
   }
 }
