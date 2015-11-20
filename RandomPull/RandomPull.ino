@@ -42,72 +42,49 @@ void setup(void) {
   }
 }
 
+/*
+ * buildLEDsArray builds an array that holds the location of each LED.
+ * It starts at 0,0,0 and works it's way backwards (Y axis), then
+ * snaps to the front and starts again. Once the entire bottom plane is
+ * done it moves up to the next one and starts again.
+ */
 void buildLEDsArray() {
-  // Record what each point is
-  leds[1].X = 0;  leds[1].Y = 0;  leds[1].Z = 0;
-  leds[2].X = 0;  leds[2].Y = 1;  leds[2].Z = 0;
-  leds[3].X = 0;  leds[3].Y = 2;  leds[3].Z = 0;
-  leds[4].X = 0;  leds[4].Y = 3;  leds[4].Z = 0;
-  leds[5].X = 1;  leds[5].Y = 0;  leds[5].Z = 0;
-  leds[6].X = 1;  leds[6].Y = 1;  leds[6].Z = 0;
-  leds[7].X = 1;  leds[7].Y = 2;  leds[7].Z = 0;
-  leds[8].X = 1;  leds[8].Y = 3;  leds[8].Z = 0;
-  leds[9].X = 2;  leds[9].Y = 0;  leds[9].Z = 0;
-  leds[10].X = 2;  leds[10].Y = 1;  leds[10].Z = 0;
-  leds[11].X = 2;  leds[11].Y = 2;  leds[11].Z = 0;
-  leds[12].X = 2;  leds[12].Y = 3;  leds[12].Z = 0;
-  leds[13].X = 3;  leds[13].Y = 0;  leds[13].Z = 0;
-  leds[14].X = 3;  leds[14].Y = 1;  leds[14].Z = 0;
-  leds[15].X = 3;  leds[15].Y = 2;  leds[15].Z = 0;
-  leds[16].X = 3;  leds[16].Y = 3;  leds[16].Z = 0;
-  leds[17].X = 0;  leds[17].Y = 0;  leds[17].Z = 1;
-  leds[18].X = 0;  leds[18].Y = 1;  leds[18].Z = 1;
-  leds[19].X = 0;  leds[19].Y = 2;  leds[19].Z = 1;
-  leds[20].X = 0;  leds[20].Y = 3;  leds[20].Z = 1;
-  leds[21].X = 1;  leds[21].Y = 0;  leds[21].Z = 1;
-  leds[22].X = 1;  leds[22].Y = 1;  leds[22].Z = 1;
-  leds[23].X = 1;  leds[23].Y = 2;  leds[23].Z = 1;
-  leds[24].X = 1;  leds[24].Y = 3;  leds[24].Z = 1;
-  leds[25].X = 2;  leds[25].Y = 0;  leds[25].Z = 1;
-  leds[26].X = 2;  leds[26].Y = 1;  leds[26].Z = 1;
-  leds[27].X = 2;  leds[27].Y = 2;  leds[27].Z = 1;
-  leds[28].X = 2;  leds[28].Y = 3;  leds[28].Z = 1;
-  leds[29].X = 3;  leds[29].Y = 0;  leds[29].Z = 1;
-  leds[30].X = 3;  leds[30].Y = 1;  leds[30].Z = 1;
-  leds[31].X = 3;  leds[31].Y = 2;  leds[31].Z = 1;
-  leds[32].X = 3;  leds[32].Y = 3;  leds[32].Z = 1;
-  leds[33].X = 0;  leds[33].Y = 0;  leds[33].Z = 2;
-  leds[34].X = 0;  leds[34].Y = 1;  leds[34].Z = 2;
-  leds[35].X = 0;  leds[35].Y = 2;  leds[35].Z = 2;
-  leds[36].X = 0;  leds[36].Y = 3;  leds[36].Z = 2;
-  leds[37].X = 1;  leds[37].Y = 0;  leds[37].Z = 2;
-  leds[38].X = 1;  leds[38].Y = 1;  leds[38].Z = 2;
-  leds[39].X = 1;  leds[39].Y = 2;  leds[39].Z = 2;
-  leds[40].X = 1;  leds[40].Y = 3;  leds[40].Z = 2;
-  leds[41].X = 2;  leds[41].Y = 0;  leds[41].Z = 2;
-  leds[42].X = 2;  leds[42].Y = 1;  leds[42].Z = 2;
-  leds[43].X = 2;  leds[43].Y = 2;  leds[43].Z = 2;
-  leds[44].X = 2;  leds[44].Y = 3;  leds[44].Z = 2;
-  leds[45].X = 3;  leds[45].Y = 0;  leds[45].Z = 2;
-  leds[46].X = 3;  leds[46].Y = 1;  leds[46].Z = 2;
-  leds[47].X = 3;  leds[47].Y = 2;  leds[47].Z = 2;
-  leds[48].X = 3;  leds[48].Y = 3;  leds[48].Z = 2;
-  leds[49].X = 0;  leds[49].Y = 0;  leds[49].Z = 3;
-  leds[50].X = 0;  leds[50].Y = 1;  leds[50].Z = 3;
-  leds[51].X = 0;  leds[51].Y = 2;  leds[51].Z = 3;
-  leds[52].X = 0;  leds[52].Y = 3;  leds[52].Z = 3;
-  leds[53].X = 1;  leds[53].Y = 0;  leds[53].Z = 3;
-  leds[54].X = 1;  leds[54].Y = 1;  leds[54].Z = 3;
-  leds[55].X = 1;  leds[55].Y = 2;  leds[55].Z = 3;
-  leds[56].X = 1;  leds[56].Y = 3;  leds[56].Z = 3;
-  leds[57].X = 2;  leds[57].Y = 0;  leds[57].Z = 3;
-  leds[58].X = 2;  leds[58].Y = 1;  leds[58].Z = 3;
-  leds[59].X = 2;  leds[59].Y = 2;  leds[59].Z = 3;
-  leds[60].X = 2;  leds[60].Y = 3;  leds[60].Z = 3;
-  leds[61].X = 3;  leds[61].Y = 0;  leds[61].Z = 3;
-  leds[62].X = 3;  leds[62].Y = 1;  leds[62].Z = 3;
-  leds[63].X = 3;  leds[63].Y = 2;  leds[63].Z = 3;
-  leds[64].X = 3;  leds[64].Y = 3;  leds[64].Z = 3;  
+  // Start at 0,0,0
+  byte X = 0;
+  byte Y = 0;
+  byte Z = 0;
+
+  for (byte i = 1; i <= 64; i++) {
+    // Set the LED position to the current calculated X,Y,Z coordinate
+    leds[i].X = X;
+    leds[i].Y = Y;
+    leds[i].Z = Z;
+
+    // Increment the coordinate in the Y direction
+    Y++;
+
+    if (Y == 4) {
+      // We have hit the end of the Y's, so snap back to the 0 position, and
+      // move to the next X position.
+      Y = 0;
+      X++;
+    }
+
+    if (X == 4) {
+      // We have hit the end of the X's, so snap back to the 0 X position
+      X = 0;
+    }
+
+    switch (i)
+    {
+      // When we are at position 16, 32, and 48 it's time to move up one Z position
+      case 16:
+      case 32:
+      case 48:
+        Z++;
+        break;
+    }
+  }
 }
 
 void loop(void) {
