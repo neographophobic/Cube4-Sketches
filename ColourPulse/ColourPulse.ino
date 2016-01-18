@@ -5,12 +5,25 @@
  * License: BSD 3-Clause Licence
  */
 
-#include "SPI.h"
+// Include required libraries
+#include <SPI.h>
 #include "Cube.h"
 #include "Utils.h"
 
-Cube cube;
+// Define global variables
+// frequency influences how often the colour is changes as it fades in and out
+//   smaller number mean more frequent
+byte frequency = 5;
 
+// theDelay tracks how long to pause between colour changes
+byte theDelay = 50;
+
+// theColour sets the colour that is used as the basis of the effect
+rgb_t theColour = RGB(0x4B, 0x00, 0x82); // Violet
+//rgb_t theColour = GREEN;
+
+// Create an instance of the cube class
+Cube cube;
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
@@ -35,12 +48,6 @@ void setup(void) {
 }
 
 void loop(void) {
-  //unsigned long theColour = 0x4B0082;    // Violet
-  unsigned long theColour = 0x00FF00; // Green
-
-  int theDelay = 50;
-  int frequency = 5;
-
   struct hsv theColourInHSV = convertHexToHSV(theColour);
 
   for (int i = 1; i <= 100; i++) {
