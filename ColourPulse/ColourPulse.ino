@@ -48,38 +48,48 @@ void setup(void) {
 }
 
 void loop(void) {
-  struct hsv theColourInHSV = convertHexToHSV(theColour);
+  // Convert the provided colour to the HSV
+  struct hsv theColourInHSV = rgb2hsv(theColour);
+  
+  // In HSV color, "V" stands for value which is the "brightness"
+  // of the colour. By increasing or decreasing this we can keep the
+  // colour, but make it appear brighter or darker
 
-  for (int i = 1; i <= 100; i++) {
-    int x = i % frequency;
-    if (x == 0 ) {
-      theColourInHSV.v = i;
+  // Get the brightness value from the HSV colour as an int
+  int initialBrightness = (int) theColourInHSV.v;
 
-      rgb_t theNewColour = hsv2rgb(theColourInHSV);
-
-      cube.all(theNewColour);
-      delay(theDelay);
-    }
+  // Fade from "black" to the given colour's default brightness
+  for (int i = 1; i <= initialBrightness; i++) {
+    updateCubeColour(theColourInHSV, i);
   }
-  for (int i = 100; i >= 1; i--) {
-    int x = i % frequency;
-    if (x == 0 ) {
-      theColourInHSV.v = i;
 
-      rgb_t theNewColour = hsv2rgb(theColourInHSV);
-
-      cube.all(theNewColour);
-      delay(theDelay);
-    }
+  // Fade from the colour's default brightness to "black"
+  for (int i = initialBrightness; i >= 1; i--) {
+    updateCubeColour(theColourInHSV, i);
   }
 }
 
+// updateCubeColour:  Taking the colour in HSV, and a new brightness value
+//                    determine if the cube should be updated, and if so
+//                    update the cube to the new colour
+void updateCubeColour(struct hsv theColourInHSV, int brightness) {
+  // Get the remainder of the brightness / frequence
+  int x = brightness % frequency;
 
+  if (x == 0 ) {
+    // No remainder, so now is the time to update the cube
 
+    // Update the brightness value
+    theColourInHSV.v = brightness;
 
+    // Convert the newly updated HSV value into RGB
+    rgb_t theNewColour = hsv2rgb(theColourInHSV);
 
+    // Update the cube with the new colour
+    cube.all(theNewColour);
 
+    // Pause for the period the user has specified
+    delay(theDelay);
   }
 }
-
 
