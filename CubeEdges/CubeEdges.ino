@@ -4,13 +4,14 @@
  * Version: 1.0
  * Author:  Adam Reed (adam@secretcode.ninja)
  * License: BSD 3-Clause Licence
- * 
+ *
  * Inspired by Trilobyte Projects "4x4x4 Led cube demo"
  * at https://www.youtube.com/watch?v=adXXSitxPdo&t=91
  */
 
 #include "SPI.h"
 #include "Cube.h"
+#include "Cube4_ARUtils.h"
 
 Cube cube;
 
@@ -24,21 +25,13 @@ int theDelay = 100;       // How long to pause between each step
  * Don't edit these variables
  */
 
-// Struct to track the X,Y,Z position
-struct point
-{
-  byte X;
-  byte Y;
-  byte Z;
-};
-
 // Struct to track the 3 X,Y,Z positions we end up
 // after an animation sequence
 struct endPoints
 {
-  struct point point1;
-  struct point point2;
-  struct point point3;
+  struct coordinate point1;
+  struct coordinate point2;
+  struct coordinate point3;
 };
 
 void setup(void) {
@@ -64,30 +57,30 @@ void setup(void) {
 }
 
 void loop(void) {
-  // Animate the edges of the cube, starting from 033
-  cubeEdge(0,3,3, theColour, theDelay);
-  // Wipe the edges, starting from 000
-  cubeEdge(0,0,0, BLACK, theDelay);
+  // Animate the edges of the cube, starting from 033 (Corner 6)
+  cubeEdge(0, 3, 3, theColour, theDelay);
+  // Wipe the edges, starting from 000 (Corner 1)
+  cubeEdge(0, 0, 0, BLACK, theDelay);
 
-  // Animate the edges of the cube, starting from 000
-  cubeEdge(0,0,0, theColour, theDelay);
-  // Wipe the edges, starting from 303
-  cubeEdge(3,0,3, BLACK, theDelay);
+  // Animate the edges of the cube, starting from 000 (Corner 1)
+  cubeEdge(0, 0, 0, theColour, theDelay);
+  // Wipe the edges, starting from 303 (Corner 8)
+  cubeEdge(3, 0, 3, BLACK, theDelay);
 
-  // Animate the edges of the cube, starting from 303
-  cubeEdge(3,0,3, theColour, theDelay);
-  // Wipe the edges, starting from 033
-  cubeEdge(0,3,3, BLACK, theDelay);
+  // Animate the edges of the cube, starting from 303 (Corner 8)
+  cubeEdge(3, 0, 3, theColour, theDelay);
+  // Wipe the edges, starting from 033 (Corner 6)
+  cubeEdge(0, 3, 3, BLACK, theDelay);
 }
 
-void cubeEdge(byte X, byte Y, byte Z, rgb_t theColour, int theDelay)
+void cubeEdge(byte x, byte y, byte z, rgb_t theColour, int theDelay)
 {
   // Start at the initial point
-  struct point initialPoint;
-  initialPoint.X = X;
-  initialPoint.Y = Y;
-  initialPoint.Z = Z;
-  cube.set(initialPoint.X, initialPoint.Y, initialPoint.Z, theColour);
+  struct coordinate initialPoint;
+  initialPoint.x = x;
+  initialPoint.y = y;
+  initialPoint.z = z;
+  cube.set(initialPoint.x, initialPoint.y, initialPoint.z, theColour);
   delay(theDelay);
 
   // First part - from the initial point
@@ -96,7 +89,7 @@ void cubeEdge(byte X, byte Y, byte Z, rgb_t theColour, int theDelay)
     newPointsSecondPart = lightUpLEDs(initialPoint, i, theColour);
     delay(theDelay);
   }
-  
+
   // Second Part - from the three new points
   struct endPoints newPointsThirdPart1;
   struct endPoints newPointsThirdPart2;
@@ -106,7 +99,7 @@ void cubeEdge(byte X, byte Y, byte Z, rgb_t theColour, int theDelay)
     newPointsThirdPart2 = lightUpLEDs(newPointsSecondPart.point2, i, theColour);
     newPointsThirdPart3 = lightUpLEDs(newPointsSecondPart.point3, i, theColour);
     delay(theDelay);
-}
+  }
 
   // Final Part - from the nine new points
   for (int i = 1; i <= 3; i++) {
@@ -125,146 +118,94 @@ void cubeEdge(byte X, byte Y, byte Z, rgb_t theColour, int theDelay)
   }
 }
 
-struct endPoints lightUpLEDs(struct point initialPoint, byte animationStep, rgb_t theColour)
+struct endPoints lightUpLEDs(struct coordinate initialPoint, byte animationStep, rgb_t theColour)
 {
-    // For every given initial point, we move in 3 directions
-    struct point newPoint1;
-    struct point newPoint2;
-    struct point newPoint3;
+  // For every given initial point, we move in 3 directions
+  struct coordinate newPoint1;
+  struct coordinate newPoint2;
+  struct coordinate newPoint3;
 
-    // Calculate the 3 new positions, based on the initial point
+  // Default the three new positions to the value we were passed
+  newPoint1.x = initialPoint.x;
+  newPoint1.y = initialPoint.y;
+  newPoint1.z = initialPoint.z;
+  newPoint2.x = initialPoint.x;
+  newPoint2.y = initialPoint.y;
+  newPoint2.z = initialPoint.z;
+  newPoint3.x = initialPoint.x;
+  newPoint3.y = initialPoint.y;
+  newPoint3.z = initialPoint.z;
 
-    // Initial Point: 000
-    if (initialPoint.X == 0 && initialPoint.Y == 0 && initialPoint.Z == 0) {
-      newPoint1.X = initialPoint.X;
-      newPoint1.Y = initialPoint.Y + animationStep;
-      newPoint1.Z = initialPoint.Z;
+  // Update the new positions to their new location based on where we
+  // started from
 
-      newPoint2.X = initialPoint.X + animationStep;
-      newPoint2.Y = initialPoint.Y;
-      newPoint2.Z = initialPoint.Z;
+  // Initial Point: 000 (Corner 1)
+  if (initialPoint.x == 0 && initialPoint.y == 0 && initialPoint.z == 0) {
+    newPoint1.y = initialPoint.y + animationStep;
+    newPoint2.x = initialPoint.x + animationStep;
+    newPoint3.z = initialPoint.z + animationStep;
+  }
 
-      newPoint3.X = initialPoint.X;
-      newPoint3.Y = initialPoint.Y;
-      newPoint3.Z = initialPoint.Z + animationStep;
-    }
+  // Initial Point: 030 (Corner 2)
+  if (initialPoint.x == 0 && initialPoint.y == 3 && initialPoint.z == 0) {
+    newPoint1.y = initialPoint.y - animationStep;
+    newPoint2.x = initialPoint.x + animationStep;
+    newPoint3.z = initialPoint.z + animationStep;
+  }
 
-    // Initial Point: 030
-    if (initialPoint.X == 0 && initialPoint.Y == 3 && initialPoint.Z == 0) {
-      newPoint1.X = initialPoint.X;
-      newPoint1.Y = initialPoint.Y - animationStep;
-      newPoint1.Z = initialPoint.Z;
+  // Initial Point: 330 (Corner 3)
+  if (initialPoint.x == 3 && initialPoint.y == 3 && initialPoint.z == 0) {
+    newPoint1.x = initialPoint.x - animationStep;
+    newPoint2.y = initialPoint.y - animationStep;
+    newPoint3.z = initialPoint.z + animationStep;
+  }
 
-      newPoint2.X = initialPoint.X + animationStep;
-      newPoint2.Y = initialPoint.Y;
-      newPoint2.Z = initialPoint.Z;
+  // Initial Point: 300 (Corner 4)
+  if (initialPoint.x == 3 && initialPoint.y == 0 && initialPoint.z == 0) {
+    newPoint1.x = initialPoint.x - animationStep;
+    newPoint2.y = initialPoint.y + animationStep;
+    newPoint3.z = initialPoint.z + animationStep;
+  }
 
-      newPoint3.X = initialPoint.X;
-      newPoint3.Y = initialPoint.Y;
-      newPoint3.Z = initialPoint.Z + animationStep;
-    }
+  // Initial Point: 003 (Corner 5)
+  if (initialPoint.x == 0 && initialPoint.y == 0 && initialPoint.z == 3) {
+    newPoint1.y = initialPoint.y + animationStep;
+    newPoint2.x = initialPoint.x + animationStep;
+    newPoint3.z = initialPoint.z - animationStep;
+  }
 
-    // Initial Point: 330
-    if (initialPoint.X == 3 && initialPoint.Y == 3 && initialPoint.Z == 0) {
-      newPoint1.X = initialPoint.X - animationStep;
-      newPoint1.Y = initialPoint.Y;
-      newPoint1.Z = initialPoint.Z;
+  // Initial Point: 033 (Corner 6)
+  if (initialPoint.x == 0 && initialPoint.y == 3 && initialPoint.z == 3) {
+    newPoint1.y = initialPoint.y - animationStep;
+    newPoint2.x = initialPoint.x + animationStep;
+    newPoint3.z = initialPoint.z - animationStep;
+  }
 
-      newPoint2.X = initialPoint.X;
-      newPoint2.Y = initialPoint.Y - animationStep;
-      newPoint2.Z = initialPoint.Z;
+  // Initial Point: 333 (Corner 7)
+  if (initialPoint.x == 3 && initialPoint.y == 3 && initialPoint.z == 3) {
+    newPoint1.x = initialPoint.x - animationStep;
+    newPoint2.y = initialPoint.y - animationStep;
+    newPoint3.z = initialPoint.z - animationStep;
+  }
 
-      newPoint3.X = initialPoint.X;
-      newPoint3.Y = initialPoint.Y;
-      newPoint3.Z = initialPoint.Z + animationStep;
-    }
+  // Initial Point: 303 (Corner 8)
+  if (initialPoint.x == 3 && initialPoint.y == 0 && initialPoint.z == 3) {
+    newPoint1.x = initialPoint.x - animationStep;
+    newPoint2.y = initialPoint.y + animationStep;
+    newPoint3.z = initialPoint.z - animationStep;
+  }
 
-    // Initial Point: 300
-    if (initialPoint.X == 3 && initialPoint.Y == 0 && initialPoint.Z == 0) {
-      newPoint1.X = initialPoint.X - animationStep;
-      newPoint1.Y = initialPoint.Y;
-      newPoint1.Z = initialPoint.Z;
+  // Light up the required LEDs
+  cube.set(newPoint1.x, newPoint1.y, newPoint1.z, theColour);
+  cube.set(newPoint2.x, newPoint2.y, newPoint2.z, theColour);
+  cube.set(newPoint3.x, newPoint3.y, newPoint3.z, theColour);
 
-      newPoint2.X = initialPoint.X;
-      newPoint2.Y = initialPoint.Y + animationStep;
-      newPoint2.Z = initialPoint.Z;
+  // Return the 3 X,Y,Z points we have got to with this pass
+  struct endPoints theEndPoints;
+  theEndPoints.point1 = newPoint1;
+  theEndPoints.point2 = newPoint2;
+  theEndPoints.point3 = newPoint3;
 
-      newPoint3.X = initialPoint.X;
-      newPoint3.Y = initialPoint.Y;
-      newPoint3.Z = initialPoint.Z + animationStep;
-    }
-
-    // Initial Point: 003
-    if (initialPoint.X == 0 && initialPoint.Y == 0 && initialPoint.Z == 3) {
-      newPoint1.X = initialPoint.X;
-      newPoint1.Y = initialPoint.Y + animationStep;
-      newPoint1.Z = initialPoint.Z;
-
-      newPoint2.X = initialPoint.X + animationStep;
-      newPoint2.Y = initialPoint.Y;
-      newPoint2.Z = initialPoint.Z;
-
-      newPoint3.X = initialPoint.X;
-      newPoint3.Y = initialPoint.Y;
-      newPoint3.Z = initialPoint.Z - animationStep;
-    }
-
-    // Initial Point: 033
-    if (initialPoint.X == 0 && initialPoint.Y == 3 && initialPoint.Z == 3) {
-      newPoint1.X = initialPoint.X;
-      newPoint1.Y = initialPoint.Y - animationStep;
-      newPoint1.Z = initialPoint.Z;
-
-      newPoint2.X = initialPoint.X + animationStep;
-      newPoint2.Y = initialPoint.Y;
-      newPoint2.Z = initialPoint.Z;
-
-      newPoint3.X = initialPoint.X;
-      newPoint3.Y = initialPoint.Y;
-      newPoint3.Z = initialPoint.Z - animationStep;
-    }
-
-    // Initial Point: 333
-    if (initialPoint.X == 3 && initialPoint.Y == 3 && initialPoint.Z == 3) {
-      newPoint1.X = initialPoint.X - animationStep;
-      newPoint1.Y = initialPoint.Y;
-      newPoint1.Z = initialPoint.Z;
-
-      newPoint2.X = initialPoint.X;
-      newPoint2.Y = initialPoint.Y - animationStep;
-      newPoint2.Z = initialPoint.Z;
-
-      newPoint3.X = initialPoint.X;
-      newPoint3.Y = initialPoint.Y;
-      newPoint3.Z = initialPoint.Z - animationStep;
-    }
-
-    // Initial Point: 303
-    if (initialPoint.X == 3 && initialPoint.Y == 0 && initialPoint.Z == 3) {
-      newPoint1.X = initialPoint.X - animationStep;
-      newPoint1.Y = initialPoint.Y;
-      newPoint1.Z = initialPoint.Z;
-
-      newPoint2.X = initialPoint.X;
-      newPoint2.Y = initialPoint.Y + animationStep;
-      newPoint2.Z = initialPoint.Z;
-
-      newPoint3.X = initialPoint.X;
-      newPoint3.Y = initialPoint.Y;
-      newPoint3.Z = initialPoint.Z - animationStep;
-    }
-
-    // Light up the required LEDs
-    cube.set(newPoint1.X, newPoint1.Y, newPoint1.Z, theColour);
-    cube.set(newPoint2.X, newPoint2.Y, newPoint2.Z, theColour);
-    cube.set(newPoint3.X, newPoint3.Y, newPoint3.Z, theColour);
-
-    // Return the 3 X,Y,Z points we have got to with this pass
-    struct endPoints theEndPoints;
-    theEndPoints.point1 = newPoint1;
-    theEndPoints.point2 = newPoint2;
-    theEndPoints.point3 = newPoint3;
-
-    return theEndPoints;
+  return theEndPoints;
 }
 
