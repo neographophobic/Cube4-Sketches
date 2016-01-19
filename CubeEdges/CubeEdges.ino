@@ -4,7 +4,7 @@
  * Version: 1.0
  * Author:  Adam Reed (adam@secretcode.ninja)
  * License: BSD 3-Clause Licence
- * 
+ *
  * Inspired by Trilobyte Projects "4x4x4 Led cube demo"
  * at https://www.youtube.com/watch?v=adXXSitxPdo&t=91
  */
@@ -58,19 +58,19 @@ void setup(void) {
 
 void loop(void) {
   // Animate the edges of the cube, starting from 033 (Corner 6)
-  cubeEdge(0,3,3, theColour, theDelay);
+  cubeEdge(0, 3, 3, theColour, theDelay);
   // Wipe the edges, starting from 000 (Corner 1)
-  cubeEdge(0,0,0, BLACK, theDelay);
+  cubeEdge(0, 0, 0, BLACK, theDelay);
 
   // Animate the edges of the cube, starting from 000 (Corner 1)
-  cubeEdge(0,0,0, theColour, theDelay);
+  cubeEdge(0, 0, 0, theColour, theDelay);
   // Wipe the edges, starting from 303 (Corner 8)
-  cubeEdge(3,0,3, BLACK, theDelay);
+  cubeEdge(3, 0, 3, BLACK, theDelay);
 
   // Animate the edges of the cube, starting from 303 (Corner 8)
-  cubeEdge(3,0,3, theColour, theDelay);
+  cubeEdge(3, 0, 3, theColour, theDelay);
   // Wipe the edges, starting from 033 (Corner 6)
-  cubeEdge(0,3,3, BLACK, theDelay);
+  cubeEdge(0, 3, 3, BLACK, theDelay);
 }
 
 void cubeEdge(byte x, byte y, byte z, rgb_t theColour, int theDelay)
@@ -89,7 +89,7 @@ void cubeEdge(byte x, byte y, byte z, rgb_t theColour, int theDelay)
     newPointsSecondPart = lightUpLEDs(initialPoint, i, theColour);
     delay(theDelay);
   }
-  
+
   // Second Part - from the three new points
   struct endPoints newPointsThirdPart1;
   struct endPoints newPointsThirdPart2;
@@ -99,7 +99,7 @@ void cubeEdge(byte x, byte y, byte z, rgb_t theColour, int theDelay)
     newPointsThirdPart2 = lightUpLEDs(newPointsSecondPart.point2, i, theColour);
     newPointsThirdPart3 = lightUpLEDs(newPointsSecondPart.point3, i, theColour);
     delay(theDelay);
-}
+  }
 
   // Final Part - from the nine new points
   for (int i = 1; i <= 3; i++) {
@@ -120,92 +120,92 @@ void cubeEdge(byte x, byte y, byte z, rgb_t theColour, int theDelay)
 
 struct endPoints lightUpLEDs(struct coordinate initialPoint, byte animationStep, rgb_t theColour)
 {
-    // For every given initial point, we move in 3 directions
-    struct coordinate newPoint1;
-    struct coordinate newPoint2;
-    struct coordinate newPoint3;
+  // For every given initial point, we move in 3 directions
+  struct coordinate newPoint1;
+  struct coordinate newPoint2;
+  struct coordinate newPoint3;
 
-    // Default the three new positions to the value we were passed
-    newPoint1.x = initialPoint.x;
-    newPoint1.y = initialPoint.y;
-    newPoint1.z = initialPoint.z;
-    newPoint2.x = initialPoint.x;
-    newPoint2.y = initialPoint.y;
-    newPoint2.z = initialPoint.z;
-    newPoint3.x = initialPoint.x;
-    newPoint3.y = initialPoint.y;
-    newPoint3.z = initialPoint.z;
+  // Default the three new positions to the value we were passed
+  newPoint1.x = initialPoint.x;
+  newPoint1.y = initialPoint.y;
+  newPoint1.z = initialPoint.z;
+  newPoint2.x = initialPoint.x;
+  newPoint2.y = initialPoint.y;
+  newPoint2.z = initialPoint.z;
+  newPoint3.x = initialPoint.x;
+  newPoint3.y = initialPoint.y;
+  newPoint3.z = initialPoint.z;
 
-    // Update the new positions to their new location based on where we
-    // started from
-    
-    // Initial Point: 000 (Corner 1)
-    if (initialPoint.x == 0 && initialPoint.y == 0 && initialPoint.z == 0) {
-      newPoint1.y = initialPoint.y + animationStep;
-      newPoint2.x = initialPoint.x + animationStep;
-      newPoint3.z = initialPoint.z + animationStep;
-    }
+  // Update the new positions to their new location based on where we
+  // started from
 
-    // Initial Point: 030 (Corner 2)
-    if (initialPoint.x == 0 && initialPoint.y == 3 && initialPoint.z == 0) {
-      newPoint1.y = initialPoint.y - animationStep;
-      newPoint2.x = initialPoint.x + animationStep;
-      newPoint3.z = initialPoint.z + animationStep;
-    }
+  // Initial Point: 000 (Corner 1)
+  if (initialPoint.x == 0 && initialPoint.y == 0 && initialPoint.z == 0) {
+    newPoint1.y = initialPoint.y + animationStep;
+    newPoint2.x = initialPoint.x + animationStep;
+    newPoint3.z = initialPoint.z + animationStep;
+  }
 
-    // Initial Point: 330 (Corner 3)
-    if (initialPoint.x == 3 && initialPoint.y == 3 && initialPoint.z == 0) {
-      newPoint1.x = initialPoint.x - animationStep;
-      newPoint2.y = initialPoint.y - animationStep;
-      newPoint3.z = initialPoint.z + animationStep;
-    }
+  // Initial Point: 030 (Corner 2)
+  if (initialPoint.x == 0 && initialPoint.y == 3 && initialPoint.z == 0) {
+    newPoint1.y = initialPoint.y - animationStep;
+    newPoint2.x = initialPoint.x + animationStep;
+    newPoint3.z = initialPoint.z + animationStep;
+  }
 
-    // Initial Point: 300 (Corner 4)
-    if (initialPoint.x == 3 && initialPoint.y == 0 && initialPoint.z == 0) {
-      newPoint1.x = initialPoint.x - animationStep;
-      newPoint2.y = initialPoint.y + animationStep;
-      newPoint3.z = initialPoint.z + animationStep;
-    }
+  // Initial Point: 330 (Corner 3)
+  if (initialPoint.x == 3 && initialPoint.y == 3 && initialPoint.z == 0) {
+    newPoint1.x = initialPoint.x - animationStep;
+    newPoint2.y = initialPoint.y - animationStep;
+    newPoint3.z = initialPoint.z + animationStep;
+  }
 
-    // Initial Point: 003 (Corner 5)
-    if (initialPoint.x == 0 && initialPoint.y == 0 && initialPoint.z == 3) {
-      newPoint1.y = initialPoint.y + animationStep;
-      newPoint2.x = initialPoint.x + animationStep;
-      newPoint3.z = initialPoint.z - animationStep;
-    }
+  // Initial Point: 300 (Corner 4)
+  if (initialPoint.x == 3 && initialPoint.y == 0 && initialPoint.z == 0) {
+    newPoint1.x = initialPoint.x - animationStep;
+    newPoint2.y = initialPoint.y + animationStep;
+    newPoint3.z = initialPoint.z + animationStep;
+  }
 
-    // Initial Point: 033 (Corner 6)
-    if (initialPoint.x == 0 && initialPoint.y == 3 && initialPoint.z == 3) {
-      newPoint1.y = initialPoint.y - animationStep;
-      newPoint2.x = initialPoint.x + animationStep;
-      newPoint3.z = initialPoint.z - animationStep;
-    }
+  // Initial Point: 003 (Corner 5)
+  if (initialPoint.x == 0 && initialPoint.y == 0 && initialPoint.z == 3) {
+    newPoint1.y = initialPoint.y + animationStep;
+    newPoint2.x = initialPoint.x + animationStep;
+    newPoint3.z = initialPoint.z - animationStep;
+  }
 
-    // Initial Point: 333 (Corner 7)
-    if (initialPoint.x == 3 && initialPoint.y == 3 && initialPoint.z == 3) {
-      newPoint1.x = initialPoint.x - animationStep;
-      newPoint2.y = initialPoint.y - animationStep;
-      newPoint3.z = initialPoint.z - animationStep;
-    }
+  // Initial Point: 033 (Corner 6)
+  if (initialPoint.x == 0 && initialPoint.y == 3 && initialPoint.z == 3) {
+    newPoint1.y = initialPoint.y - animationStep;
+    newPoint2.x = initialPoint.x + animationStep;
+    newPoint3.z = initialPoint.z - animationStep;
+  }
 
-    // Initial Point: 303 (Corner 8)
-    if (initialPoint.x == 3 && initialPoint.y == 0 && initialPoint.z == 3) {
-      newPoint1.x = initialPoint.x - animationStep;
-      newPoint2.y = initialPoint.y + animationStep;
-      newPoint3.z = initialPoint.z - animationStep;
-    }
+  // Initial Point: 333 (Corner 7)
+  if (initialPoint.x == 3 && initialPoint.y == 3 && initialPoint.z == 3) {
+    newPoint1.x = initialPoint.x - animationStep;
+    newPoint2.y = initialPoint.y - animationStep;
+    newPoint3.z = initialPoint.z - animationStep;
+  }
 
-    // Light up the required LEDs
-    cube.set(newPoint1.x, newPoint1.y, newPoint1.z, theColour);
-    cube.set(newPoint2.x, newPoint2.y, newPoint2.z, theColour);
-    cube.set(newPoint3.x, newPoint3.y, newPoint3.z, theColour);
+  // Initial Point: 303 (Corner 8)
+  if (initialPoint.x == 3 && initialPoint.y == 0 && initialPoint.z == 3) {
+    newPoint1.x = initialPoint.x - animationStep;
+    newPoint2.y = initialPoint.y + animationStep;
+    newPoint3.z = initialPoint.z - animationStep;
+  }
 
-    // Return the 3 X,Y,Z points we have got to with this pass
-    struct endPoints theEndPoints;
-    theEndPoints.point1 = newPoint1;
-    theEndPoints.point2 = newPoint2;
-    theEndPoints.point3 = newPoint3;
+  // Light up the required LEDs
+  cube.set(newPoint1.x, newPoint1.y, newPoint1.z, theColour);
+  cube.set(newPoint2.x, newPoint2.y, newPoint2.z, theColour);
+  cube.set(newPoint3.x, newPoint3.y, newPoint3.z, theColour);
 
-    return theEndPoints;
+  // Return the 3 X,Y,Z points we have got to with this pass
+  struct endPoints theEndPoints;
+  theEndPoints.point1 = newPoint1;
+  theEndPoints.point2 = newPoint2;
+  theEndPoints.point3 = newPoint3;
+
+  return theEndPoints;
 }
 
