@@ -1,4 +1,3 @@
-
 /*
  * File:    FaceExpand.ino
  * Version: 1.0
@@ -8,6 +7,7 @@
 
 #include "SPI.h"
 #include "Cube.h"
+#include <Cube4_ARUtils.h>
 
 Cube cube;
 
@@ -73,12 +73,8 @@ void loop(void) {
 void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
 { 
   // Track the coordinates to use for the boxes we draw
-  byte startX;
-  byte startY;
-  byte startZ;
-  byte endX;
-  byte endY;
-  byte endZ;
+  struct coordinate start;
+  struct coordinate end;
 
   // Track where we are in the animation sequence (there are
   // 4 steps).
@@ -96,52 +92,52 @@ void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
   // choice.
   switch (startPosition) {
     case 1:
-      startX = 3;
-      startY = 0;
-      startZ = 0;
+      start.x = 3;
+      start.y = 0;
+      start.z = 0;
       break;
     case 2:
-      startX = 0;
-      startY = 0;
-      startZ = 3;
+      start.x = 0;
+      start.y = 0;
+      start.z = 3;
       break;
     case 3:
-      startX = 0;
-      startY = 3;
-      startZ = 0;
+      start.x = 0;
+      start.y = 3;
+      start.z = 0;
       break;
     case 4:
-      startX = 3;
-      startY = 3;
-      startZ = 3;
+      start.x = 3;
+      start.y = 3;
+      start.z = 3;
       break;
     case 5:
-      startX = 0;
-      startY = 0;
-      startZ = 0;
+      start.x = 0;
+      start.y = 0;
+      start.z = 0;
       break;
     case 6:
-      startX = 3;
-      startY = 0;
-      startZ = 3;
+      start.x = 3;
+      start.y = 0;
+      start.z = 3;
       break;
     case 7:
-      startX = 3;
-      startY = 3;
-      startZ = 0;
+      start.x = 3;
+      start.y = 3;
+      start.z = 0;
       break;
     case 8:
-      startX = 0;
-      startY = 3;
-      startZ = 3;
+      start.x = 0;
+      start.y = 3;
+      start.z = 3;
       break;
   }
 
   // Match the end coordinates for the box to the start
   // coordinates so that only a single LED is lit up.
-  endX = startX;
-  endY = startY;
-  endZ = startZ;
+  end.x = start.x;
+  end.y = start.y;
+  end.z = start.z;
 
   if (firstRun)
   {
@@ -149,7 +145,7 @@ void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
     // the start position, and then flag that this isn't
     // required for subsquent loops (as the last step of the loop
     // lights up the start positon for then next time through)
-    cube.box(startX, startY, startZ, endX, endY, endZ, theColour);
+    cube.box(start.x, start.y, start.z, end.x, end.y, end.z, theColour);
     delay(theDelay);
     firstRun = false;
   }
@@ -164,42 +160,42 @@ void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
       // point.
       switch (move) {
         case 1:
-          startX--;
-          endZ++;
+          start.x--;
+          end.z++;
           break;
         case 2:
-          startZ--;
-          endY++;
+          start.z--;
+          end.y++;
           break;
         case 3:
-          endX++;
-          endZ++;
+          end.x++;
+          end.z++;
           break;
         case 4:
-          startY--;
-          startZ--;
+          start.y--;
+          start.z--;
           break;
         case 5:
-          endX++;
-          endZ++;
+          end.x++;
+          end.z++;
           break;
         case 6:
-          startZ--;
-          endY++;
+          start.z--;
+          end.y++;
           break;
         case 7:
-          startX--;
-          endZ++;
+          start.x--;
+          end.z++;
           break;
         case 8:
-          startY--;
-          startZ--;
+          start.y--;
+          start.z--;
           break;
       }
 
       // Draw the box in the given colour and then pause for the
       // provided delay.
-      cube.box(startX, startY, startZ, endX, endY, endZ, theColour);
+      cube.box(start.x, start.y, start.z, end.x, end.y, end.z, theColour);
       delay(theDelay);
     }
 
@@ -209,43 +205,43 @@ void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
       // point.
       switch (move) {
         case 1:
-          startZ++;
-          endX--;
+          start.z++;
+          end.x--;
           break;
         case 2:
-          startY++;
-          endZ--;
+          start.y++;
+          end.z--;
           break;
         case 3:
-          startX++;
-          startZ++;
+          start.x++;
+          start.z++;
           break;
         case 4:
-          endY--;
-          endZ--;
+          end.y--;
+          end.z--;
           break;
         case 5:
-          startX++;
-          startZ++;
+          start.x++;
+          start.z++;
           break;
         case 6:
-          startY++;
-          endZ--;
+          start.y++;
+          end.z--;
           break;
         case 7:
-          startZ++;
-          endX--;
+          start.z++;
+          end.x--;
           break;
         case 8:
-          endY--;
-          endZ--;
+          end.y--;
+          end.z--;
           break;
       }
 
       // Draw the box in the given colour and then pause for the
       // provided delay, after blanking all of the LEDs.
       cube.all(BLACK);
-      cube.box(startX, startY, startZ, endX, endY, endZ, theColour);
+      cube.box(start.x, start.y, start.z, end.x, end.y, end.z, theColour);
       delay(theDelay);
     }
 
