@@ -1,25 +1,29 @@
-
 /*
  * File:    ColourPulse.ino
  * Version: 1.0
  * Author:  Adam Reed (adam@secretcode.ninja)
  * License: BSD 3-Clause Licence
- *
- * hsv2rgb and rgb2hsv functions adapted from the accepted
- * answer to http://stackoverflow.com/questions/3018313/algorithm-to-convert-rgb-to-hsv-and-hsv-to-rgb-in-range-0-255-for-both
- *
  */
 
-#include "SPI.h"
+// Include required libraries
+#include <SPI.h>
 #include "Cube.h"
+#include "Cube4_ARUtils.h"
 
+// Define global variables
+// frequency influences how often the colour is changes as it fades in and out
+//   smaller number mean more frequent
+byte frequency = 5;
+
+// theDelay tracks how long to pause between colour changes
+byte theDelay = 50;
+
+// theColour sets the colour that is used as the basis of the effect
+rgb_t theColour = RGB(0x4B, 0x00, 0x82); // Violet
+//rgb_t theColour = GREEN;
+
+// Create an instance of the cube class
 Cube cube;
-
-struct hsv {
-  double h;       // angle in degrees
-  double s;       // percent
-  double v;       // percent
-};
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
@@ -44,154 +48,48 @@ void setup(void) {
 }
 
 void loop(void) {
-  //unsigned long theColour = 0x4B0082;    // Violet
-  unsigned long theColour = 0x00FF00; // Green
+  // Convert the provided colour to the HSV
+  struct hsv theColourInHSV = rgb2hsv(theColour);
+  
+  // In HSV color, "V" stands for value which is the "brightness"
+  // of the colour. By increasing or decreasing this we can keep the
+  // colour, but make it appear brighter or darker
 
-  int theDelay = 50;
-  int frequency = 5;
+  // Get the brightness value from the HSV colour as an int
+  int initialBrightness = (int) theColourInHSV.v;
 
-  struct hsv theColourInHSV = convertHexToHSV(theColour);
-
-  for (int i = 1; i <= 100; i++) {
-    int x = i % frequency;
-    if (x == 0 ) {
-      theColourInHSV.v = i;
-
-      rgb_t theNewColour = hsv2rgb(theColourInHSV);
-
-      cube.all(theNewColour);
-      delay(theDelay);
-    }
+  // Fade from "black" to the given colour's default brightness
+  for (int i = 1; i <= initialBrightness; i++) {
+    updateCubeColour(theColourInHSV, i);
   }
-  for (int i = 100; i >= 1; i--) {
-    int x = i % frequency;
-    if (x == 0 ) {
-      theColourInHSV.v = i;
 
-      rgb_t theNewColour = hsv2rgb(theColourInHSV);
-
-      cube.all(theNewColour);
-      delay(theDelay);
-    }
+  // Fade from the colour's default brightness to "black"
+  for (int i = initialBrightness; i >= 1; i--) {
+    updateCubeColour(theColourInHSV, i);
   }
 }
 
-struct hsv convertHexToHSV(unsigned long theColour) {
-  // Extract the intensity values from the hex triplet
-  byte redIntensity = (theColour >> 16) & 0xFF;
-  byte greenIntensity = (theColour >> 8) & 0xFF;
-  byte blueIntensity = theColour & 0xFF;
+// updateCubeColour:  Taking the colour in HSV, and a new brightness value
+//                    determine if the cube should be updated, and if so
+//                    update the cube to the new colour
+void updateCubeColour(struct hsv theColourInHSV, int brightness) {
+  // Get the remainder of the brightness / frequence
+  int x = brightness % frequency;
 
-  rgb_t theRGBColours;
-  theRGBColours.color[0] = redIntensity;
-  theRGBColours.color[1] = greenIntensity;
-  theRGBColours.color[2] = blueIntensity;
+  if (x == 0 ) {
+    // No remainder, so now is the time to update the cube
 
-  struct hsv theColourInHSV = rgb2hsv(theRGBColours);
+    // Update the brightness value
+    theColourInHSV.v = brightness;
 
-  return theColourInHSV;
+    // Convert the newly updated HSV value into RGB
+    rgb_t theNewColour = hsv2rgb(theColourInHSV);
+
+    // Update the cube with the new colour
+    cube.all(theNewColour);
+
+    // Pause for the period the user has specified
+    delay(theDelay);
+  }
 }
-
-struct hsv rgb2hsv(rgb_t in)
-{
-  struct hsv         out;
-  double      min, max, delta;
-
-  min = in.color[0] < in.color[1] ? in.color[0] : in.color[1];
-  min = min  < in.color[2] ? min  : in.color[2];
-
-  max = in.color[0] > in.color[1] ? in.color[0] : in.color[1];
-  max = max  > in.color[2] ? max  : in.color[2];
-
-  out.v = max;                                // v
-  delta = max - min;
-  if (delta < 0.00001)
-  {
-    out.s = 0;
-    out.h = 0; // undefined, maybe nan?
-    return out;
-  }
-  if ( max > 0.0 ) { // NOTE: if Max is == 0, this divide would cause a crash
-    out.s = (delta / max);                  // s
-  } else {
-    // if max is 0, then r = g = b = 0
-    // s = 0, v is undefined
-    out.s = 0.0;
-    out.h = NAN;                            // its now undefined
-    return out;
-  }
-  if ( in.color[0] >= max )                          // > is bogus, just keeps compilor happy
-    out.h = ( in.color[1] - in.color[2] ) / delta;        // between yellow & magenta
-  else if ( in.color[1] >= max )
-    out.h = 2.0 + ( in.color[2] - in.color[0] ) / delta;  // between cyan & yellow
-  else
-    out.h = 4.0 + ( in.color[0] - in.color[1] ) / delta;  // between magenta & cyan
-
-  out.h *= 60.0;                              // degrees
-
-  if ( out.h < 0.0 )
-    out.h += 360.0;
-
-  return out;
-}
-
-
-rgb_t hsv2rgb(struct hsv in)
-{
-  double      hh, p, q, t, ff;
-  long        i;
-  rgb_t         out;
-
-  if (in.s <= 0.0) {      // < is bogus, just shuts up warnings
-    out.color[0] = in.v;
-    out.color[1] = in.v;
-    out.color[2] = in.v;
-    return out;
-  }
-  hh = in.h;
-  if (hh >= 360.0) hh = 0.0;
-  hh /= 60.0;
-  i = (long)hh;
-  ff = hh - i;
-  p = in.v * (1.0 - in.s);
-  q = in.v * (1.0 - (in.s * ff));
-  t = in.v * (1.0 - (in.s * (1.0 - ff)));
-
-  switch (i) {
-    case 0:
-      out.color[0] = in.v;
-      out.color[1] = t;
-      out.color[2] = p;
-      break;
-    case 1:
-      out.color[0] = q;
-      out.color[1] = in.v;
-      out.color[2] = p;
-      break;
-    case 2:
-      out.color[0] = p;
-      out.color[1] = in.v;
-      out.color[2] = t;
-      break;
-
-    case 3:
-      out.color[0] = p;
-      out.color[1] = q;
-      out.color[2] = in.v;
-      break;
-    case 4:
-      out.color[0] = t;
-      out.color[1] = p;
-      out.color[2] = in.v;
-      break;
-    case 5:
-    default:
-      out.color[0] = in.v;
-      out.color[1] = p;
-      out.color[2] = q;
-      break;
-  }
-  return out;
-}
-
 
