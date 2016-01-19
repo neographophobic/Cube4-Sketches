@@ -8,7 +8,7 @@
 // Include required libraries
 #include <SPI.h>
 #include "Cube.h"
-#include "Utils.h"
+#include "Cube4_ARUtils.h"
 
 // Define global variables
 // frequency influences how often the colour is changes as it fades in and out
