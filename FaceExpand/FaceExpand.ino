@@ -54,24 +54,24 @@ void loop(void) {
 }
 
 /*
- * faceExpands starts in a corner then diagnoally expands to the 
+ * faceExpands starts in a corner then diagnoally expands to the
  * other corner on the same face. It then contracts in the same
  * maner towards the opposite corner. It requires the colour to
  * use, and the delay between each frame. Finally it also requires
  * a starting position. The valid positions are:-
- *    
+ *
  *    1: 3,0,0 moving right to left (towards 0,0,3)
  *    2: 0,0,3 moving top to bottom (towards 0,3,0)
  *    3: 0,3,0 moving left to right (towards 3,3,3)
  *    4: 3,3,3 moving top to bottom (towards 0,0,0)
- *    
+ *
  *    5: 0,0,0 moving left to right (towards 3,0,3)
  *    6: 3,0,3 moving top to bottom (towards 3,3,0)
  *    7: 3,3,0 moving right to left (towards 0,3,3)
  *    8: 0,3,3 moving top to bottom (towards 0,0,0)
  */
 void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
-{ 
+{
   // Track the coordinates to use for the boxes we draw
   struct coordinate start;
   struct coordinate end;
@@ -249,14 +249,14 @@ void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
     move++;
     if (leftToRightMovement && move > 8 ) {
       // As we can start at any of the 4 moves (5 to 8) that move
-      // left to right, if we get to the 8th one, start back at 
+      // left to right, if we get to the 8th one, start back at
       // move 5.
       move = 5;
     }
-    
+
     if (!leftToRightMovement && move > 4 ) {
       // As we can start at any of the 4 moves (1 to 4) that move
-      // right to left, if we get to the 4th one, start back at 
+      // right to left, if we get to the 4th one, start back at
       // move 1.
       move = 1;
     }
