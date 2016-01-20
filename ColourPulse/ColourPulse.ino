@@ -11,9 +11,11 @@
 #include "Cube4_ARUtils.h"
 
 // Define global variables
-// frequency influences how often the colour is changes as it fades in and out
-//   smaller number mean more frequent
-byte frequency = 5;
+// brightnessIncrement - is the change in brightness that is applied at each
+//                       colour change. Larger values are more "visable",
+//                       where smaller values make the animation run longer
+//                       but ensures that the colour change is more subtle
+byte brightnessIncrement = 5;
 
 // theDelay tracks how long to pause between colour changes
 byte theDelay = 50;
@@ -50,7 +52,7 @@ void setup(void) {
 void loop(void) {
   // Convert the provided colour to the HSV
   struct hsv theColourInHSV = rgb2hsv(theColour);
-  
+
   // In HSV color, "V" stands for value which is the "brightness"
   // of the colour. By increasing or decreasing this we can keep the
   // colour, but make it appear brighter or darker
@@ -59,37 +61,29 @@ void loop(void) {
   int initialBrightness = (int) theColourInHSV.v;
 
   // Fade from "black" to the given colour's default brightness
-  for (int i = 1; i <= initialBrightness; i++) {
+  for (int i = 1; i <= initialBrightness; i = i + brightnessIncrement) {
     updateCubeColour(theColourInHSV, i);
   }
 
   // Fade from the colour's default brightness to "black"
-  for (int i = initialBrightness; i >= 1; i--) {
+  for (int i = initialBrightness; i >= 1; i = i - brightnessIncrement) {
     updateCubeColour(theColourInHSV, i);
   }
 }
 
 // updateCubeColour:  Taking the colour in HSV, and a new brightness value
-//                    determine if the cube should be updated, and if so
-//                    update the cube to the new colour
+//                    then convert it to RGB and set the cube to that colour
 void updateCubeColour(struct hsv theColourInHSV, int brightness) {
-  // Get the remainder of the brightness / frequence
-  int x = brightness % frequency;
+  // Update the brightness value
+  theColourInHSV.v = brightness;
 
-  if (x == 0 ) {
-    // No remainder, so now is the time to update the cube
+  // Convert the newly updated HSV value into RGB
+  rgb_t theNewColour = hsv2rgb(theColourInHSV);
 
-    // Update the brightness value
-    theColourInHSV.v = brightness;
+  // Update the cube with the new colour
+  cube.all(theNewColour);
 
-    // Convert the newly updated HSV value into RGB
-    rgb_t theNewColour = hsv2rgb(theColourInHSV);
-
-    // Update the cube with the new colour
-    cube.all(theNewColour);
-
-    // Pause for the period the user has specified
-    delay(theDelay);
-  }
+  // Pause for the period the user has specified
+  delay(theDelay);
 }
 
