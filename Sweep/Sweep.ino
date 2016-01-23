@@ -14,7 +14,7 @@ void setup(void) {
 
 void loop(void) {
   rgb_t theColour = BLUE;
-  int theDelay = 100;
+  int theDelay = 75;
 
   sweep(0, 0, 1, 1, 2, 2, 3, 3, theColour, theDelay);
   sweep(0, 1, 1, 1, 2, 2, 3, 2, theColour, theDelay);
