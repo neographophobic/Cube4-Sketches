@@ -1,4 +1,3 @@
-
 /*
  * File:    Wave.ino
  * Version: 1.0
@@ -41,53 +40,33 @@ void loop(void) {
   int theDelay = 100;
 
   // Create the wave animation
-  
-  // 1
-  cube.all(BLACK);
-  cube.line(0,0,0, 3,0,0, theColour);
-  cube.line(0,1,1, 3,1,1, theColour);
-  cube.line(0,2,2, 3,2,2, theColour);
-  cube.line(0,3,3, 3,3,3, theColour);
-  delay(theDelay);
-    
-  // 2
-  cube.all(BLACK);
-  cube.line(0,0,1, 3,0,1, theColour);
-  cube.line(0,1,0, 3,1,0, theColour);
-  cube.line(0,2,1, 3,2,1, theColour);
-  cube.line(0,3,2, 3,3,2, theColour);
-  delay(theDelay);
 
-  // 3
-  cube.all(BLACK);
-  cube.line(0,0,2, 3,0,2, theColour);
-  cube.line(0,1,1, 3,1,1, theColour);
-  cube.line(0,2,0, 3,2,0, theColour);
-  cube.line(0,3,1, 3,3,1, theColour);
-  delay(theDelay);
+  // Frame 1
+  drawWaveAnimationFrame(0, 0, 1, 1, 2, 2, 3, 3, theColour, theDelay);
 
-  // 4
-  cube.all(BLACK);
-  cube.line(0,0,3, 3,0,3, theColour);
-  cube.line(0,1,2, 3,1,2, theColour);
-  cube.line(0,2,1, 3,2,1, theColour);
-  cube.line(0,3,0, 3,3,0, theColour);
-  delay(theDelay);
+  // Frame 2
+  drawWaveAnimationFrame(0, 1, 1, 0, 2, 1, 3, 2, theColour, theDelay);
 
-  // 5
-  cube.all(BLACK);
-  cube.line(0,0,2, 3,0,2, theColour);
-  cube.line(0,1,3, 3,1,3, theColour);
-  cube.line(0,2,2, 3,2,2, theColour);
-  cube.line(0,3,1, 3,3,1, theColour);
-  delay(theDelay);
+  // Frame 3
+  drawWaveAnimationFrame(0, 2, 1, 1, 2, 0, 3, 1, theColour, theDelay);
 
-  // 6
+  // Frame 4
+  drawWaveAnimationFrame(0, 3, 1, 2, 2, 1, 3, 0, theColour, theDelay);
+
+  // Frame 5
+  drawWaveAnimationFrame(0, 2, 1, 3, 2, 2, 3, 1, theColour, theDelay);
+
+  // Frame 6
+  drawWaveAnimationFrame(0, 1, 1, 2, 2, 3, 3, 2, theColour, theDelay);
+}
+
+void drawWaveAnimationFrame(byte y1, byte z1, byte y2, byte z2, byte y3, byte z3, byte y4, byte z4, rgb_t theColour, int theDelay)
+{
   cube.all(BLACK);
-  cube.line(0,0,1, 3,0,1, theColour);
-  cube.line(0,1,2, 3,1,2, theColour);
-  cube.line(0,2,3, 3,2,3, theColour);
-  cube.line(0,3,2, 3,3,2, theColour);
+  cube.line(0, y1, z1, 3, y1, z1, theColour);
+  cube.line(0, y2, z2, 3, y2, z2, theColour);
+  cube.line(0, y3, z3, 3, y3, z3, theColour);
+  cube.line(0, y4, z4, 3, y4, z4, theColour);
   delay(theDelay);
 }
 
