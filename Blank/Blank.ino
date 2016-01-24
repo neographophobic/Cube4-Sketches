@@ -1,19 +1,22 @@
-
 /*
- * File:    .ino
- * Version: 1.0
- * Author:  Adam Reed (adam@secretcode.ninja)
- * License: BSD 3-Clause Licence
+ * File:      .ino
+ * Purpose:   pattern for the Freetronics 4x4x4 Cube
+ * Author:    Adam Reed (adam@secretcode.ninja)
+ * License:   BSD 3-Clause Licence
  */
 
-#include "SPI.h"
+// Include required libraries
+#include <SPI.h>
 #include "Cube.h"
-
-Cube cube;
+#include "Cube4_ARUtils.h"
 
 /*
  * User editable variables
  */
+
+
+// Create an instance of the cube class
+Cube cube;
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
