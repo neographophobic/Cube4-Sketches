@@ -1,24 +1,21 @@
-
 /*
- * File:    Spiral.ino
- * Version: 1.0
- * Author:  Adam Reed (adam@secretcode.ninja)
- * License: BSD 3-Clause Licence
+ * File:      Spiral.ino
+ * Purpose:   Spiral pattern for the Freetronics 4x4x4 Cube
+ * Author:    Adam Reed (adam@secretcode.ninja)
+ * License:   BSD 3-Clause Licence
  */
 
-#include "SPI.h"
+// Include required libraries
+#include <SPI.h>
 #include "Cube.h"
+#include "Cube4_ARUtils.h"
 
+// Create an instance of the cube class
 Cube cube;
 
-struct point
-{
-  int X;
-  int Y;
-  int Z;
-};
-
-struct point leds[65];
+// leds is an array of the x,y,z coordinates of each of the LEDs in our
+// cube.
+struct coordinate leds[64];
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
@@ -40,105 +37,72 @@ void setup(void) {
   {
     serial->println("Spiral v1.0");
   }
-}
 
-/*
- * buildLEDsArray builds an array that holds the location of each LED.
- * It starts at 0,0,0 and works it's way backwards (Y axis), then
- * snaps to the front and starts again. Once the entire bottom plane is
- * done it moves up to the next one and starts again.
- */
-void buildLEDsArray() {
-  // Start at 0,0,0
-  byte X = 0;
-  byte Y = 0;
-  byte Z = 0;
-
-  for (byte i = 1; i <= 64; i++) {
-    // Set the LED position to the current calculated X,Y,Z coordinate
-    leds[i].X = X;
-    leds[i].Y = Y;
-    leds[i].Z = Z;
-
-    // Increment the coordinate in the Y direction
-    Y++;
-
-    if (Y == 4) {
-      // We have hit the end of the Y's, so snap back to the 0 position, and
-      // move to the next X position.
-      Y = 0;
-      X++;
-    }
-
-    if (X == 4) {
-      // We have hit the end of the X's, so snap back to the 0 X position
-      X = 0;
-    }
-
-    switch (i)
-    {
-      // When we are at position 16, 32, and 48 it's time to move up one Z position
-      case 16:
-      case 32:
-      case 48:
-        Z++;
-        break;
-    }
-  }
+  // Build the full array of LEDs so that we have coordinates to match the above coordinates
+  buildLEDsArray(leds);
 }
 
 void loop(void) {
+  // Set the delay between each part of the animation, and the colour to use
   int theDelay = 100;
   rgb_t theColour = BLUE;
 
+  // Illuminate the "odd" directions (rear to front, left to right, top to bottom)
   for (byte i = 1; i <= 6; i = i + 2) {
     spiral(i, theColour, theDelay);
     spiral(i, BLACK, theDelay);
   }
 
+  // Illuminate the "even" directions (front to rear, right to left, bottom to top)
   for (byte i = 2; i <= 6; i = i + 2) {
     spiral(i, theColour, theDelay);
     spiral(i, BLACK, theDelay);
   }
 }
 
+// Sprial illuminates the LEDs around the outside of the cube one after the other in one of the 6 possible directions.
+// The directions are:-
+//    * 1 rear to front
+//    * 2 front to rear
+//    * 3 left to right
+//    * 4 right to left
+//    * 5 top to bottom
+//    * 6 bottom to top
 void spiral(byte direction, rgb_t theColour, int theDelay)
 {
-  // How many items there are in the array of points to process
+  // How many items there are in the array of coordinates to process
   const int itemsToProcess = 48;
 
-  // Arrays identifying the 16 LEDs that make up the edge coordinates for the animation
-  int rearToFront[itemsToProcess] = {64, 48, 32, 16, 12, 8, 4, 20, 36, 52, 56, 60, 63, 47, 31, 15, 11, 7, 3, 19, 35, 51, 55, 59, 62, 46, 30, 14, 10, 6, 2, 18, 34, 50, 54, 58, 61, 45, 29, 13, 9, 5, 1, 17, 33, 49, 53, 57};
-  int frontToRear[itemsToProcess] = {61, 45, 29, 13, 9, 5, 1, 17, 33, 49, 53, 57, 62, 46, 30, 14, 10, 6, 2, 18, 34, 50, 54, 58, 63, 47, 31, 15, 11, 7, 3, 19, 35, 51, 55, 59, 64, 48, 32, 16, 12, 8, 4, 20, 36, 52, 56, 60};
-  int leftToRight[itemsToProcess] = {49, 33, 17, 1, 2, 3, 4, 20, 36, 52, 51, 50, 53, 37, 21, 5, 6, 7, 8, 24, 40, 56, 55, 54, 57, 41, 25, 9, 10, 11, 12, 28, 44, 60, 59, 58, 61, 45, 29, 13, 14, 15, 16, 32, 48, 64, 63, 62};
-  int rightToLeft[itemsToProcess] = {61, 45, 29, 13, 14, 15, 16, 32, 48, 64, 63, 62, 57, 41, 25, 9, 10, 11, 12, 28, 44, 60, 59, 58, 53, 37, 21, 5, 6, 7, 8, 24, 40, 56, 55, 54, 49, 33, 17, 1, 2, 3, 4, 20, 36, 52, 51, 50};
-  int topToBottom[itemsToProcess] = {64, 63, 62, 61, 57, 53, 49, 50, 51, 52, 56, 60, 48, 47, 46, 45, 41, 37, 33, 34, 35, 36, 40, 44, 32, 31, 30, 29, 25, 21, 17, 18, 19, 20, 24, 28, 16, 15, 14, 13, 9, 5, 1, 2, 3, 4, 8, 12};
-  int bottomToTop[itemsToProcess] = {16, 15, 14, 13, 9, 5, 1, 2, 3, 4, 8, 12, 32, 31, 30, 29, 25, 21, 17, 18, 19, 20, 24, 28, 48, 47, 46, 45, 41, 37, 33, 34, 35, 36, 40, 44, 64, 63, 62, 61, 57, 53, 49, 50, 51, 52, 56, 60};
+  // Arrays identifying the 48 LEDs that make up the edge coordinates for the animation
+  int rearToFront[itemsToProcess] = {64, 48, 32, 16, 15, 14, 13, 29, 45, 61, 62, 63, 60, 44, 28, 12, 11, 10, 9, 25, 41, 57, 58, 59, 56, 40, 24, 8, 7, 6, 5, 21, 37, 53, 54, 55, 52, 36, 20, 4, 3, 2, 1, 17, 33, 49, 50, 51};
+  int frontToRear[itemsToProcess] = {52, 36, 20, 4, 3, 2, 1, 17, 33, 49, 50, 51, 56, 40, 24, 8, 7, 6, 5, 21, 37, 53, 54, 55, 60, 44, 28, 12, 11, 10, 9, 25, 41, 57, 58, 59, 64, 48, 32, 16, 15, 14, 13, 29, 45, 61, 62, 63};
+  int leftToRight[itemsToProcess] = {49, 33, 17, 1, 5, 9, 13, 29, 45, 61, 57, 53, 50, 34, 18, 2, 6, 10, 14, 30, 46, 62, 58, 54, 51, 35, 19, 3, 7, 11, 15, 31, 47, 63, 59, 55, 52, 36, 20, 4, 8, 12, 16, 32, 48, 64, 60, 56};
+  int rightToLeft[itemsToProcess] = {52, 36, 20, 4, 8, 12, 16, 32, 48, 64 , 60 , 56, 51, 35, 19, 3, 7, 11, 15, 31, 47, 63, 59, 55, 50, 34, 18, 2, 6, 10, 14, 30, 46, 62, 58, 54, 49, 33, 17, 1,  5, 9, 13, 29, 45, 61, 57, 53};
+  int topToBottom[itemsToProcess] = {64, 60, 56, 52, 51, 50, 49, 53, 57, 61, 62, 63, 48, 44, 40, 36, 35, 34, 33, 37, 41, 45, 46, 47, 32 , 28, 24, 20, 19, 18, 17, 21, 25, 29, 30, 31, 16, 12, 8, 4, 3, 2, 1, 5, 9, 13, 14, 15};
+  int bottomToTop[itemsToProcess] = {16, 12, 8, 4, 3, 2, 1, 5, 9, 13, 14, 15, 32 , 28, 24, 20, 19, 18, 17, 21, 25, 29, 30, 31, 48, 44, 40, 36, 35, 34, 33, 37, 41, 45, 46, 47, 64, 60, 56, 52, 51, 50, 49, 53, 57, 61, 62, 63};
 
-  // Build the full array of LEDs so that we have coordinates to match the above points
-  buildLEDsArray();
-
-  // Copy the array of points to use
+  // Loop through the items to total items that we need to progress
   for (byte i = 0; i < itemsToProcess; i++) {
+    // From the array of LED positions for a given LED, illuminate the appropriate LED
     switch (direction)
     {
       case 1:
-        cube.set(leds[rearToFront[i]].X, leds[rearToFront[i]].Y, leds[rearToFront[i]].Z, theColour);
+        cube.set(leds[rearToFront[i]].x, leds[rearToFront[i]].y, leds[rearToFront[i]].z, theColour);
         break;
       case 2:
-        cube.set(leds[frontToRear[i]].X, leds[frontToRear[i]].Y, leds[frontToRear[i]].Z, theColour);
+        cube.set(leds[frontToRear[i]].x, leds[frontToRear[i]].y, leds[frontToRear[i]].z, theColour);
         break;
       case 3:
-        cube.set(leds[leftToRight[i]].X, leds[leftToRight[i]].Y, leds[leftToRight[i]].Z, theColour);
+        cube.set(leds[leftToRight[i]].x, leds[leftToRight[i]].y, leds[leftToRight[i]].z, theColour);
         break;
       case 4:
-        cube.set(leds[rightToLeft[i]].X, leds[rightToLeft[i]].Y, leds[rightToLeft[i]].Z, theColour);
+        cube.set(leds[rightToLeft[i]].x, leds[rightToLeft[i]].y, leds[rightToLeft[i]].z, theColour);
         break;
       case 5:
-        cube.set(leds[topToBottom[i]].X, leds[topToBottom[i]].Y, leds[topToBottom[i]].Z, theColour);
+        cube.set(leds[topToBottom[i]].x, leds[topToBottom[i]].y, leds[topToBottom[i]].z, theColour);
         break;
       case 6:
-        cube.set(leds[bottomToTop[i]].X, leds[bottomToTop[i]].Y, leds[bottomToTop[i]].Z, theColour);
+        cube.set(leds[bottomToTop[i]].x, leds[bottomToTop[i]].y, leds[bottomToTop[i]].z, theColour);
         break;
     }
     delay(theDelay);
