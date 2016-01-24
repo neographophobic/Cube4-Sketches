@@ -1,4 +1,3 @@
-
 /*
  * File:    Splat.ino
  * Version: 1.0
@@ -14,8 +13,8 @@ Cube cube;
 /*
  * User editable variables
  */
-  rgb_t theColour = BLUE;
-  int theDelay = 50;
+rgb_t theColour = BLUE;
+int theDelay = 50;
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
@@ -43,7 +42,7 @@ void setup(void) {
   delay(theDelay);
 }
 
-void loop(void) {  
+void loop(void) {
   // Draw each of the frames of the animation
 
   // 1
