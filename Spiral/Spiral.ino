@@ -38,51 +38,6 @@ void setup(void) {
   buildLEDsArray();
 }
 
-/*
- * buildLEDsArray builds an array that holds the location of each LED.
- * It starts at 0,0,0 and works it's way backwards (Y axis), then
- * snaps to the front and starts again. Once the entire bottom plane is
- * done it moves up to the next one and starts again.
- */
-void buildLEDsArray() {
-  // Start at 0,0,0
-  byte X = 0;
-  byte Y = 0;
-  byte Z = 0;
-
-  for (byte i = 1; i <= 64; i++) {
-    // Set the LED position to the current calculated X,Y,Z coordinate
-    leds[i].x = X;
-    leds[i].y = Y;
-    leds[i].z = Z;
-
-    // Increment the coordinate in the X direction
-    X++;
-
-    if (X == 4) {
-      // We have hit the end of the X's, so snap back to the 0 position, and
-      // move to the next Y position.
-      X = 0;
-      Y++;
-    }
-
-    if (Y == 4) {
-      // We have hit the end of the Y's, so snap back to the 0 Y position
-      Y = 0;
-    }
-
-    switch (i)
-    {
-      // When we are at position 16, 32, and 48 it's time to move up one Z position
-      case 16:
-      case 32:
-      case 48:
-        Z++;
-        break;
-    }
-  }
-}
-
 void loop(void) {
   int theDelay = 100;
   rgb_t theColour = BLUE;
