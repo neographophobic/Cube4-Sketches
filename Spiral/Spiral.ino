@@ -40,6 +40,9 @@ void setup(void) {
   {
     serial->println("Spiral v1.0");
   }
+
+  // Build the full array of LEDs so that we have coordinates to match the above points
+  buildLEDsArray();
 }
 
 /*
@@ -114,9 +117,6 @@ void spiral(byte direction, rgb_t theColour, int theDelay)
   int rightToLeft[itemsToProcess] = {52, 36, 20, 4, 8, 12, 16, 32, 48, 64 , 60 , 56, 51, 35, 19, 3, 7, 11, 15, 31, 47, 63, 59, 55, 50, 34, 18, 2, 6, 10, 14, 30, 46, 62, 58, 54, 49, 33, 17, 1,  5, 9, 13, 29, 45, 61, 57, 53};
   int topToBottom[itemsToProcess] = {64, 60, 56, 52, 51, 50, 49, 53, 57, 61, 62, 63, 48, 44, 40, 36, 35, 34, 33, 37, 41, 45, 46, 47, 32 , 28, 24, 20, 19, 18, 17, 21, 25, 29, 30, 31, 16, 12, 8, 4, 3, 2, 1, 5, 9, 13, 14, 15};
   int bottomToTop[itemsToProcess] = {16, 12, 8, 4, 3, 2, 1, 5, 9, 13, 14, 15, 32 , 28, 24, 20, 19, 18, 17, 21, 25, 29, 30, 31, 48, 44, 40, 36, 35, 34, 33, 37, 41, 45, 46, 47, 64, 60, 56, 52, 51, 50, 49, 53, 57, 61, 62, 63};
-
-  // Build the full array of LEDs so that we have coordinates to match the above points
-  buildLEDsArray();
 
   // Copy the array of points to use
   for (byte i = 0; i < itemsToProcess; i++) {
