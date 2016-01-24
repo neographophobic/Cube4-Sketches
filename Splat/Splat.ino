@@ -1,21 +1,22 @@
-
 /*
- * File:    Splat.ino
- * Version: 1.0
- * Author:  Adam Reed (adam@secretcode.ninja)
- * License: BSD 3-Clause Licence
+ * File:      Splat.ino
+ * Purpose:   Splat pattern for the Freetronics 4x4x4 Cube
+ * Author:    Adam Reed (adam@secretcode.ninja)
+ * License:   BSD 3-Clause Licence
  */
 
-#include "SPI.h"
+// Include required libraries
+#include <SPI.h>
 #include "Cube.h"
 
+// Create an instance of the cube class
 Cube cube;
 
 /*
  * User editable variables
  */
-  rgb_t theColour = BLUE;
-  int theDelay = 50;
+rgb_t theColour = BLUE;
+int theDelay = 50;
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
@@ -37,75 +38,71 @@ void setup(void) {
   {
     serial->println("Splat v1.0");
   }
-
-  // Setup the intial state by turning all of Z0 on.
-  cube.box(0,0,0, 3,3,0, theColour);
-  delay(theDelay);
 }
 
-void loop(void) {  
+void loop(void) {
   // Draw each of the frames of the animation
 
   // 1
-  cube.all(BLACK);
-  cube.box(0,0,0, 1,1,0, theColour);
-  cube.box(2,2,0, 3,3,0, theColour);
+  cube.setplane(Z, 0, theColour);
   delay(theDelay);
-  
+
   // 2
   cube.all(BLACK);
-  cube.set(0,0,0, theColour);
-  cube.set(3,3,0, theColour);
+  cube.box(0, 0, 0, 1, 1, 0, theColour);
+  cube.box(2, 2, 0, 3, 3, 0, theColour);
   delay(theDelay);
 
   // 3
   cube.all(BLACK);
-  cube.line(0,1,1, 1,0,1, theColour);
-  cube.line(2,3,1, 3,2,1, theColour);
+  cube.set(0, 0, 0, theColour);
+  cube.set(3, 3, 0, theColour);
   delay(theDelay);
 
   // 4
   cube.all(BLACK);
-  cube.line(2,0,2, 0,2,2, theColour);
-  cube.line(1,3,2, 3,1,2, theColour);
+  cube.line(0, 1, 1, 1, 0, 1, theColour);
+  cube.line(2, 3, 1, 3, 2, 1, theColour);
   delay(theDelay);
 
   // 5
   cube.all(BLACK);
-  cube.line(0,3,3, 3,0,3, theColour);
+  cube.line(2, 0, 2, 0, 2, 2, theColour);
+  cube.line(1, 3, 2, 3, 1, 2, theColour);
   delay(theDelay);
 
   // 6
-  cube.line(0,3,2, 3,0,2, theColour);
+  cube.all(BLACK);
+  cube.line(0, 3, 3, 3, 0, 3, theColour);
   delay(theDelay);
 
   // 7
-  cube.line(0,3,1, 3,0,1, theColour);
+  cube.line(0, 3, 2, 3, 0, 2, theColour);
   delay(theDelay);
 
   // 8
-  cube.line(0,3,0, 3,0,0, theColour);
+  cube.line(0, 3, 1, 3, 0, 1, theColour);
   delay(theDelay);
 
   // 9
-  cube.line(0,3,3, 3,0,3, BLACK);
+  cube.line(0, 3, 0, 3, 0, 0, theColour);
   delay(theDelay);
 
   // 10
-  cube.line(0,3,2, 3,0,2, BLACK);
+  cube.line(0, 3, 3, 3, 0, 3, BLACK);
   delay(theDelay);
 
   // 11
-  cube.line(0,3,1, 3,0,1, BLACK);
+  cube.line(0, 3, 2, 3, 0, 2, BLACK);
   delay(theDelay);
 
   // 12
-  cube.box(2,0,0, 3,1,0, theColour);
-  cube.box(0,2,0, 1,3,0, theColour);
+  cube.line(0, 3, 1, 3, 0, 1, BLACK);
   delay(theDelay);
 
   // 13
-  cube.box(0,0,0, 3,3,0, theColour);
+  cube.box(2, 0, 0, 3, 1, 0, theColour);
+  cube.box(0, 2, 0, 1, 3, 0, theColour);
   delay(theDelay);
 }
 
