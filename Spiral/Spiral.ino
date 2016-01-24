@@ -60,19 +60,19 @@ void buildLEDsArray() {
     leds[i].Y = Y;
     leds[i].Z = Z;
 
-    // Increment the coordinate in the Y direction
-    Y++;
-
-    if (Y == 4) {
-      // We have hit the end of the Y's, so snap back to the 0 position, and
-      // move to the next X position.
-      Y = 0;
-      X++;
-    }
+    // Increment the coordinate in the X direction
+    X++;
 
     if (X == 4) {
-      // We have hit the end of the X's, so snap back to the 0 X position
+      // We have hit the end of the X's, so snap back to the 0 position, and
+      // move to the next Y position.
       X = 0;
+      Y++;
+    }
+
+    if (Y == 4) {
+      // We have hit the end of the Y's, so snap back to the 0 Y position
+      Y = 0;
     }
 
     switch (i)
@@ -108,12 +108,12 @@ void spiral(byte direction, rgb_t theColour, int theDelay)
   const int itemsToProcess = 48;
 
   // Arrays identifying the 16 LEDs that make up the edge coordinates for the animation
-  int rearToFront[itemsToProcess] = {64, 48, 32, 16, 12, 8, 4, 20, 36, 52, 56, 60, 63, 47, 31, 15, 11, 7, 3, 19, 35, 51, 55, 59, 62, 46, 30, 14, 10, 6, 2, 18, 34, 50, 54, 58, 61, 45, 29, 13, 9, 5, 1, 17, 33, 49, 53, 57};
-  int frontToRear[itemsToProcess] = {61, 45, 29, 13, 9, 5, 1, 17, 33, 49, 53, 57, 62, 46, 30, 14, 10, 6, 2, 18, 34, 50, 54, 58, 63, 47, 31, 15, 11, 7, 3, 19, 35, 51, 55, 59, 64, 48, 32, 16, 12, 8, 4, 20, 36, 52, 56, 60};
-  int leftToRight[itemsToProcess] = {49, 33, 17, 1, 2, 3, 4, 20, 36, 52, 51, 50, 53, 37, 21, 5, 6, 7, 8, 24, 40, 56, 55, 54, 57, 41, 25, 9, 10, 11, 12, 28, 44, 60, 59, 58, 61, 45, 29, 13, 14, 15, 16, 32, 48, 64, 63, 62};
-  int rightToLeft[itemsToProcess] = {61, 45, 29, 13, 14, 15, 16, 32, 48, 64, 63, 62, 57, 41, 25, 9, 10, 11, 12, 28, 44, 60, 59, 58, 53, 37, 21, 5, 6, 7, 8, 24, 40, 56, 55, 54, 49, 33, 17, 1, 2, 3, 4, 20, 36, 52, 51, 50};
-  int topToBottom[itemsToProcess] = {64, 63, 62, 61, 57, 53, 49, 50, 51, 52, 56, 60, 48, 47, 46, 45, 41, 37, 33, 34, 35, 36, 40, 44, 32, 31, 30, 29, 25, 21, 17, 18, 19, 20, 24, 28, 16, 15, 14, 13, 9, 5, 1, 2, 3, 4, 8, 12};
-  int bottomToTop[itemsToProcess] = {16, 15, 14, 13, 9, 5, 1, 2, 3, 4, 8, 12, 32, 31, 30, 29, 25, 21, 17, 18, 19, 20, 24, 28, 48, 47, 46, 45, 41, 37, 33, 34, 35, 36, 40, 44, 64, 63, 62, 61, 57, 53, 49, 50, 51, 52, 56, 60};
+  int rearToFront[itemsToProcess] = {64, 48, 32, 16, 15, 14, 13, 29, 45, 61, 62, 63, 60, 44, 28, 12, 11, 10, 9, 25, 41, 57, 58, 59, 56, 40, 24, 8, 7, 6, 5, 21, 37, 53, 54, 55, 52, 36, 20, 4, 3, 2, 1, 17, 33, 49, 50, 51};
+  int frontToRear[itemsToProcess] = {52, 36, 20, 4, 3, 2, 1, 17, 33, 49, 50, 51, 56, 40, 24, 8, 7, 6, 5, 21, 37, 53, 54, 55, 60, 44, 28, 12, 11, 10, 9, 25, 41, 57, 58, 59, 64, 48, 32, 16, 15, 14, 13, 29, 45, 61, 62, 63};
+  int leftToRight[itemsToProcess] = {49, 33, 17, 1, 5, 9, 13, 29, 45, 61, 57, 53, 50, 34, 18, 2, 6, 10, 14, 30, 46, 62, 58, 54, 51, 35, 19, 3, 7, 11, 15, 31, 47, 63, 59, 55, 52, 36, 20, 4, 8, 12, 16, 32, 48, 64, 60, 56};
+  int rightToLeft[itemsToProcess] = {52, 36, 20, 4, 8, 12, 16, 32, 48, 64 , 60 , 56, 51, 35, 19, 3, 7, 11, 15, 31, 47, 63, 59, 55, 50, 34, 18, 2, 6, 10, 14, 30, 46, 62, 58, 54, 49, 33, 17, 1,  5, 9, 13, 29, 45, 61, 57, 53};
+  int topToBottom[itemsToProcess] = {64, 60, 56, 52, 51, 50, 49, 53, 57, 61, 62, 63, 48, 44, 40, 36, 35, 34, 33, 37, 41, 45, 46, 47, 32 , 28, 24, 20, 19, 18, 17, 21, 25, 29, 30, 31, 16, 12, 8, 4, 3, 2, 1, 5, 9, 13, 14, 15};
+  int bottomToTop[itemsToProcess] = {16, 12, 8, 4, 3, 2, 1, 5, 9, 13, 14, 15, 32 , 28, 24, 20, 19, 18, 17, 21, 25, 29, 30, 31, 48, 44, 40, 36, 35, 34, 33, 37, 41, 45, 46, 47, 64, 60, 56, 52, 51, 50, 49, 53, 57, 61, 62, 63};
 
   // Build the full array of LEDs so that we have coordinates to match the above points
   buildLEDsArray();
