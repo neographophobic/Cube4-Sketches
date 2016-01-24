@@ -1,4 +1,3 @@
-
 /*
  * File:    Spiral.ino
  * Version: 1.0
@@ -8,17 +7,11 @@
 
 #include "SPI.h"
 #include "Cube.h"
+#include "Cube4_ARUtils.h"
 
 Cube cube;
 
-struct point
-{
-  int X;
-  int Y;
-  int Z;
-};
-
-struct point leds[65];
+struct coordinate leds[65];
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
@@ -41,7 +34,7 @@ void setup(void) {
     serial->println("Spiral v1.0");
   }
 
-  // Build the full array of LEDs so that we have coordinates to match the above points
+  // Build the full array of LEDs so that we have coordinates to match the above coordinates
   buildLEDsArray();
 }
 
@@ -59,9 +52,9 @@ void buildLEDsArray() {
 
   for (byte i = 1; i <= 64; i++) {
     // Set the LED position to the current calculated X,Y,Z coordinate
-    leds[i].X = X;
-    leds[i].Y = Y;
-    leds[i].Z = Z;
+    leds[i].x = X;
+    leds[i].y = Y;
+    leds[i].z = Z;
 
     // Increment the coordinate in the X direction
     X++;
@@ -107,7 +100,7 @@ void loop(void) {
 
 void spiral(byte direction, rgb_t theColour, int theDelay)
 {
-  // How many items there are in the array of points to process
+  // How many items there are in the array of coordinates to process
   const int itemsToProcess = 48;
 
   // Arrays identifying the 16 LEDs that make up the edge coordinates for the animation
@@ -118,27 +111,27 @@ void spiral(byte direction, rgb_t theColour, int theDelay)
   int topToBottom[itemsToProcess] = {64, 60, 56, 52, 51, 50, 49, 53, 57, 61, 62, 63, 48, 44, 40, 36, 35, 34, 33, 37, 41, 45, 46, 47, 32 , 28, 24, 20, 19, 18, 17, 21, 25, 29, 30, 31, 16, 12, 8, 4, 3, 2, 1, 5, 9, 13, 14, 15};
   int bottomToTop[itemsToProcess] = {16, 12, 8, 4, 3, 2, 1, 5, 9, 13, 14, 15, 32 , 28, 24, 20, 19, 18, 17, 21, 25, 29, 30, 31, 48, 44, 40, 36, 35, 34, 33, 37, 41, 45, 46, 47, 64, 60, 56, 52, 51, 50, 49, 53, 57, 61, 62, 63};
 
-  // Copy the array of points to use
+  // Copy the array of coordinates to use
   for (byte i = 0; i < itemsToProcess; i++) {
     switch (direction)
     {
       case 1:
-        cube.set(leds[rearToFront[i]].X, leds[rearToFront[i]].Y, leds[rearToFront[i]].Z, theColour);
+        cube.set(leds[rearToFront[i]].x, leds[rearToFront[i]].y, leds[rearToFront[i]].z, theColour);
         break;
       case 2:
-        cube.set(leds[frontToRear[i]].X, leds[frontToRear[i]].Y, leds[frontToRear[i]].Z, theColour);
+        cube.set(leds[frontToRear[i]].x, leds[frontToRear[i]].y, leds[frontToRear[i]].z, theColour);
         break;
       case 3:
-        cube.set(leds[leftToRight[i]].X, leds[leftToRight[i]].Y, leds[leftToRight[i]].Z, theColour);
+        cube.set(leds[leftToRight[i]].x, leds[leftToRight[i]].y, leds[leftToRight[i]].z, theColour);
         break;
       case 4:
-        cube.set(leds[rightToLeft[i]].X, leds[rightToLeft[i]].Y, leds[rightToLeft[i]].Z, theColour);
+        cube.set(leds[rightToLeft[i]].x, leds[rightToLeft[i]].y, leds[rightToLeft[i]].z, theColour);
         break;
       case 5:
-        cube.set(leds[topToBottom[i]].X, leds[topToBottom[i]].Y, leds[topToBottom[i]].Z, theColour);
+        cube.set(leds[topToBottom[i]].x, leds[topToBottom[i]].y, leds[topToBottom[i]].z, theColour);
         break;
       case 6:
-        cube.set(leds[bottomToTop[i]].X, leds[bottomToTop[i]].Y, leds[bottomToTop[i]].Z, theColour);
+        cube.set(leds[bottomToTop[i]].x, leds[bottomToTop[i]].y, leds[bottomToTop[i]].z, theColour);
         break;
     }
     delay(theDelay);
