@@ -35,7 +35,7 @@ void setup(void) {
   }
 
   // Build the full array of LEDs so that we have coordinates to match the above coordinates
-  buildLEDsArray();
+  buildLEDsArray(leds);
 }
 
 void loop(void) {
