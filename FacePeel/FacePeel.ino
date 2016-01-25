@@ -414,7 +414,7 @@ void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theCol
   }
 }
 
-void drawLine(struct point startPoint, struct point endPoint, rgb_t theColour, int theDelay)
+void drawLine(struct coordinate startPoint, struct coordinate endPoint, rgb_t theColour, int theDelay)
 {
   if (startPoint.y > endPoint.y && startPoint.z < endPoint.z ||
       startPoint.x > endPoint.x && startPoint.z == endPoint.z ||
