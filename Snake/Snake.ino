@@ -1,22 +1,20 @@
 /*
- * File:    Snake.ino
- * Version: 1.0
- * Author:  Adam Reed (adam@secretcode.ninja)
- * License: BSD 3-Clause Licence
- *
- * Inspired by Trilobyte Projects "4x4x4 Led cube demo"
- * at https://www.youtube.com/watch?v=adXXSitxPdo&t=7
- */
+   File:      Snake.ino
+   Purpose:   Snake pattern for the Freetronics 4x4x4 Cube
+   Author:    Adam Reed (adam@secretcode.ninja)
+   Licence:   BSD 3-Clause Licence
 
-#include "SPI.h"
+   Inspired by Trilobyte Projects "4x4x4 Led cube demo"
+   at https://www.youtube.com/watch?v=adXXSitxPdo&t=7
+*/
+
+// Include required libraries
+#include <SPI.h>
 #include "Cube.h"
 
-Cube cube;
-
 /*
- * User editable variables
- */
-
+   User editable variables
+*/
 // Define the colour to use
 rgb_t theColour = GREEN;
 
@@ -24,10 +22,13 @@ rgb_t theColour = GREEN;
 int theDelay = 100;
 
 /*
- * Don't change the following variables
- */
+   Don't edit these variables
+*/
 bool frontToBack = true;
 bool firstRun = true;
+
+// Create an instance of the cube class
+Cube cube;
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
@@ -54,7 +55,7 @@ void setup(void) {
 void loop(void) {
   snake(3, 3, 3, theColour);
   snake(3, 3, 3, BLACK);
-  
+
   snake(0, 0, 0, theColour);
   snake(0, 0, 0, BLACK);
 }
@@ -77,7 +78,7 @@ void snake(byte xPos, byte yPos, byte zPos, rgb_t theColour)
 
   // Indicate whether the sname is moving front to back, or back to front
   // - Y Direction (but only do this on the first time through this procedure)
-  if(firstRun) {
+  if (firstRun) {
     if (yPos == 3) {
       // Move from the back to the front
       frontToBack = false;
@@ -86,7 +87,7 @@ void snake(byte xPos, byte yPos, byte zPos, rgb_t theColour)
     // Flag that we have set the Y direction, and it shouldn't be run again
     firstRun = false;
   }
-  
+
   // Counters to track our position for X and Z planes
   int xLoop = 0;
   int zLoop = 0;
@@ -144,14 +145,14 @@ void snake(byte xPos, byte yPos, byte zPos, rgb_t theColour)
     zLoop++;
   }
 
-    // Ensure that when we are at the edge of the cube, the Z position
-    // is correctly set for the next interation, and recursively call
-    // the snake function to handle it.
-    if (topToBottom) {
-      zPos = 0;
-    } else {
-      zPos = 3;
-    }
+  // Ensure that when we are at the edge of the cube, the Z position
+  // is correctly set for the next interation, and recursively call
+  // the snake function to handle it.
+  if (topToBottom) {
+    zPos = 0;
+  } else {
+    zPos = 3;
+  }
 
   // Handle movement in the Y direction. taking caution to only call the code while
   // still within the bounds of the cube
