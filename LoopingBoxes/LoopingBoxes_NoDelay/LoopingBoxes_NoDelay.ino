@@ -1,6 +1,6 @@
 /*
    File:      LoopingBoxes_NoDelay.ino
-   Purpose:   pattern for the Freetronics 4x4x4 Cube (non blocking)
+   Purpose:   LoopingBoxes pattern for the Freetronics 4x4x4 Cube (non blocking)
    Author:    Adam Reed (adam@secretcode.ninja)
    Licence:   BSD 3-Clause Licence
 */
