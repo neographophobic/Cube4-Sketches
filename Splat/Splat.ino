@@ -1,22 +1,25 @@
 /*
- * File:      Splat.ino
- * Purpose:   Splat pattern for the Freetronics 4x4x4 Cube
- * Author:    Adam Reed (adam@secretcode.ninja)
- * License:   BSD 3-Clause Licence
- */
+   File:      Splat.ino
+   Purpose:   Splat pattern for the Freetronics 4x4x4 Cube
+   Author:    Adam Reed (adam@secretcode.ninja)
+   Licence:   BSD 3-Clause Licence
+*/
 
 // Include required libraries
 #include <SPI.h>
 #include "Cube.h"
 
-// Create an instance of the cube class
-Cube cube;
-
 /*
- * User editable variables
- */
+   User editable variables
+*/
 rgb_t theColour = BLUE;
 int theDelay = 50;
+
+/*
+   Don't edit these variables
+*/
+// Create an instance of the cube class
+Cube cube;
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
