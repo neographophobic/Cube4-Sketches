@@ -13,7 +13,7 @@
 // Define global variables
 
 // theDelay tracks how long to pause between colour changes
-byte theDelay = 75;
+int theDelay = 75;
 
 // theColour sets the colour that is used as the basis of the effect
 rgb_t theColour = BLUE;
