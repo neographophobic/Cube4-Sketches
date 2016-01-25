@@ -1,6 +1,6 @@
 /*
    File:      RandomPull.ino
-   Purpose:   pattern for the Freetronics 4x4x4 Cube
+   Purpose:   RandomPull pattern for the Freetronics 4x4x4 Cube
    Author:    Adam Reed (adam@secretcode.ninja)
    Licence:   BSD 3-Clause Licence
 */
