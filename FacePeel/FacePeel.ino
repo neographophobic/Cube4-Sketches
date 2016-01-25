@@ -1,21 +1,25 @@
-
 /*
- * File:    FacePeel.ino
- * Version: 1.0
- * Author:  Adam Reed (adam@secretcode.ninja)
- * License: BSD 3-Clause Licence
- */
+   File:      FacePeel.ino
+   Purpose:   pattern for the Freetronics 4x4x4 Cube
+   Author:    Adam Reed (adam@secretcode.ninja)
+   Licence:   BSD 3-Clause Licence
+*/
 
-#include "SPI.h"
+// Include required libraries
+#include <SPI.h>
 #include "Cube.h"
 #include "Cube4_ARUtils.h"
 
-Cube cube;
+/*
+   User editable variables
+*/
+
 
 /*
- * User editable variables
- */
-
+   Don't edit these variables
+*/
+// Create an instance of the cube class
+Cube cube;
 
 struct aLine
 {
