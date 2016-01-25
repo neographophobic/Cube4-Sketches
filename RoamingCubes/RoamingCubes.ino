@@ -152,12 +152,11 @@ void setup(void) {
 */
 void loop(void) {
   // Declare tracking variables
-  byte i = 0;
   byte validMoves[3];
 
-  // Constantly loop through each of the colours, and move the matching
+  // Loop through each of the colours, and move the matching
   // cube
-  while (i < 3)
+  for (byte i = 0; i < 3; i++)
   {
     // Determine which cube to move, and where it is
     byte cubeToMove = 0;
@@ -222,12 +221,6 @@ void loop(void) {
     // Move the cube
     moveCube(cubeToMove, validMoves, colours[i], i);
 
-    // Increment counter so that we move the next cube
-    i++;
-    if (i == 3) {
-      // At the end of the cubes, so set the counter back to the first cube
-      i = 0;
-    }
   }
 }
 
