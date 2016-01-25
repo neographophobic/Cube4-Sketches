@@ -8,7 +8,6 @@
 // Include required libraries
 #include <SPI.h>
 #include "Cube.h"
-#include "Cube4_ARUtils.h"
 
 /*
    User editable variables
@@ -64,13 +63,19 @@ void loop(void) {
 }
 
 void planeMove(byte axis, byte position, rgb_t theColour, int theDelay) {
+  // Illuminate the plane we start on and pause
   cube.setplane(axis, position, theColour);
   delay(theDelay);
 
+  // Loop for the additional 3 "stops" along the plane move
   for (byte i = 1; i <= 3; i++) {
     if (position == 0) {
+      // Move the plane in a positive direction
+      // (left to right, front to back, bottom to top)
       cube.shift(axis, '+');
     } else {
+      // Move the plane in a negative direction
+      // (right to left, back to front, top to bottom)
       cube.shift(axis, '-');
     }
     delay(theDelay);
