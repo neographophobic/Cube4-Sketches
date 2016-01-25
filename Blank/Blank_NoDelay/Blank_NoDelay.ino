@@ -15,7 +15,7 @@
    User editable variables
 */
 // theDelay tracks how long to pause between colour changes
-byte theDelay = 100;
+int theDelay = 100;
 
 // theColour sets the colour that is used as the basis of the effect
 rgb_t theColour = BLUE;
