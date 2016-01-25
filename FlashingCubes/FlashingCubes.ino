@@ -1,19 +1,24 @@
-
 /*
- * File:    FlashingCubes.ino
- * Version: 1.0
- * Author:  Adam Reed (adam@secretcode.ninja)
- * License: BSD 3-Clause Licence
- */
+   File:      FlashingCubes.ino
+   Purpose:   Flashing Cubes pattern for the Freetronics 4x4x4 Cube
+   Author:    Adam Reed (adam@secretcode.ninja)
+   Licence:   BSD 3-Clause Licence
+*/
 
-#include "SPI.h"
+// Include required libraries
+#include <SPI.h>
 #include "Cube.h"
 
-Cube cube;
+/*
+   User editable variables
+*/
+
 
 /*
- * User editable variables
- */
+   Don't edit these variables
+*/
+// Create an instance of the cube class
+Cube cube;
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
@@ -41,15 +46,15 @@ void loop(void) {
   rgb_t theColour = BLUE;
   int theDelay = 500;
 
-  cube.box(1,1,1, 2,2,2, theColour);
+  cube.box(1, 1, 1, 2, 2, 2, theColour);
   delay(theDelay);
-  cube.box(0,0,0, 3,3,3, theColour);
+  cube.box(0, 0, 0, 3, 3, 3, theColour);
   delay(theDelay);
-  cube.box(1,1,1, 2,2,2, BLACK);
+  cube.box(1, 1, 1, 2, 2, 2, BLACK);
   delay(theDelay);
-  cube.box(0,0,0, 3,3,3, theColour);
+  cube.box(0, 0, 0, 3, 3, 3, theColour);
   delay(theDelay);
-  cube.box(0,0,0, 3,3,3, BLACK);
+  cube.box(0, 0, 0, 3, 3, 3, BLACK);
 
 }
 
