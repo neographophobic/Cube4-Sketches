@@ -1,23 +1,26 @@
 /*
- * File:    FaceExpand.ino
- * Version: 1.0
- * Author:  Adam Reed (adam@secretcode.ninja)
- * License: BSD 3-Clause Licence
- */
+   File:      FaceExpand.ino
+   Purpose:   FaceExpand pattern for the Freetronics 4x4x4 Cube
+   Author:    Adam Reed (adam@secretcode.ninja)
+   Licence:   BSD 3-Clause Licence
+*/
 
-#include "SPI.h"
+// Include required libraries
+#include <SPI.h>
 #include "Cube.h"
-#include <Cube4_ARUtils.h>
+#include "Cube4_ARUtils.h"
 
+/*
+   User editable variables
+*/
+
+
+/*
+   Don't edit these variables
+*/
+// Create an instance of the cube class
 Cube cube;
 
-/*
- * User editable variables
- */
-
-/*
- * Don't edit these variables
- */
 // Used to ensure that there isn't a double pause if
 // the animation keeps running in a loop
 bool firstRun = true;
@@ -54,22 +57,22 @@ void loop(void) {
 }
 
 /*
- * faceExpands starts in a corner then diagnoally expands to the
- * other corner on the same face. It then contracts in the same
- * maner towards the opposite corner. It requires the colour to
- * use, and the delay between each frame. Finally it also requires
- * a starting position. The valid positions are:-
- *
- *    1: 3,0,0 moving right to left (towards 0,0,3)
- *    2: 0,0,3 moving top to bottom (towards 0,3,0)
- *    3: 0,3,0 moving left to right (towards 3,3,3)
- *    4: 3,3,3 moving top to bottom (towards 0,0,0)
- *
- *    5: 0,0,0 moving left to right (towards 3,0,3)
- *    6: 3,0,3 moving top to bottom (towards 3,3,0)
- *    7: 3,3,0 moving right to left (towards 0,3,3)
- *    8: 0,3,3 moving top to bottom (towards 0,0,0)
- */
+   faceExpands starts in a corner then diagnoally expands to the
+   other corner on the same face. It then contracts in the same
+   maner towards the opposite corner. It requires the colour to
+   use, and the delay between each frame. Finally it also requires
+   a starting position. The valid positions are:-
+
+      1: 3,0,0 moving right to left (towards 0,0,3) (Corner 4 -> Corner 5)
+      2: 0,0,3 moving top to bottom (towards 0,3,0) (Corner 5 -> Corner 2)
+      3: 0,3,0 moving left to right (towards 3,3,3) (Corner 2 -> Corner 7)
+      4: 3,3,3 moving top to bottom (towards 0,0,0) (Corner 7 -> Corner 1)
+
+      5: 0,0,0 moving left to right (towards 3,0,3) (Corner 1 -> Corner 8)
+      6: 3,0,3 moving top to bottom (towards 3,3,0) (Corner 8 -> Corner 3)
+      7: 3,3,0 moving right to left (towards 0,3,3) (Corner 3 -> Corner 6)
+      8: 0,3,3 moving top to bottom (towards 0,0,0) (Corner 6 -> Corner 1)
+*/
 void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
 {
   // Track the coordinates to use for the boxes we draw
