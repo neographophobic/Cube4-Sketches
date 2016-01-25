@@ -8,6 +8,7 @@
 
 #include "SPI.h"
 #include "Cube.h"
+#include "Cube4_ARUtils.h"
 
 Cube cube;
 
@@ -15,18 +16,11 @@ Cube cube;
  * User editable variables
  */
 
-// Struct to track the X,Y,Z position
-struct point
-{
-  byte X;
-  byte Y;
-  byte Z;
-};
 
 struct aLine
 {
-  struct point startPoint;
-  struct point endPoint;
+  struct coordinate startPoint;
+  struct coordinate endPoint;
 };
 
 void setup(void) {
@@ -228,102 +222,102 @@ void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theCol
   // From each of the 8 corners there are 3 valid directions
   // broken into 2 sections (start -> middle -> end)
 
-  struct point startPoint;
-  struct point endPoint;
+  struct coordinate startPoint;
+  struct coordinate endPoint;
 
-  startPoint.X = x1;
-  startPoint.Y = y1;
-  startPoint.Z = z1;
+  startPoint.x = x1;
+  startPoint.y = y1;
+  startPoint.z = z1;
 
-  endPoint.X = x1;
-  endPoint.Y = y1;
-  endPoint.Z = z1;
+  endPoint.x = x1;
+  endPoint.y = y1;
+  endPoint.z = z1;
 
   // First part of the move
-  cube.set(startPoint.X, startPoint.Y, startPoint.Z, theColour);
+  cube.set(startPoint.x, startPoint.y, startPoint.z, theColour);
   delay(theDelay);
 
   // Next 3 steps
   for (byte i = 1; i <= 3; i++) {
     if (startPosition == 1 && stopPosition == 3) {
-      startPoint.Y++;
-      endPoint.X++;
+      startPoint.y++;
+      endPoint.x++;
     } else if (startPosition == 1 && stopPosition == 6) {
-      startPoint.Y++;
-      endPoint.Z++;
+      startPoint.y++;
+      endPoint.z++;
     } else if (startPosition == 1 && stopPosition == 8) {
-      startPoint.Z++;
-      endPoint.X++;
+      startPoint.z++;
+      endPoint.x++;
     }
     if (startPosition == 2 && stopPosition == 4) {
-      startPoint.Y--;
-      endPoint.X++;
+      startPoint.y--;
+      endPoint.x++;
     } else if (startPosition == 2 && stopPosition == 5) {
-      startPoint.Y--;
-      endPoint.Z++;
+      startPoint.y--;
+      endPoint.z++;
     } else if (startPosition == 2 && stopPosition == 7) {
-      startPoint.Z++;
-      endPoint.X++;
+      startPoint.z++;
+      endPoint.x++;
     }
     if (startPosition == 3 && stopPosition == 1) {
-      startPoint.X--;
-      endPoint.Y--;
+      startPoint.x--;
+      endPoint.y--;
     } else if (startPosition == 3 && stopPosition == 6) {
-      startPoint.X--;
-      endPoint.Z++;
+      startPoint.x--;
+      endPoint.z++;
     } else if (startPosition == 3 && stopPosition == 8) {
-      startPoint.Y--;
-      endPoint.Z++;
+      startPoint.y--;
+      endPoint.z++;
     }
     if (startPosition == 4 && stopPosition == 2) {
-      startPoint.X--;
-      endPoint.Y++;
+      startPoint.x--;
+      endPoint.y++;
     } else if (startPosition == 4 && stopPosition == 5) {
-      startPoint.X--;
-      endPoint.Z++;
+      startPoint.x--;
+      endPoint.z++;
     } else if (startPosition == 4 && stopPosition == 7) {
-      startPoint.Z++;
-      endPoint.Y++;
+      startPoint.z++;
+      endPoint.y++;
     }
     if (startPosition == 5 && stopPosition == 2) {
-      startPoint.Z--;
-      endPoint.Y++;
+      startPoint.z--;
+      endPoint.y++;
     } else if (startPosition == 5 && stopPosition == 4) {
-      startPoint.Z--;
-      endPoint.X++;
+      startPoint.z--;
+      endPoint.x++;
     } else if (startPosition == 5 && stopPosition == 7) {
-      startPoint.X++;
-      endPoint.Y++;
+      startPoint.x++;
+      endPoint.y++;
     }
     if (startPosition == 6 && stopPosition == 1) {
-      startPoint.Y--;
-      endPoint.Z--;
+      startPoint.y--;
+      endPoint.z--;
     } else if (startPosition == 6 && stopPosition == 3) {
-      startPoint.X++;
-      endPoint.Z--;
+      startPoint.x++;
+      endPoint.z--;
     } else if (startPosition == 6 && stopPosition == 8) {
-      startPoint.Y--;
-      endPoint.X++;
+      startPoint.y--;
+      endPoint.x++;
     }
     if (startPosition == 7 && stopPosition == 2) {
-      startPoint.X--;
-      endPoint.Z--;
+      startPoint.x--;
+      endPoint.z--;
     } else if (startPosition == 7 && stopPosition == 4) {
-      startPoint.Y--;
-      endPoint.Z--;
+      startPoint.y--;
+      endPoint.z--;
     } else if (startPosition == 7 && stopPosition == 5) {
-      startPoint.X--;
-      endPoint.Y--;
+      startPoint.x--;
+      endPoint.y--;
     }
     if (startPosition == 8 && stopPosition == 1) {
-      startPoint.X--;
-      endPoint.Z--;
+      startPoint.x--;
+      endPoint.z--;
     } else if (startPosition == 8 && stopPosition == 3) {
-      startPoint.Z--;
-      endPoint.Y++;
+      startPoint.z--;
+      endPoint.y++;
     } else if (startPosition == 8 && stopPosition == 6) {
-      startPoint.X--;
-      endPoint.Y++;
+      startPoint.x--;
+      endPoint.y++;
     }
 
     drawLine(startPoint, endPoint, theColour, theDelay);
@@ -332,84 +326,84 @@ void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theCol
   // Final 3 steps
   for (byte i = 1; i <= 3; i++) {
     if (startPosition == 1 && stopPosition == 3) {
-      startPoint.X++;
-      endPoint.Y++;
+      startPoint.x++;
+      endPoint.y++;
     } else if (startPosition == 1 && stopPosition == 6) {
-      startPoint.Z++;
-      endPoint.Y++;
+      startPoint.z++;
+      endPoint.y++;
     } else if (startPosition == 1 && stopPosition == 8) {
-      startPoint.X++;
-      endPoint.Z++;
+      startPoint.x++;
+      endPoint.z++;
     }
     if (startPosition == 2 && stopPosition == 4) {
-      startPoint.X++;
-      endPoint.Y--;
+      startPoint.x++;
+      endPoint.y--;
     } else if (startPosition == 2 && stopPosition == 5) {
-      startPoint.Z++;
-      endPoint.Y--;
+      startPoint.z++;
+      endPoint.y--;
     } else if (startPosition == 2 && stopPosition == 7) {
-      startPoint.X++;
-      endPoint.Z++;
+      startPoint.x++;
+      endPoint.z++;
     }
     if (startPosition == 3 && stopPosition == 1) {
-      startPoint.Y--;
-      endPoint.X--;
+      startPoint.y--;
+      endPoint.x--;
     } else if (startPosition == 3 && stopPosition == 6) {
-      startPoint.Z++;
-      endPoint.X--;
+      startPoint.z++;
+      endPoint.x--;
     } else if (startPosition == 3 && stopPosition == 8) {
-      startPoint.Z++;
-      endPoint.Y--;
+      startPoint.z++;
+      endPoint.y--;
     }
     if (startPosition == 4 && stopPosition == 2) {
-      startPoint.Y++;
-      endPoint.X--;
+      startPoint.y++;
+      endPoint.x--;
     } else if (startPosition == 4 && stopPosition == 5) {
-      startPoint.Z++;
-      endPoint.X--;
+      startPoint.z++;
+      endPoint.x--;
     } else if (startPosition == 4 && stopPosition == 7) {
-      startPoint.Y++;
-      endPoint.Z++;
+      startPoint.y++;
+      endPoint.z++;
     }
     if (startPosition == 5 && stopPosition == 2) {
-      startPoint.Y++;
-      endPoint.Z--;
+      startPoint.y++;
+      endPoint.z--;
     } else if (startPosition == 5 && stopPosition == 4) {
-      startPoint.X++;
-      endPoint.Z--;
+      startPoint.x++;
+      endPoint.z--;
     } else if (startPosition == 5 && stopPosition == 7) {
-      startPoint.Y++;
-      endPoint.X++;
+      startPoint.y++;
+      endPoint.x++;
     }
     if (startPosition == 6 && stopPosition == 1) {
-      startPoint.Z--;
-      endPoint.Y--;
+      startPoint.z--;
+      endPoint.y--;
     } else if (startPosition == 6 && stopPosition == 3) {
-      startPoint.Z--;
-      endPoint.X++;
+      startPoint.z--;
+      endPoint.x++;
     } else if (startPosition == 6 && stopPosition == 8) {
-      startPoint.X++;
-      endPoint.Y--;
+      startPoint.x++;
+      endPoint.y--;
     }
     if (startPosition == 7 && stopPosition == 2) {
-      startPoint.Z--;
-      endPoint.X--;
+      startPoint.z--;
+      endPoint.x--;
     } else if (startPosition == 7 && stopPosition == 4) {
-      startPoint.Z--;
-      endPoint.Y--;
+      startPoint.z--;
+      endPoint.y--;
     } else if (startPosition == 7 && stopPosition == 5) {
-      startPoint.Y--;
-      endPoint.X--;
+      startPoint.y--;
+      endPoint.x--;
     }
     if (startPosition == 8 && stopPosition == 1) {
-      startPoint.Z--;
-      endPoint.X--;
+      startPoint.z--;
+      endPoint.x--;
     } else if (startPosition == 8 && stopPosition == 3) {
-      startPoint.Y++;
-      endPoint.Z--;
+      startPoint.y++;
+      endPoint.z--;
     } else if (startPosition == 8 && stopPosition == 6) {
-      startPoint.Y++;
-      endPoint.X--;
+      startPoint.y++;
+      endPoint.x--;
     }
 
     drawLine(startPoint, endPoint, theColour, theDelay);
@@ -418,18 +412,18 @@ void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theCol
 
 void drawLine(struct point startPoint, struct point endPoint, rgb_t theColour, int theDelay)
 {
-  if (startPoint.Y > endPoint.Y && startPoint.Z < endPoint.Z ||
-      startPoint.X > endPoint.X && startPoint.Z == endPoint.Z ||
-      startPoint.X > endPoint.X && startPoint.Y == endPoint.Y ||
-      startPoint.Y > endPoint.Y && startPoint.X == endPoint.X
+  if (startPoint.y > endPoint.y && startPoint.z < endPoint.z ||
+      startPoint.x > endPoint.x && startPoint.z == endPoint.z ||
+      startPoint.x > endPoint.x && startPoint.y == endPoint.y ||
+      startPoint.y > endPoint.y && startPoint.x == endPoint.x
      ) {
     // Work around bug in line drawing code by swapping start and
     // end point if particular condiations are meet
-    cube.line(endPoint.X, endPoint.Y, endPoint.Z,
-              startPoint.X, startPoint.Y, startPoint.Z, theColour);
+    cube.line(endPoint.x, endPoint.y, endPoint.z,
+              startPoint.x, startPoint.y, startPoint.z, theColour);
   } else {
-    cube.line(startPoint.X, startPoint.Y, startPoint.Z,
-              endPoint.X, endPoint.Y, endPoint.Z, theColour);
+    cube.line(startPoint.x, startPoint.y, startPoint.z,
+              endPoint.x, endPoint.y, endPoint.z, theColour);
   }
   delay(theDelay);
 }
@@ -443,223 +437,223 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
   aLine lines[7];
 
   // Figure out where the lines to move are
-  lines[0].startPoint.X = x1;
-  lines[0].startPoint.Y = y1;
-  lines[0].startPoint.Z = z1;
-  lines[0].endPoint.X = x1;
-  lines[0].endPoint.Y = y1;
-  lines[0].endPoint.Z = z1;
+  lines[0].startPoint.x = x1;
+  lines[0].startPoint.y = y1;
+  lines[0].startPoint.z = z1;
+  lines[0].endPoint.x = x1;
+  lines[0].endPoint.y = y1;
+  lines[0].endPoint.z = z1;
 
   for (byte i = 1; i <= 3; i++) {
-    lines[i].startPoint.X = lines[i - 1].startPoint.X;
-    lines[i].startPoint.Y = lines[i - 1].startPoint.Y;
-    lines[i].startPoint.Z = lines[i - 1].startPoint.Z;
-    lines[i].endPoint.X = lines[i - 1].endPoint.X;
-    lines[i].endPoint.Y = lines[i - 1].endPoint.Y;
-    lines[i].endPoint.Z = lines[i - 1].endPoint.Z;
+    lines[i].startPoint.x = lines[i - 1].startPoint.x;
+    lines[i].startPoint.y = lines[i - 1].startPoint.y;
+    lines[i].startPoint.z = lines[i - 1].startPoint.z;
+    lines[i].endPoint.x = lines[i - 1].endPoint.x;
+    lines[i].endPoint.y = lines[i - 1].endPoint.y;
+    lines[i].endPoint.z = lines[i - 1].endPoint.z;
 
     if (startPosition == 1 && stopPosition == 3) {
-      lines[i].startPoint.Y++;
-      lines[i].endPoint.X++;
+      lines[i].startPoint.y++;
+      lines[i].endPoint.x++;
     }
     if (startPosition == 1 && stopPosition == 6) {
-      lines[i].startPoint.Z++;
-      lines[i].endPoint.Y++;
+      lines[i].startPoint.z++;
+      lines[i].endPoint.y++;
     }
     if (startPosition == 1 && stopPosition == 8) {
-      lines[i].startPoint.Z++;
-      lines[i].endPoint.X++;
+      lines[i].startPoint.z++;
+      lines[i].endPoint.x++;
     }
     if (startPosition == 2 && stopPosition == 4) {
-      lines[i].startPoint.X++;
-      lines[i].endPoint.Y--;
+      lines[i].startPoint.x++;
+      lines[i].endPoint.y--;
     }
     if (startPosition == 2 && stopPosition == 5) {
-      lines[i].startPoint.Y--;
-      lines[i].endPoint.Z++;
+      lines[i].startPoint.y--;
+      lines[i].endPoint.z++;
     }
     if (startPosition == 2 && stopPosition == 7) {
-      lines[i].startPoint.Z++;
-      lines[i].endPoint.X++;
+      lines[i].startPoint.z++;
+      lines[i].endPoint.x++;
     }
     if (startPosition == 3 && stopPosition == 1) {
-      lines[i].startPoint.X--;
-      lines[i].endPoint.Y--;
+      lines[i].startPoint.x--;
+      lines[i].endPoint.y--;
     }
     if (startPosition == 3 && stopPosition == 6) {
-      lines[i].startPoint.X--;
-      lines[i].endPoint.Z++;
+      lines[i].startPoint.x--;
+      lines[i].endPoint.z++;
     }
     if (startPosition == 3 && stopPosition == 8) {
-      lines[i].startPoint.Z++;
-      lines[i].endPoint.Y--;
+      lines[i].startPoint.z++;
+      lines[i].endPoint.y--;
     }
     if (startPosition == 4 && stopPosition == 2) {
-      lines[i].startPoint.X--;
-      lines[i].endPoint.Y++;
+      lines[i].startPoint.x--;
+      lines[i].endPoint.y++;
     }
     if (startPosition == 4 && stopPosition == 5) {
-      lines[i].startPoint.X--;
-      lines[i].endPoint.Z++;
+      lines[i].startPoint.x--;
+      lines[i].endPoint.z++;
     }
     if (startPosition == 4 && stopPosition == 7) {
-      lines[i].startPoint.Z++;
-      lines[i].endPoint.Y++;
+      lines[i].startPoint.z++;
+      lines[i].endPoint.y++;
     }
     if (startPosition == 5 && stopPosition == 2) {
-      lines[i].startPoint.Z--;
-      lines[i].endPoint.Y++;
+      lines[i].startPoint.z--;
+      lines[i].endPoint.y++;
     }
     if (startPosition == 5 && stopPosition == 4) {
-      lines[i].startPoint.Z--;
-      lines[i].endPoint.X++;
+      lines[i].startPoint.z--;
+      lines[i].endPoint.x++;
     }
     if (startPosition == 5 && stopPosition == 7) {
-      lines[i].startPoint.X++;
-      lines[i].endPoint.Y++;
+      lines[i].startPoint.x++;
+      lines[i].endPoint.y++;
     }
     if (startPosition == 6 && stopPosition == 1) {
-      lines[i].startPoint.Z--;
-      lines[i].endPoint.Y--;
+      lines[i].startPoint.z--;
+      lines[i].endPoint.y--;
     }
     if (startPosition == 6 && stopPosition == 3) {
-      lines[i].startPoint.Z--;
-      lines[i].endPoint.X++;
+      lines[i].startPoint.z--;
+      lines[i].endPoint.x++;
     }
     if (startPosition == 6 && stopPosition == 8) {
-      lines[i].startPoint.Y--;
-      lines[i].endPoint.X++;
+      lines[i].startPoint.y--;
+      lines[i].endPoint.x++;
     }
     if (startPosition == 7 && stopPosition == 2) {
-      lines[i].startPoint.X--;
-      lines[i].endPoint.Z--;
+      lines[i].startPoint.x--;
+      lines[i].endPoint.z--;
     }
     if (startPosition == 7 && stopPosition == 4) {
-      lines[i].startPoint.Y--;
-      lines[i].endPoint.Z--;
+      lines[i].startPoint.y--;
+      lines[i].endPoint.z--;
     }
     if (startPosition == 7 && stopPosition == 5) {
-      lines[i].startPoint.X--;
-      lines[i].endPoint.Y--;
+      lines[i].startPoint.x--;
+      lines[i].endPoint.y--;
     }
     if (startPosition == 8 && stopPosition == 1) {
-      lines[i].startPoint.X--;
-      lines[i].endPoint.Z--;
+      lines[i].startPoint.x--;
+      lines[i].endPoint.z--;
     }
     if (startPosition == 8 && stopPosition == 3) {
-      lines[i].startPoint.Y++;
-      lines[i].endPoint.Z--;
+      lines[i].startPoint.y++;
+      lines[i].endPoint.z--;
     }
     if (startPosition == 8 && stopPosition == 6) {
-      lines[i].startPoint.X--;
-      lines[i].endPoint.Y++;
+      lines[i].startPoint.x--;
+      lines[i].endPoint.y++;
     }
   }
 
   for (byte i = 4; i <= 6; i++) {
-    lines[i].startPoint.X = lines[i - 1].startPoint.X;
-    lines[i].startPoint.Y = lines[i - 1].startPoint.Y;
-    lines[i].startPoint.Z = lines[i - 1].startPoint.Z;
-    lines[i].endPoint.X = lines[i - 1].endPoint.X;
-    lines[i].endPoint.Y = lines[i - 1].endPoint.Y;
-    lines[i].endPoint.Z = lines[i - 1].endPoint.Z;
+    lines[i].startPoint.x = lines[i - 1].startPoint.x;
+    lines[i].startPoint.y = lines[i - 1].startPoint.y;
+    lines[i].startPoint.z = lines[i - 1].startPoint.z;
+    lines[i].endPoint.x = lines[i - 1].endPoint.x;
+    lines[i].endPoint.y = lines[i - 1].endPoint.y;
+    lines[i].endPoint.z = lines[i - 1].endPoint.z;
 
 
     if (startPosition == 1 && stopPosition == 3) {
-      lines[i].startPoint.X++;
-      lines[i].endPoint.Y++;
+      lines[i].startPoint.x++;
+      lines[i].endPoint.y++;
     }
     if (startPosition == 1 && stopPosition == 6) {
-      lines[i].startPoint.Y++;
-      lines[i].endPoint.Z++;
+      lines[i].startPoint.y++;
+      lines[i].endPoint.z++;
     }
     if (startPosition == 1 && stopPosition == 8) {
-      lines[i].startPoint.X++;
-      lines[i].endPoint.Z++;
+      lines[i].startPoint.x++;
+      lines[i].endPoint.z++;
     }
     if (startPosition == 2 && stopPosition == 4) {
-      lines[i].startPoint.Y--;
-      lines[i].endPoint.X++;
+      lines[i].startPoint.y--;
+      lines[i].endPoint.x++;
     }
     if (startPosition == 2 && stopPosition == 5) {
-      lines[i].startPoint.Z++;
-      lines[i].endPoint.Y--;
+      lines[i].startPoint.z++;
+      lines[i].endPoint.y--;
     }
     if (startPosition == 2 && stopPosition == 7) {
-      lines[i].startPoint.X++;
-      lines[i].endPoint.Z++;
+      lines[i].startPoint.x++;
+      lines[i].endPoint.z++;
     }
     if (startPosition == 3 && stopPosition == 1) {
-      lines[i].startPoint.Y++;
-      lines[i].endPoint.X--;
+      lines[i].startPoint.y++;
+      lines[i].endPoint.x--;
     }
     if (startPosition == 3 && stopPosition == 6) {
-      lines[i].startPoint.Z++;
-      lines[i].endPoint.X--;
+      lines[i].startPoint.z++;
+      lines[i].endPoint.x--;
     }
     if (startPosition == 3 && stopPosition == 8) {
-      lines[i].startPoint.Y--;
-      lines[i].endPoint.Z++;
+      lines[i].startPoint.y--;
+      lines[i].endPoint.z++;
     }
     if (startPosition == 4 && stopPosition == 2) {
-      lines[i].startPoint.Y++;
-      lines[i].endPoint.X--;
+      lines[i].startPoint.y++;
+      lines[i].endPoint.x--;
     }
     if (startPosition == 4 && stopPosition == 5) {
-      lines[i].startPoint.Z++;
-      lines[i].endPoint.X--;
+      lines[i].startPoint.z++;
+      lines[i].endPoint.x--;
     }
     if (startPosition == 4 && stopPosition == 7) {
-      lines[i].startPoint.Y++;
-      lines[i].endPoint.Z++;
+      lines[i].startPoint.y++;
+      lines[i].endPoint.z++;
     }
     if (startPosition == 5 && stopPosition == 2) {
-      lines[i].startPoint.Y++;
-      lines[i].endPoint.Z--;
+      lines[i].startPoint.y++;
+      lines[i].endPoint.z--;
     }
     if (startPosition == 5 && stopPosition == 4) {
-      lines[i].startPoint.X++;
-      lines[i].endPoint.Z--;
+      lines[i].startPoint.x++;
+      lines[i].endPoint.z--;
     }
     if (startPosition == 5 && stopPosition == 7) {
-      lines[i].startPoint.Y++;
-      lines[i].endPoint.X++;
+      lines[i].startPoint.y++;
+      lines[i].endPoint.x++;
     }
     if (startPosition == 6 && stopPosition == 1) {
-      lines[i].startPoint.Y--;
-      lines[i].endPoint.Z--;
+      lines[i].startPoint.y--;
+      lines[i].endPoint.z--;
     }
     if (startPosition == 6 && stopPosition == 3) {
-      lines[i].startPoint.X++;
-      lines[i].endPoint.Z--;
+      lines[i].startPoint.x++;
+      lines[i].endPoint.z--;
     }
     if (startPosition == 6 && stopPosition == 8) {
-      lines[i].startPoint.X++;
-      lines[i].endPoint.Y--;
+      lines[i].startPoint.x++;
+      lines[i].endPoint.y--;
     }
     if (startPosition == 7 && stopPosition == 2) {
-      lines[i].startPoint.Z--;
-      lines[i].endPoint.X--;
+      lines[i].startPoint.z--;
+      lines[i].endPoint.x--;
     }
     if (startPosition == 7 && stopPosition == 4) {
-      lines[i].startPoint.Z--;
-      lines[i].endPoint.Y--;
+      lines[i].startPoint.z--;
+      lines[i].endPoint.y--;
     }
     if (startPosition == 7 && stopPosition == 5) {
-      lines[i].startPoint.Y--;
-      lines[i].endPoint.X--;
+      lines[i].startPoint.y--;
+      lines[i].endPoint.x--;
     }
     if (startPosition == 8 && stopPosition == 1) {
-      lines[i].startPoint.Z--;
-      lines[i].endPoint.X--;
+      lines[i].startPoint.z--;
+      lines[i].endPoint.x--;
     }
     if (startPosition == 8 && stopPosition == 3) {
-      lines[i].startPoint.Z--;
-      lines[i].endPoint.Y++;
+      lines[i].startPoint.z--;
+      lines[i].endPoint.y++;
     }
     if (startPosition == 8 && stopPosition == 6) {
-      lines[i].startPoint.Y++;
-      lines[i].endPoint.X--;
+      lines[i].startPoint.y++;
+      lines[i].endPoint.x--;
     }
   }
 
@@ -675,40 +669,40 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
       if (count[j] >= 1 && count[j] <= 3) {
         drawLine(lines[j].startPoint, lines[j].endPoint, BLACK, 0);
         if (startPosition >= 5 && stopPosition >= 5) {
-          lines[j].startPoint.Z--;
-          lines[j].endPoint.Z--;
+          lines[j].startPoint.z--;
+          lines[j].endPoint.z--;
         }
         if (startPosition <= 4 && stopPosition <= 4) {
-          lines[j].startPoint.Z++;
-          lines[j].endPoint.Z++;
+          lines[j].startPoint.z++;
+          lines[j].endPoint.z++;
         }
         if ((startPosition == 1 && stopPosition == 8) ||
             (startPosition == 5 && stopPosition == 4) ||
             (startPosition == 8 && stopPosition == 1) ||
             (startPosition == 4 && stopPosition == 5)) {
-          lines[j].startPoint.Y++;
-          lines[j].endPoint.Y++;
+          lines[j].startPoint.y++;
+          lines[j].endPoint.y++;
         }
         if ((startPosition == 2 && stopPosition == 7) ||
             (startPosition == 6 && stopPosition == 3) ||
             (startPosition == 7 && stopPosition == 2) ||
             (startPosition == 3 && stopPosition == 6)) {
-          lines[j].startPoint.Y--;
-          lines[j].endPoint.Y--;
+          lines[j].startPoint.y--;
+          lines[j].endPoint.y--;
         }
         if ((startPosition == 1 && stopPosition == 6) ||
             (startPosition == 2 && stopPosition == 5) ||
             (startPosition == 5 && stopPosition == 2) ||
             (startPosition == 6 && stopPosition == 1)) {
-          lines[j].startPoint.X++;
-          lines[j].endPoint.X++;
+          lines[j].startPoint.x++;
+          lines[j].endPoint.x++;
         }
         if ((startPosition == 3 && stopPosition == 8) ||
             (startPosition == 4 && stopPosition == 7) ||
             (startPosition == 7 && stopPosition == 4) ||
             (startPosition == 8 && stopPosition == 3)) {
-          lines[j].startPoint.X--;
-          lines[j].endPoint.X--;
+          lines[j].startPoint.x--;
+          lines[j].endPoint.x--;
         }
         drawLine(lines[j].startPoint, lines[j].endPoint, theColour, 0);
       }
