@@ -1,14 +1,23 @@
 /*
- *  File:     Sweep.ino
- *  Purpose:  Sweep pattern for the Freetronics 4x4x4 Cube (non blocking)
- *  Author:   Adam Reed (adam@secretcode.ninja)
- *  License:  BSD 3-Clause Licence
- */
+    File:     Sweep.ino
+    Purpose:  Sweep pattern for the Freetronics 4x4x4 Cube (non blocking)
+    Author:   Adam Reed (adam@secretcode.ninja)
+    Licence:  BSD 3-Clause Licence
+*/
 
 // Include required libraries
 #include <SPI.h>
 #include "Cube.h"
 
+/*
+   User editable variables
+*/
+
+
+/*
+   Don't edit these variables
+*/
+// Create an instance of the cube class
 Cube cube;
 
 void setup(void) {
@@ -21,8 +30,8 @@ void setup(void) {
 
 void loop(void) {
   /*
-   * User editable variables
-   */
+     User editable variables
+  */
   rgb_t theColour = BLUE;
   int theDelay = 75;
 
