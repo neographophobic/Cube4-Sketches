@@ -1,19 +1,25 @@
-
 /*
- * File:    PlaneMove.ino
- * Version: 1.0
- * Author:  Adam Reed (adam@secretcode.ninja)
- * License: BSD 3-Clause Licence
- */
+   File:      PlaneMove.ino
+   Purpose:   Plane Move pattern for the Freetronics 4x4x4 Cube
+   Author:    Adam Reed (adam@secretcode.ninja)
+   Licence:   BSD 3-Clause Licence
+*/
 
-#include "SPI.h"
+// Include required libraries
+#include <SPI.h>
 #include "Cube.h"
-
-Cube cube;
+#include "Cube4_ARUtils.h"
 
 /*
- * User editable variables
- */
+   User editable variables
+*/
+
+
+/*
+   Don't edit these variables
+*/
+// Create an instance of the cube class
+Cube cube;
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
@@ -41,24 +47,20 @@ void loop(void) {
   rgb_t theColour = GREEN;
   int theDelay = 150;
 
+  // Move the X plane left to right then right to left
+  cube.all(BLACK);
   planeMove(X, 0, theColour, theDelay);
-  cube.all(BLACK);
-  delay(theDelay);
   planeMove(X, 3, theColour, theDelay);
+
+  // Move the Y plane front to back then back to front
   cube.all(BLACK);
-  delay(theDelay);
   planeMove(Y, 0, theColour, theDelay);
-  cube.all(BLACK);
-  delay(theDelay);
   planeMove(Y, 3, theColour, theDelay);
+
+  // Move the Z plane bottom to top then top to bottom
   cube.all(BLACK);
-  delay(theDelay);
   planeMove(Z, 0, theColour, theDelay);
-  cube.all(BLACK);
-  delay(theDelay);
   planeMove(Z, 3, theColour, theDelay);
-  cube.all(BLACK);
-  delay(theDelay);
 }
 
 void planeMove(byte axis, byte position, rgb_t theColour, int theDelay) {
