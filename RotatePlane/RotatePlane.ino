@@ -1,25 +1,28 @@
-
 /*
- * File:    RotatePlane.ino
- * Version: 1.0
- * Author:  Adam Reed (adam@secretcode.ninja)
- * License: BSD 3-Clause Licence
- */
+   File:      RotatePlane.ino
+   Purpose:   Rotate Plane pattern for the Freetronics 4x4x4 Cube
+   Author:    Adam Reed (adam@secretcode.ninja)
+   Licence:   BSD 3-Clause Licence
+*/
 
-#include "SPI.h"
+// Include required libraries
+#include <SPI.h>
 #include "Cube.h"
 
-Cube cube;
-
 /*
- * User editable variables
- */
-
+   User editable variables
+*/
 // Define the delay between each step of an animation
 int theDelay = 100;
 
 // Define the number of times to move in a given direction
 int loops = 5;
+
+/*
+   Don't edit these variables
+*/
+// Create an instance of the cube class
+Cube cube;
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
@@ -84,10 +87,10 @@ void loop(void) {
 }
 
 /*
- * Run a sweeping animation, starting on either the left/back or right/front side, and running
- * left to right, top to bottom or the reverse, using the provided colour, and pausing for
- * the period specified in theDelay
- */
+   Run a sweeping animation, starting on either the left/back or right/front side, and running
+   left to right, top to bottom or the reverse, using the provided colour, and pausing for
+   the period specified in theDelay
+*/
 void sweep(bool startFromLeftOrBackSide, bool horizontalMovement, bool leftToRightOrTopToBottom, rgb_t theColour, int theDelay)
 {
   // Sequence of frames to display for clockwise (Left to Right, Top to Bottom) motion
@@ -131,9 +134,9 @@ void sweep(bool startFromLeftOrBackSide, bool horizontalMovement, bool leftToRig
 }
 
 /*
- * Show the specified frame of the animation, using the provided
- * colour, pausing for the set delay time.
- */
+   Show the specified frame of the animation, using the provided
+   colour, pausing for the set delay time.
+*/
 void animationFrame(bool horizontalMovement, byte theFrame, rgb_t theColour, int theDelay)
 {
   // Clear the Cube
