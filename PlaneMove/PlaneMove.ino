@@ -64,17 +64,14 @@ void loop(void) {
 void planeMove(byte axis, byte position, rgb_t theColour, int theDelay) {
   cube.setplane(axis, position, theColour);
   delay(theDelay);
-  
-  if (position == 0) {
-    for (byte i = 1; i <= 3; i++) {
+
+  for (byte i = 1; i <= 3; i++) {
+    if (position == 0) {
       cube.shift(axis, '+');
-      delay(theDelay);
-    }
-  } else {
-    for (byte i = 3; i >= 1; i--) {
+    } else {
       cube.shift(axis, '-');
-      delay(theDelay);
     }
+    delay(theDelay);
   }
 }
 
