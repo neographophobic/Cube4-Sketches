@@ -1,22 +1,25 @@
-
 /*
- * File:    Expanding.ino
- * Version: 1.0
- * Author:  Adam Reed (adam@secretcode.ninja)
- * License: BSD 3-Clause Licence
- */
+   File:      Expanding.ino
+   Purpose:   Expanding pattern for the Freetronics 4x4x4 Cube
+   Author:    Adam Reed (adam@secretcode.ninja)
+   Licence:   BSD 3-Clause Licence
+*/
 
-#include "SPI.h"
+// Include required libraries
+#include <SPI.h>
 #include "Cube.h"
 
-Cube cube;
-
 /*
- * User editable variables
- */
-
+   User editable variables
+*/
 // Define the delay between each step of an animation
 int theDelay = 100;
+
+/*
+   Don't edit these variables
+*/
+// Create an instance of the cube class
+Cube cube;
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
@@ -59,12 +62,12 @@ void loop(void) {
 }
 
 /*
- * Expand LEDs from a given start point diagonally, then contract
- * them back again.
- *   x,y,x = Starting position (any of the 8 corners of the cube)
- *   theColour = The Colour to use for the animation
- *   theDelay = The delay between each step of the animation
- */
+   Expand LEDs from a given start point diagonally, then contract
+   them back again.
+     x,y,x = Starting position (any of the 8 corners of the cube)
+     theColour = The Colour to use for the animation
+     theDelay = The delay between each step of the animation
+*/
 void expand(byte x, byte y, byte z, rgb_t theColour, int theDelay)
 {
   // Track the users original starting point
@@ -92,63 +95,63 @@ void expand(byte x, byte y, byte z, rgb_t theColour, int theDelay)
   for (byte i = 1; i <= 3; i++)
   {
     /*
-     * There are three expand animation steps
-     * Depending on where we started from, each step is either
-     * an addition or subtraction from either the start point,
-     * or end point for the box. The following if statements
-     * handle the maths.
-     */
-     
-    // Bottom Front Left Starting Point
+       There are three expand animation steps
+       Depending on where we started from, each step is either
+       an addition or subtraction from either the start point,
+       or end point for the box. The following if statements
+       handle the maths.
+    */
+
+    // Bottom Front Left Starting Point (Corner 1)
     if (xOrig == 0 && yOrig == 0 && zOrig == 0) {
       endX++;
       endY++;
       endZ++;
     }
 
-    // Bottom Back Left Starting Point
+    // Bottom Back Left Starting Point (Corner 2)
     if (xOrig == 0 && yOrig == 3 && zOrig == 0) {
       startY--;
       endX++;
       endZ++;
     }
 
-    // Bottom Back Right Starting Point
+    // Bottom Back Right Starting Point (Corner 3)
     if (xOrig == 3 && yOrig == 3 && zOrig == 0) {
       startX--;
       startY--;
       endZ++;
     }
 
-    // Bottom Front Right Starting Point
+    // Bottom Front Right Starting Point (Corner 4)
     if (xOrig == 3 && yOrig == 0 && zOrig == 0) {
       startX--;
       endY++;
       endZ++;
     }
 
-    // Top Front Left Starting Point
+    // Top Front Left Starting Point (Corner 5)
     if (xOrig == 0 && yOrig == 0 && zOrig == 3) {
       startZ--;
       endX++;
       endY++;
     }
 
-    // Top Back Left Starting Point
+    // Top Back Left Starting Point (Corner 6)
     if (xOrig == 0 && yOrig == 3 && zOrig == 3) {
       startY--;
       startZ--;
       endX++;
     }
 
-    // Top Back Right Starting Point
+    // Top Back Right Starting Point (Corner 7)
     if (xOrig == 3 && yOrig == 3 && zOrig == 3) {
       startX--;
       startY--;
       startZ--;
     }
 
-    // Top Front Right Starting Point
+    // Top Front Right Starting Point (Corner 8)
     if (xOrig == 3 && yOrig == 0 && zOrig == 3) {
       startX--;
       startZ--;
@@ -157,7 +160,7 @@ void expand(byte x, byte y, byte z, rgb_t theColour, int theDelay)
 
     // Draw a filled in box from the calculated start coordinates
     // to the calculated end coordinates in the given colour then
-    // pause for the provided delay 
+    // pause for the provided delay
     cube.box(startX, startY, startZ, endX, endY, endZ, theColour);
     delay(theDelay);
   }
@@ -166,80 +169,80 @@ void expand(byte x, byte y, byte z, rgb_t theColour, int theDelay)
   for (byte i = 1; i <= 2; i++)
   {
     /*
-     * There are two contract animation steps
-     * These steps are the opposite to was was done to expand.
-     * 
-     * The starting points refer to where the animation started
-     * to expand from, not where it's contracting from.
-     */
+       There are two contract animation steps
+       These steps are the opposite to was was done to expand.
 
-    // Bottom Front Left Starting Point
+       The starting points refer to where the animation started
+       to expand from, not where it's contracting from.
+    */
+
+    // Bottom Front Left Starting Point (Corner 1)
     if (xOrig == 0 && yOrig == 0 && zOrig == 0) {
       endX--;
       endY--;
       endZ--;
     }
 
-    // Bottom Back Left Starting Point
+    // Bottom Back Left Starting Point (Corner 2)
     if (xOrig == 0 && yOrig == 3 && zOrig == 0) {
       startY++;
       endX--;
       endZ--;
     }
 
-    // Bottom Back Right Starting Point
+    // Bottom Back Right Starting Point (Corner 3)
     if (xOrig == 3 && yOrig == 3 && zOrig == 0) {
       startX++;
       startY++;
       endZ--;
     }
 
-    // Bottom Front Right Starting Point
+    // Bottom Front Right Starting Point (Corner 4)
     if (xOrig == 3 && yOrig == 0 && zOrig == 0) {
       startX++;
       endY--;
       endZ--;
     }
 
-    // Top Front Left Starting Point
+    // Top Front Left Starting Point (Corner 5)
     if (xOrig == 0 && yOrig == 0 && zOrig == 3) {
       startZ++;
       endX--;
       endY--;
     }
 
-    // Top Back Left Starting Point
+    // Top Back Left Starting Point (Corner 6)
     if (xOrig == 0 && yOrig == 3 && zOrig == 3) {
       startY++;
       startZ++;
       endX--;
     }
 
-    // Top Back Right Starting Point
+    // Top Back Right Starting Point (Corner 7)
     if (xOrig == 3 && yOrig == 3 && zOrig == 3) {
       startX++;
       startY++;
       startZ++;
     }
 
-    // Top Front Right Starting Point
+    // Top Front Right Starting Point (Corner 8)
     if (xOrig == 3 && yOrig == 0 && zOrig == 3) {
       startX++;
       startZ++;
       endY--;
     }
 
-    // Clear the cube, then draw a filled in box from the 
-    // calculated start coordinates to the calculated end 
-    // coordinates in the given colour then pause for the 
-    // provided delay 
+    // Clear the cube, then draw a filled in box from the
+    // calculated start coordinates to the calculated end
+    // coordinates in the given colour then pause for the
+    // provided delay
     cube.all(BLACK);
     cube.box(startX, startY, startZ, endX, endY, endZ, theColour);
     delay(theDelay);
   }
 
   // Finish the animation by clearing the cube, and then
-  // illuminating the original start coordinate for the 
+  // illuminating the original start coordinate for the
   // delay period.
   cube.all(BLACK);
   cube.set(xOrig, yOrig, zOrig, theColour);
