@@ -1,9 +1,9 @@
 /*
- *  File:     Splat_NoDelay.ino
- *  Purpose:  Splat pattern for the Freetronics 4x4x4 Cube (non blocking)
- *  Author:   Adam Reed (adam@secretcode.ninja)
- *  License:  BSD 3-Clause Licence
- */
+    File:     Splat_NoDelay.ino
+    Purpose:  Splat pattern for the Freetronics 4x4x4 Cube (non blocking)
+    Author:   Adam Reed (adam@secretcode.ninja)
+    Licence:  BSD 3-Clause Licence
+*/
 
 // Include required libraries
 #include <SPI.h>
