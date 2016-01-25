@@ -1,6 +1,6 @@
 /*
    File:      LoopingBoxes_NoDelay.ino
-   Purpose:   pattern for the Freetronics 4x4x4 Cube (non blocking)
+   Purpose:   LoopingBoxes pattern for the Freetronics 4x4x4 Cube (non blocking)
    Author:    Adam Reed (adam@secretcode.ninja)
    Licence:   BSD 3-Clause Licence
 */
@@ -14,7 +14,7 @@
    User editable variables
 */
 // theDelay tracks how long to pause between colour changes
-byte theDelay = 150;
+int theDelay = 150;
 
 // innerColour sets the colour that is used for the inner square
 rgb_t innerColour = GREEN;
