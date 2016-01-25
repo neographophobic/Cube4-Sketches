@@ -1,29 +1,30 @@
 
 /*
- * File:    CubeEdges.ino
- * Version: 1.0
- * Author:  Adam Reed (adam@secretcode.ninja)
- * License: BSD 3-Clause Licence
- *
- * Inspired by Trilobyte Projects "4x4x4 Led cube demo"
- * at https://www.youtube.com/watch?v=adXXSitxPdo&t=91
- */
+    File:     CubeEdges.ino
+    Purpose:  CubeEdges pattern for the Freetronics 4x4x4 Cube
+    Author:   Adam Reed (adam@secretcode.ninja)
+    Licence:  BSD 3-Clause Licence
 
-#include "SPI.h"
+    Inspired by Trilobyte Projects "4x4x4 Led cube demo"
+    at https://www.youtube.com/watch?v=adXXSitxPdo&t=91
+*/
+
+// Include required libraries
+#include <SPI.h>
 #include "Cube.h"
 #include "Cube4_ARUtils.h"
 
-Cube cube;
-
 /*
- * User editable variables
- */
+   User editable variables
+*/
 rgb_t theColour = BLUE;   // The colour to use
 int theDelay = 100;       // How long to pause between each step
 
 /*
- * Don't edit these variables
- */
+   Don't edit these variables
+*/
+// Create an instance of the cube class
+Cube cube;
 
 // Struct to track the 3 X,Y,Z positions we end up
 // after an animation sequence
