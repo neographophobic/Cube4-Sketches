@@ -1,61 +1,59 @@
 /*
- * File:    RoamingCubes.ino
- * Version: 1.0
- * Author:  Adam Reed (adam@secretcode.ninja)
- * License: BSD 3-Clause Licence
- *
- * Inspired by Trilobyte Projects "4x4x4 Led cube demo"
- * at https://www.youtube.com/watch?v=adXXSitxPdo&t=18
- */
+   File:      RoamingCubes.ino
+   Purpose:   RoamingCubes pattern for the Freetronics 4x4x4 Cube
+   Author:    Adam Reed (adam@secretcode.ninja)
+   Licence:   BSD 3-Clause Licence
+
+   Inspired by Trilobyte Projects "4x4x4 Led cube demo"
+   at https://www.youtube.com/watch?v=adXXSitxPdo&t=18
+*/
 
 /*
- * There are 3 2x2x2 mini cubes that roam around the larger 4x4x4 cube. The
- * mini cubes move in a random direction either left, right, back, forward,
- * up, or down.
- *
- * The movement is only allowed if there are not already 2 cubes in the
- * destination plane, and that the destination location isn't occupied.
- *
- * There are 24 valid moves in total. The cube broken into 4 quadrants on
- * the bottom, and another 4 on the top. Each of the quadrants is assigned a
- * number which is used to determine where the mini cubes are, and where
- * they can move to. From any location, there are three possible moves, but
- * due to the above, some of these locations may not be allowed.
- *
- * The Layout of the locations is as follows:-
- * Top
- *   -------------------
- *   |        |        |
- *   | 5 (T1) | 6 (T2) |
- *   |        |        |
- *   -------------------
- *   |        |        |
- *   | 7 (T3) | 8 (T4) |
- *   |        |        |
- *   -------------------
- *
- * Bottom
- * -------------------
- * |        |        |
- * | 1 (B1) | 2 (B2) |
- * |        |        |
- * -------------------
- * |        |        |
- * | 3 (B3) | 4 (B4) |
- * |        |        |
- * -------------------
- *
- */
+   There are 3 2x2x2 mini cubes that roam around the larger 4x4x4 cube. The
+   mini cubes move in a random direction either left, right, back, forward,
+   up, or down.
 
-#include "SPI.h"
+   The movement is only allowed if there are not already 2 cubes in the
+   destination plane, and that the destination location isn't occupied.
+
+   There are 24 valid moves in total. The cube broken into 4 quadrants on
+   the bottom, and another 4 on the top. Each of the quadrants is assigned a
+   number which is used to determine where the mini cubes are, and where
+   they can move to. From any location, there are three possible moves, but
+   due to the above, some of these locations may not be allowed.
+
+   The Layout of the locations is as follows:-
+   Top
+     -------------------
+     |        |        |
+     | 5 (T1) | 6 (T2) |
+     |        |        |
+     -------------------
+     |        |        |
+     | 7 (T3) | 8 (T4) |
+     |        |        |
+     -------------------
+
+   Bottom
+   -------------------
+   |        |        |
+   | 1 (B1) | 2 (B2) |
+   |        |        |
+   -------------------
+   |        |        |
+   | 3 (B3) | 4 (B4) |
+   |        |        |
+   -------------------
+
+*/
+
+// Include required libraries
+#include <SPI.h>
 #include "Cube.h"
 
-Cube cube;
-
 /*
- * User editable variables
- */
-
+   User editable variables
+*/
 // Uncomment to enable debug mode, which prints information about the moves
 // to the serial console.
 // #define DEBUG
@@ -68,9 +66,8 @@ unsigned int duringMoveDelay = 100;    // Delay during the move of a cube
 unsigned int betweenMovesDelay = 200;  // Delay between moving two cubes
 
 /*
- * Don't change the following variables
- */
-
+   Don't edit these variables
+*/
 // Track how many cubes are currently located on a given plane
 byte leftPlane   = 0;
 byte rightPlane  = 0;
@@ -86,6 +83,9 @@ byte cube3Loc = 0;
 
 // Count how many times we have moved a cube
 unsigned int count = 1;
+
+// Create an instance of the cube class
+Cube cube;
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
@@ -149,15 +149,14 @@ void setup(void) {
 }
 
 /**
- */
+*/
 void loop(void) {
   // Declare tracking variables
-  byte i = 0;
   byte validMoves[3];
 
-  // Constantly loop through each of the colours, and move the matching
+  // Loop through each of the colours, and move the matching
   // cube
-  while (i < 3)
+  for (byte i = 0; i < 3; i++)
   {
     // Determine which cube to move, and where it is
     byte cubeToMove = 0;
@@ -222,21 +221,15 @@ void loop(void) {
     // Move the cube
     moveCube(cubeToMove, validMoves, colours[i], i);
 
-    // Increment counter so that we move the next cube
-    i++;
-    if (i == 3) {
-      // At the end of the cubes, so set the counter back to the first cube
-      i = 0;
-    }
   }
 }
 
 void moveCube(byte startLocation, byte moves[], rgb_t theColour, byte theCube)
 {
   /*
-   * Move theCube from it's startLocation, to a valid location within the moves
-   * array ensuring it keeps theColour that was provided.
-   */
+     Move theCube from it's startLocation, to a valid location within the moves
+     array ensuring it keeps theColour that was provided.
+  */
 
   // Define a variable to hold the index within the moves array that we will try
   byte randomIndex;
@@ -415,10 +408,10 @@ void moveCube(byte startLocation, byte moves[], rgb_t theColour, byte theCube)
 boolean isThisAValidMove(byte startLocation, byte destination, byte theCube)
 {
   /*
-   * Compares the startLocationto the destination for theCube and determines
-   * whether it is a valid move according to the rules. If it is we return
-   * true, otherwise we return false.
-   */
+     Compares the startLocationto the destination for theCube and determines
+     whether it is a valid move according to the rules. If it is we return
+     true, otherwise we return false.
+  */
 
   // Default to it being an invalid move
   boolean result = false;
@@ -617,11 +610,11 @@ boolean isThisAValidMove(byte startLocation, byte destination, byte theCube)
 
 #ifdef DEBUG
   /*
-   * Print Debug Information including:-
-   *   - Start Location and Destination Location
-   *   - Plane Counts for all planes (this is the start locations details)
-   *   - Whether the move is allowed or not
-   */
+     Print Debug Information including:-
+       - Start Location and Destination Location
+       - Plane Counts for all planes (this is the start locations details)
+       - Whether the move is allowed or not
+  */
   serial->print(startLocation);
   serial->print(" -> ");
   serial->print(destination);
@@ -646,19 +639,19 @@ boolean isThisAValidMove(byte startLocation, byte destination, byte theCube)
 }
 
 /*
- * The following set of 24 functions handle the actual movement of cubes.
- * Each function is named after the quadrant that the move starts from,
- * and the quadrant that the move finishes at.
- *
- * They all have the same basic structure. It is:-
- *   - Hide one part of the cube, and show the next part (the "half move")
- *   - delay for the duringMoveDelay time
- *   - Hide the last part of the original cube and show the final part of the
- *     destination cube (completing the move)
- *   - delay for the betweenMovesDelay time
- *   - update the plane counts by subtracting 1 from the plane we moved from,
- *     and adding 1 to the plane we moved to
- */
+   The following set of 24 functions handle the actual movement of cubes.
+   Each function is named after the quadrant that the move starts from,
+   and the quadrant that the move finishes at.
+
+   They all have the same basic structure. It is:-
+     - Hide one part of the cube, and show the next part (the "half move")
+     - delay for the duringMoveDelay time
+     - Hide the last part of the original cube and show the final part of the
+       destination cube (completing the move)
+     - delay for the betweenMovesDelay time
+     - update the plane counts by subtracting 1 from the plane we moved from,
+       and adding 1 to the plane we moved to
+*/
 
 void t1t2(rgb_t theColour)
 {
