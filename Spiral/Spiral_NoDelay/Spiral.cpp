@@ -1,9 +1,9 @@
 /*
- *  File:     Spiral.cpp
- *  Purpose:  Spiral pattern for the Freetronics 4x4x4 Cube (non blocking)
- *  Author:   Adam Reed (adam@secretcode.ninja)
- *  Licence:  BSD 3-Clause Licence
- */
+    File:     Spiral.cpp
+    Purpose:  Spiral pattern for the Freetronics 4x4x4 Cube (non blocking)
+    Author:   Adam Reed (adam@secretcode.ninja)
+    Licence:  BSD 3-Clause Licence
+*/
 
 // Include for Arduino Library
 #include "Arduino.h"
@@ -43,11 +43,11 @@ void Spiral::update(rgb_t theColour)
   // Handles drawing the Spiral animation.
 
   /* This code is designed to be non blocking, so instead of using
-   * "delay()", it uses a state machine to track where it is upto in the
-   * animation. It then uses the time and the difference between this run
-   * and the last run to determine if it needs to change to a different
-   * state
-   */
+     "delay()", it uses a state machine to track where it is upto in the
+     animation. It then uses the time and the difference between this run
+     and the last run to determine if it needs to change to a different
+     state
+  */
 
   // Get the current time
   unsigned long currentMillis = millis();

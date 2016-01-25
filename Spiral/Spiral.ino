@@ -1,15 +1,23 @@
 /*
- * File:      Spiral.ino
- * Purpose:   Spiral pattern for the Freetronics 4x4x4 Cube
- * Author:    Adam Reed (adam@secretcode.ninja)
- * License:   BSD 3-Clause Licence
- */
+   File:      Spiral.ino
+   Purpose:   Spiral pattern for the Freetronics 4x4x4 Cube
+   Author:    Adam Reed (adam@secretcode.ninja)
+   Licence:   BSD 3-Clause Licence
+*/
 
 // Include required libraries
 #include <SPI.h>
 #include "Cube.h"
 #include "Cube4_ARUtils.h"
 
+/*
+   User editable variables
+*/
+
+
+/*
+   Don't edit these variables
+*/
 // Create an instance of the cube class
 Cube cube;
 
