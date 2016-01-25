@@ -138,9 +138,7 @@ void faceExpand(byte startPosition, rgb_t theColour, int theDelay)
 
   // Match the end coordinates for the box to the start
   // coordinates so that only a single LED is lit up.
-  end.x = start.x;
-  end.y = start.y;
-  end.z = start.z;
+  end = start;
 
   if (firstRun)
   {
