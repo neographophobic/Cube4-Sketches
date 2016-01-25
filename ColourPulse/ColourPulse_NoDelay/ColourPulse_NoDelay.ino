@@ -19,7 +19,7 @@
 byte brightnessIncrement = 5;
 
 // theDelay tracks how long to pause between colour changes
-byte theDelay = 50;
+int theDelay = 50;
 
 // theColour sets the colour that is used as the basis of the effect
 rgb_t theColour = RGB(0x4B, 0x00, 0x82); // Violet
