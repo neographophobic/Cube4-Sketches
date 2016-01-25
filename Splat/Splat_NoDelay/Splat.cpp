@@ -6,7 +6,7 @@
 */
 
 // Include for Arduino Library
-#include "Arduino.h"
+#include <Arduino.h>
 
 // Include for Cube Library
 #include "Cube.h"
