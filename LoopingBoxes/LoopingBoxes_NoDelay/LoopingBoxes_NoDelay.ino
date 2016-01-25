@@ -14,7 +14,7 @@
    User editable variables
 */
 // theDelay tracks how long to pause between colour changes
-byte theDelay = 150;
+int theDelay = 150;
 
 // innerColour sets the colour that is used for the inner square
 rgb_t innerColour = GREEN;
