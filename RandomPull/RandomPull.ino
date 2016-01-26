@@ -13,7 +13,11 @@
 /*
    User editable variables
 */
+// The colour to use for the animation
+rgb_t theColour = BLUE;
 
+// The delay between each step of an animation
+int theDelay = 100;
 
 /*
    Don't edit these variables
@@ -49,9 +53,6 @@ void setup(void) {
 }
 
 void loop(void) {
-  int theDelay = 100;
-  rgb_t theColour = BLUE;
-
   startPlane('X', 0, theColour, theDelay);
   delay(theDelay);
   cube.all(BLACK);
