@@ -13,7 +13,11 @@
 /*
    User editable variables
 */
+// The colour to use for the animation
+rgb_t theColour = GREEN;
 
+// The delay between each step of an animation
+int theDelay = 75;
 
 /*
    Don't edit these variables
@@ -48,9 +52,6 @@ void setup(void) {
 }
 
 void loop(void) {
-  int theDelay = 75;
-  rgb_t theColour = GREEN;
-
   // Loop the animation, starting from position 5 (0,0,0)
   // using the provided colour and delay
   faceExpand(5, theColour, theDelay);
