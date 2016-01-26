@@ -23,8 +23,8 @@ Cube cube;
 
 struct aLine
 {
-  struct coordinate startPoint;
-  struct coordinate endPoint;
+  struct coordinate start;
+  struct coordinate end;
 };
 
 void setup(void) {
@@ -55,20 +55,31 @@ void loop(void) {
   rgb_t theColour = BLUE;
   int theDelay = 100;
 
+  // There are three parts to the animation
+  // First we draw a face, then we peel it, then we
+  // wipe the final face clean
+
+  // Sequence 1 - Corner 5 to 7, then 8 to 6 and
+  //              finally 0 to 3
   faceDraw(0, 0, 3, 3, 3, 3, theColour, theDelay);
   peel(3, 0, 3, 0, 3, 3, theColour, theDelay);
   faceDraw(0, 0, 0, 3, 3, 0, BLACK, theDelay);
 
+  // Sequence 2 - Corner 4 to 5, then 8 to 0 and
+  //              finally 3 to 6
   faceDraw(3, 0, 0, 0, 0, 3, theColour, theDelay);
   peel(3, 0, 3, 0, 0, 0, theColour, theDelay);
   faceDraw(3, 3, 0, 0, 3, 3, BLACK, theDelay);
 
+  // Sequence 3 - Corner 7 to 4, then 8 to 3 and
+  //              finally 2 to 1
   faceDraw(3, 3, 3, 3, 0, 0, theColour, theDelay);
   peel(3, 0, 3, 3, 3, 0, theColour, theDelay);
   faceDraw(0, 3, 3, 0, 0, 0, BLACK, theDelay);
 }
 
 void test(void) {
+  // Function to test all possibilities
   rgb_t theColour = BLUE;
   int theDelay = 100;
 
@@ -220,447 +231,460 @@ void test(void) {
 void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour, int theDelay)
 {
   // 8 Corners to the cube. Determine which ones to use
-  byte startPosition = getPosition(x1, y1, z1);
-  byte stopPosition = getPosition(x2, y2, z2);
+  byte startCorner = getCorner(x1, y1, z1);
+  byte stopCorner = getCorner(x2, y2, z2);
 
   // From each of the 8 corners there are 3 valid directions
   // broken into 2 sections (start -> middle -> end)
 
-  struct coordinate startPoint;
-  struct coordinate endPoint;
-
-  startPoint.x = x1;
-  startPoint.y = y1;
-  startPoint.z = z1;
-
-  endPoint.x = x1;
-  endPoint.y = y1;
-  endPoint.z = z1;
-
   // First part of the move
-  cube.set(startPoint.x, startPoint.y, startPoint.z, theColour);
+
+  // Set the initial start and end possition to be the same
+  struct coordinate start;
+  struct coordinate end;
+  start.x = x1;
+  start.y = y1;
+  start.z = z1;
+  end = start;
+
+  // Initial Move
+  cube.set(start.x, start.y, start.z, theColour);
   delay(theDelay);
 
   // Next 3 steps
   for (byte i = 1; i <= 3; i++) {
-    if (startPosition == 1 && stopPosition == 3) {
-      startPoint.y++;
-      endPoint.x++;
-    } else if (startPosition == 1 && stopPosition == 6) {
-      startPoint.y++;
-      endPoint.z++;
-    } else if (startPosition == 1 && stopPosition == 8) {
-      startPoint.z++;
-      endPoint.x++;
+    // Based on the start and stop corner, determine where the
+    // start and end point of the line to draw should be
+
+    if (startCorner == 1 && stopCorner == 3) {
+      start.y++;
+      end.x++;
+    } else if (startCorner == 1 && stopCorner == 6) {
+      start.y++;
+      end.z++;
+    } else if (startCorner == 1 && stopCorner == 8) {
+      start.z++;
+      end.x++;
     }
-    if (startPosition == 2 && stopPosition == 4) {
-      startPoint.y--;
-      endPoint.x++;
-    } else if (startPosition == 2 && stopPosition == 5) {
-      startPoint.y--;
-      endPoint.z++;
-    } else if (startPosition == 2 && stopPosition == 7) {
-      startPoint.z++;
-      endPoint.x++;
+    if (startCorner == 2 && stopCorner == 4) {
+      start.y--;
+      end.x++;
+    } else if (startCorner == 2 && stopCorner == 5) {
+      start.y--;
+      end.z++;
+    } else if (startCorner == 2 && stopCorner == 7) {
+      start.z++;
+      end.x++;
     }
-    if (startPosition == 3 && stopPosition == 1) {
-      startPoint.x--;
-      endPoint.y--;
-    } else if (startPosition == 3 && stopPosition == 6) {
-      startPoint.x--;
-      endPoint.z++;
-    } else if (startPosition == 3 && stopPosition == 8) {
-      startPoint.y--;
-      endPoint.z++;
+    if (startCorner == 3 && stopCorner == 1) {
+      start.x--;
+      end.y--;
+    } else if (startCorner == 3 && stopCorner == 6) {
+      start.x--;
+      end.z++;
+    } else if (startCorner == 3 && stopCorner == 8) {
+      start.y--;
+      end.z++;
     }
-    if (startPosition == 4 && stopPosition == 2) {
-      startPoint.x--;
-      endPoint.y++;
-    } else if (startPosition == 4 && stopPosition == 5) {
-      startPoint.x--;
-      endPoint.z++;
-    } else if (startPosition == 4 && stopPosition == 7) {
-      startPoint.z++;
-      endPoint.y++;
+    if (startCorner == 4 && stopCorner == 2) {
+      start.x--;
+      end.y++;
+    } else if (startCorner == 4 && stopCorner == 5) {
+      start.x--;
+      end.z++;
+    } else if (startCorner == 4 && stopCorner == 7) {
+      start.z++;
+      end.y++;
     }
-    if (startPosition == 5 && stopPosition == 2) {
-      startPoint.z--;
-      endPoint.y++;
-    } else if (startPosition == 5 && stopPosition == 4) {
-      startPoint.z--;
-      endPoint.x++;
-    } else if (startPosition == 5 && stopPosition == 7) {
-      startPoint.x++;
-      endPoint.y++;
+    if (startCorner == 5 && stopCorner == 2) {
+      start.z--;
+      end.y++;
+    } else if (startCorner == 5 && stopCorner == 4) {
+      start.z--;
+      end.x++;
+    } else if (startCorner == 5 && stopCorner == 7) {
+      start.x++;
+      end.y++;
     }
-    if (startPosition == 6 && stopPosition == 1) {
-      startPoint.y--;
-      endPoint.z--;
-    } else if (startPosition == 6 && stopPosition == 3) {
-      startPoint.x++;
-      endPoint.z--;
-    } else if (startPosition == 6 && stopPosition == 8) {
-      startPoint.y--;
-      endPoint.x++;
+    if (startCorner == 6 && stopCorner == 1) {
+      start.y--;
+      end.z--;
+    } else if (startCorner == 6 && stopCorner == 3) {
+      start.x++;
+      end.z--;
+    } else if (startCorner == 6 && stopCorner == 8) {
+      start.y--;
+      end.x++;
     }
-    if (startPosition == 7 && stopPosition == 2) {
-      startPoint.x--;
-      endPoint.z--;
-    } else if (startPosition == 7 && stopPosition == 4) {
-      startPoint.y--;
-      endPoint.z--;
-    } else if (startPosition == 7 && stopPosition == 5) {
-      startPoint.x--;
-      endPoint.y--;
+    if (startCorner == 7 && stopCorner == 2) {
+      start.x--;
+      end.z--;
+    } else if (startCorner == 7 && stopCorner == 4) {
+      start.y--;
+      end.z--;
+    } else if (startCorner == 7 && stopCorner == 5) {
+      start.x--;
+      end.y--;
     }
-    if (startPosition == 8 && stopPosition == 1) {
-      startPoint.x--;
-      endPoint.z--;
-    } else if (startPosition == 8 && stopPosition == 3) {
-      startPoint.z--;
-      endPoint.y++;
-    } else if (startPosition == 8 && stopPosition == 6) {
-      startPoint.x--;
-      endPoint.y++;
+    if (startCorner == 8 && stopCorner == 1) {
+      start.x--;
+      end.z--;
+    } else if (startCorner == 8 && stopCorner == 3) {
+      start.z--;
+      end.y++;
+    } else if (startCorner == 8 && stopCorner == 6) {
+      start.x--;
+      end.y++;
     }
 
-    drawLine(startPoint, endPoint, theColour, theDelay);
+    // Draw the line using the calculated start and end positions
+    drawLine(cube, start, end, theColour);
+    delay(theDelay);
   }
 
   // Final 3 steps
   for (byte i = 1; i <= 3; i++) {
-    if (startPosition == 1 && stopPosition == 3) {
-      startPoint.x++;
-      endPoint.y++;
-    } else if (startPosition == 1 && stopPosition == 6) {
-      startPoint.z++;
-      endPoint.y++;
-    } else if (startPosition == 1 && stopPosition == 8) {
-      startPoint.x++;
-      endPoint.z++;
+    // Based on the start and stop corner, determine where the
+    // start and end point of the line to draw should be
+
+    if (startCorner == 1 && stopCorner == 3) {
+      start.x++;
+      end.y++;
+    } else if (startCorner == 1 && stopCorner == 6) {
+      start.z++;
+      end.y++;
+    } else if (startCorner == 1 && stopCorner == 8) {
+      start.x++;
+      end.z++;
     }
-    if (startPosition == 2 && stopPosition == 4) {
-      startPoint.x++;
-      endPoint.y--;
-    } else if (startPosition == 2 && stopPosition == 5) {
-      startPoint.z++;
-      endPoint.y--;
-    } else if (startPosition == 2 && stopPosition == 7) {
-      startPoint.x++;
-      endPoint.z++;
+    if (startCorner == 2 && stopCorner == 4) {
+      start.x++;
+      end.y--;
+    } else if (startCorner == 2 && stopCorner == 5) {
+      start.z++;
+      end.y--;
+    } else if (startCorner == 2 && stopCorner == 7) {
+      start.x++;
+      end.z++;
     }
-    if (startPosition == 3 && stopPosition == 1) {
-      startPoint.y--;
-      endPoint.x--;
-    } else if (startPosition == 3 && stopPosition == 6) {
-      startPoint.z++;
-      endPoint.x--;
-    } else if (startPosition == 3 && stopPosition == 8) {
-      startPoint.z++;
-      endPoint.y--;
+    if (startCorner == 3 && stopCorner == 1) {
+      start.y--;
+      end.x--;
+    } else if (startCorner == 3 && stopCorner == 6) {
+      start.z++;
+      end.x--;
+    } else if (startCorner == 3 && stopCorner == 8) {
+      start.z++;
+      end.y--;
     }
-    if (startPosition == 4 && stopPosition == 2) {
-      startPoint.y++;
-      endPoint.x--;
-    } else if (startPosition == 4 && stopPosition == 5) {
-      startPoint.z++;
-      endPoint.x--;
-    } else if (startPosition == 4 && stopPosition == 7) {
-      startPoint.y++;
-      endPoint.z++;
+    if (startCorner == 4 && stopCorner == 2) {
+      start.y++;
+      end.x--;
+    } else if (startCorner == 4 && stopCorner == 5) {
+      start.z++;
+      end.x--;
+    } else if (startCorner == 4 && stopCorner == 7) {
+      start.y++;
+      end.z++;
     }
-    if (startPosition == 5 && stopPosition == 2) {
-      startPoint.y++;
-      endPoint.z--;
-    } else if (startPosition == 5 && stopPosition == 4) {
-      startPoint.x++;
-      endPoint.z--;
-    } else if (startPosition == 5 && stopPosition == 7) {
-      startPoint.y++;
-      endPoint.x++;
+    if (startCorner == 5 && stopCorner == 2) {
+      start.y++;
+      end.z--;
+    } else if (startCorner == 5 && stopCorner == 4) {
+      start.x++;
+      end.z--;
+    } else if (startCorner == 5 && stopCorner == 7) {
+      start.y++;
+      end.x++;
     }
-    if (startPosition == 6 && stopPosition == 1) {
-      startPoint.z--;
-      endPoint.y--;
-    } else if (startPosition == 6 && stopPosition == 3) {
-      startPoint.z--;
-      endPoint.x++;
-    } else if (startPosition == 6 && stopPosition == 8) {
-      startPoint.x++;
-      endPoint.y--;
+    if (startCorner == 6 && stopCorner == 1) {
+      start.z--;
+      end.y--;
+    } else if (startCorner == 6 && stopCorner == 3) {
+      start.z--;
+      end.x++;
+    } else if (startCorner == 6 && stopCorner == 8) {
+      start.x++;
+      end.y--;
     }
-    if (startPosition == 7 && stopPosition == 2) {
-      startPoint.z--;
-      endPoint.x--;
-    } else if (startPosition == 7 && stopPosition == 4) {
-      startPoint.z--;
-      endPoint.y--;
-    } else if (startPosition == 7 && stopPosition == 5) {
-      startPoint.y--;
-      endPoint.x--;
+    if (startCorner == 7 && stopCorner == 2) {
+      start.z--;
+      end.x--;
+    } else if (startCorner == 7 && stopCorner == 4) {
+      start.z--;
+      end.y--;
+    } else if (startCorner == 7 && stopCorner == 5) {
+      start.y--;
+      end.x--;
     }
-    if (startPosition == 8 && stopPosition == 1) {
-      startPoint.z--;
-      endPoint.x--;
-    } else if (startPosition == 8 && stopPosition == 3) {
-      startPoint.y++;
-      endPoint.z--;
-    } else if (startPosition == 8 && stopPosition == 6) {
-      startPoint.y++;
-      endPoint.x--;
+    if (startCorner == 8 && stopCorner == 1) {
+      start.z--;
+      end.x--;
+    } else if (startCorner == 8 && stopCorner == 3) {
+      start.y++;
+      end.z--;
+    } else if (startCorner == 8 && stopCorner == 6) {
+      start.y++;
+      end.x--;
     }
 
-    drawLine(startPoint, endPoint, theColour, theDelay);
+    // Draw the line using the calculated start and end positions
+    drawLine(cube, start, end, theColour);
+    delay(theDelay);
   }
-}
-
-void drawLine(struct coordinate startPoint, struct coordinate endPoint, rgb_t theColour, int theDelay)
-{
-  if (startPoint.y > endPoint.y && startPoint.z < endPoint.z ||
-      startPoint.x > endPoint.x && startPoint.z == endPoint.z ||
-      startPoint.x > endPoint.x && startPoint.y == endPoint.y ||
-      startPoint.y > endPoint.y && startPoint.x == endPoint.x
-     ) {
-    // Work around bug in line drawing code by swapping start and
-    // end point if particular condiations are meet
-    cube.line(endPoint.x, endPoint.y, endPoint.z,
-              startPoint.x, startPoint.y, startPoint.z, theColour);
-  } else {
-    cube.line(startPoint.x, startPoint.y, startPoint.z,
-              endPoint.x, endPoint.y, endPoint.z, theColour);
-  }
-  delay(theDelay);
 }
 
 void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour, int theDelay)
 {
   // 8 Corners to the cube. Determine which ones to use
-  byte startPosition = getPosition(x1, y1, z1);
-  byte stopPosition = getPosition(x2, y2, z2);
+  byte startCorner = getCorner(x1, y1, z1);
+  byte stopCorner = getCorner(x2, y2, z2);
 
+  // There are 7 diagonal "lines" on a cube face
   aLine lines[7];
 
-  // Figure out where the lines to move are
-  lines[0].startPoint.x = x1;
-  lines[0].startPoint.y = y1;
-  lines[0].startPoint.z = z1;
-  lines[0].endPoint.x = x1;
-  lines[0].endPoint.y = y1;
-  lines[0].endPoint.z = z1;
+  // Set the initial position for the line to move
+  lines[0].start.x = x1;
+  lines[0].start.y = y1;
+  lines[0].start.z = z1;
+  lines[0].end = lines[0].start;
 
+  // Calculate where the diagonal lines on the cubes
+  // face start and finish.
   for (byte i = 1; i <= 3; i++) {
-    lines[i].startPoint.x = lines[i - 1].startPoint.x;
-    lines[i].startPoint.y = lines[i - 1].startPoint.y;
-    lines[i].startPoint.z = lines[i - 1].startPoint.z;
-    lines[i].endPoint.x = lines[i - 1].endPoint.x;
-    lines[i].endPoint.y = lines[i - 1].endPoint.y;
-    lines[i].endPoint.z = lines[i - 1].endPoint.z;
+    // The first 3 lines all move in the same direction, so
+    // calculate these lines
 
-    if (startPosition == 1 && stopPosition == 3) {
-      lines[i].startPoint.y++;
-      lines[i].endPoint.x++;
+    // Default position is the start and end point of the
+    // previously calculated line
+    lines[i].start.x = lines[i - 1].start.x;
+    lines[i].start.y = lines[i - 1].start.y;
+    lines[i].start.z = lines[i - 1].start.z;
+    lines[i].end.x = lines[i - 1].end.x;
+    lines[i].end.y = lines[i - 1].end.y;
+    lines[i].end.z = lines[i - 1].end.z;
+
+    // Based on the start and stop corner, update the
+    // appropriate coordinate for the line so that it is in
+    // the correct spot
+    if (startCorner == 1 && stopCorner == 3) {
+      lines[i].start.y++;
+      lines[i].end.x++;
     }
-    if (startPosition == 1 && stopPosition == 6) {
-      lines[i].startPoint.z++;
-      lines[i].endPoint.y++;
+    if (startCorner == 1 && stopCorner == 6) {
+      lines[i].start.z++;
+      lines[i].end.y++;
     }
-    if (startPosition == 1 && stopPosition == 8) {
-      lines[i].startPoint.z++;
-      lines[i].endPoint.x++;
+    if (startCorner == 1 && stopCorner == 8) {
+      lines[i].start.z++;
+      lines[i].end.x++;
     }
-    if (startPosition == 2 && stopPosition == 4) {
-      lines[i].startPoint.x++;
-      lines[i].endPoint.y--;
+    if (startCorner == 2 && stopCorner == 4) {
+      lines[i].start.x++;
+      lines[i].end.y--;
     }
-    if (startPosition == 2 && stopPosition == 5) {
-      lines[i].startPoint.y--;
-      lines[i].endPoint.z++;
+    if (startCorner == 2 && stopCorner == 5) {
+      lines[i].start.y--;
+      lines[i].end.z++;
     }
-    if (startPosition == 2 && stopPosition == 7) {
-      lines[i].startPoint.z++;
-      lines[i].endPoint.x++;
+    if (startCorner == 2 && stopCorner == 7) {
+      lines[i].start.z++;
+      lines[i].end.x++;
     }
-    if (startPosition == 3 && stopPosition == 1) {
-      lines[i].startPoint.x--;
-      lines[i].endPoint.y--;
+    if (startCorner == 3 && stopCorner == 1) {
+      lines[i].start.x--;
+      lines[i].end.y--;
     }
-    if (startPosition == 3 && stopPosition == 6) {
-      lines[i].startPoint.x--;
-      lines[i].endPoint.z++;
+    if (startCorner == 3 && stopCorner == 6) {
+      lines[i].start.x--;
+      lines[i].end.z++;
     }
-    if (startPosition == 3 && stopPosition == 8) {
-      lines[i].startPoint.z++;
-      lines[i].endPoint.y--;
+    if (startCorner == 3 && stopCorner == 8) {
+      lines[i].start.z++;
+      lines[i].end.y--;
     }
-    if (startPosition == 4 && stopPosition == 2) {
-      lines[i].startPoint.x--;
-      lines[i].endPoint.y++;
+    if (startCorner == 4 && stopCorner == 2) {
+      lines[i].start.x--;
+      lines[i].end.y++;
     }
-    if (startPosition == 4 && stopPosition == 5) {
-      lines[i].startPoint.x--;
-      lines[i].endPoint.z++;
+    if (startCorner == 4 && stopCorner == 5) {
+      lines[i].start.x--;
+      lines[i].end.z++;
     }
-    if (startPosition == 4 && stopPosition == 7) {
-      lines[i].startPoint.z++;
-      lines[i].endPoint.y++;
+    if (startCorner == 4 && stopCorner == 7) {
+      lines[i].start.z++;
+      lines[i].end.y++;
     }
-    if (startPosition == 5 && stopPosition == 2) {
-      lines[i].startPoint.z--;
-      lines[i].endPoint.y++;
+    if (startCorner == 5 && stopCorner == 2) {
+      lines[i].start.z--;
+      lines[i].end.y++;
     }
-    if (startPosition == 5 && stopPosition == 4) {
-      lines[i].startPoint.z--;
-      lines[i].endPoint.x++;
+    if (startCorner == 5 && stopCorner == 4) {
+      lines[i].start.z--;
+      lines[i].end.x++;
     }
-    if (startPosition == 5 && stopPosition == 7) {
-      lines[i].startPoint.x++;
-      lines[i].endPoint.y++;
+    if (startCorner == 5 && stopCorner == 7) {
+      lines[i].start.x++;
+      lines[i].end.y++;
     }
-    if (startPosition == 6 && stopPosition == 1) {
-      lines[i].startPoint.z--;
-      lines[i].endPoint.y--;
+    if (startCorner == 6 && stopCorner == 1) {
+      lines[i].start.z--;
+      lines[i].end.y--;
     }
-    if (startPosition == 6 && stopPosition == 3) {
-      lines[i].startPoint.z--;
-      lines[i].endPoint.x++;
+    if (startCorner == 6 && stopCorner == 3) {
+      lines[i].start.z--;
+      lines[i].end.x++;
     }
-    if (startPosition == 6 && stopPosition == 8) {
-      lines[i].startPoint.y--;
-      lines[i].endPoint.x++;
+    if (startCorner == 6 && stopCorner == 8) {
+      lines[i].start.y--;
+      lines[i].end.x++;
     }
-    if (startPosition == 7 && stopPosition == 2) {
-      lines[i].startPoint.x--;
-      lines[i].endPoint.z--;
+    if (startCorner == 7 && stopCorner == 2) {
+      lines[i].start.x--;
+      lines[i].end.z--;
     }
-    if (startPosition == 7 && stopPosition == 4) {
-      lines[i].startPoint.y--;
-      lines[i].endPoint.z--;
+    if (startCorner == 7 && stopCorner == 4) {
+      lines[i].start.y--;
+      lines[i].end.z--;
     }
-    if (startPosition == 7 && stopPosition == 5) {
-      lines[i].startPoint.x--;
-      lines[i].endPoint.y--;
+    if (startCorner == 7 && stopCorner == 5) {
+      lines[i].start.x--;
+      lines[i].end.y--;
     }
-    if (startPosition == 8 && stopPosition == 1) {
-      lines[i].startPoint.x--;
-      lines[i].endPoint.z--;
+    if (startCorner == 8 && stopCorner == 1) {
+      lines[i].start.x--;
+      lines[i].end.z--;
     }
-    if (startPosition == 8 && stopPosition == 3) {
-      lines[i].startPoint.y++;
-      lines[i].endPoint.z--;
+    if (startCorner == 8 && stopCorner == 3) {
+      lines[i].start.y++;
+      lines[i].end.z--;
     }
-    if (startPosition == 8 && stopPosition == 6) {
-      lines[i].startPoint.x--;
-      lines[i].endPoint.y++;
+    if (startCorner == 8 && stopCorner == 6) {
+      lines[i].start.x--;
+      lines[i].end.y++;
     }
   }
 
   for (byte i = 4; i <= 6; i++) {
-    lines[i].startPoint.x = lines[i - 1].startPoint.x;
-    lines[i].startPoint.y = lines[i - 1].startPoint.y;
-    lines[i].startPoint.z = lines[i - 1].startPoint.z;
-    lines[i].endPoint.x = lines[i - 1].endPoint.x;
-    lines[i].endPoint.y = lines[i - 1].endPoint.y;
-    lines[i].endPoint.z = lines[i - 1].endPoint.z;
+    // The final 2 lines all move in the same direction, (but
+    // differently than the first 4, so calculate these lines
 
+    // Default position is the start and end point of the
+    // previously calculated line
+    lines[i].start.x = lines[i - 1].start.x;
+    lines[i].start.y = lines[i - 1].start.y;
+    lines[i].start.z = lines[i - 1].start.z;
+    lines[i].end.x = lines[i - 1].end.x;
+    lines[i].end.y = lines[i - 1].end.y;
+    lines[i].end.z = lines[i - 1].end.z;
 
-    if (startPosition == 1 && stopPosition == 3) {
-      lines[i].startPoint.x++;
-      lines[i].endPoint.y++;
+    // Based on the start and stop corner, update the
+    // appropriate coordinate for the line so that it is in
+    // the correct spot
+    if (startCorner == 1 && stopCorner == 3) {
+      lines[i].start.x++;
+      lines[i].end.y++;
     }
-    if (startPosition == 1 && stopPosition == 6) {
-      lines[i].startPoint.y++;
-      lines[i].endPoint.z++;
+    if (startCorner == 1 && stopCorner == 6) {
+      lines[i].start.y++;
+      lines[i].end.z++;
     }
-    if (startPosition == 1 && stopPosition == 8) {
-      lines[i].startPoint.x++;
-      lines[i].endPoint.z++;
+    if (startCorner == 1 && stopCorner == 8) {
+      lines[i].start.x++;
+      lines[i].end.z++;
     }
-    if (startPosition == 2 && stopPosition == 4) {
-      lines[i].startPoint.y--;
-      lines[i].endPoint.x++;
+    if (startCorner == 2 && stopCorner == 4) {
+      lines[i].start.y--;
+      lines[i].end.x++;
     }
-    if (startPosition == 2 && stopPosition == 5) {
-      lines[i].startPoint.z++;
-      lines[i].endPoint.y--;
+    if (startCorner == 2 && stopCorner == 5) {
+      lines[i].start.z++;
+      lines[i].end.y--;
     }
-    if (startPosition == 2 && stopPosition == 7) {
-      lines[i].startPoint.x++;
-      lines[i].endPoint.z++;
+    if (startCorner == 2 && stopCorner == 7) {
+      lines[i].start.x++;
+      lines[i].end.z++;
     }
-    if (startPosition == 3 && stopPosition == 1) {
-      lines[i].startPoint.y++;
-      lines[i].endPoint.x--;
+    if (startCorner == 3 && stopCorner == 1) {
+      lines[i].start.y++;
+      lines[i].end.x--;
     }
-    if (startPosition == 3 && stopPosition == 6) {
-      lines[i].startPoint.z++;
-      lines[i].endPoint.x--;
+    if (startCorner == 3 && stopCorner == 6) {
+      lines[i].start.z++;
+      lines[i].end.x--;
     }
-    if (startPosition == 3 && stopPosition == 8) {
-      lines[i].startPoint.y--;
-      lines[i].endPoint.z++;
+    if (startCorner == 3 && stopCorner == 8) {
+      lines[i].start.y--;
+      lines[i].end.z++;
     }
-    if (startPosition == 4 && stopPosition == 2) {
-      lines[i].startPoint.y++;
-      lines[i].endPoint.x--;
+    if (startCorner == 4 && stopCorner == 2) {
+      lines[i].start.y++;
+      lines[i].end.x--;
     }
-    if (startPosition == 4 && stopPosition == 5) {
-      lines[i].startPoint.z++;
-      lines[i].endPoint.x--;
+    if (startCorner == 4 && stopCorner == 5) {
+      lines[i].start.z++;
+      lines[i].end.x--;
     }
-    if (startPosition == 4 && stopPosition == 7) {
-      lines[i].startPoint.y++;
-      lines[i].endPoint.z++;
+    if (startCorner == 4 && stopCorner == 7) {
+      lines[i].start.y++;
+      lines[i].end.z++;
     }
-    if (startPosition == 5 && stopPosition == 2) {
-      lines[i].startPoint.y++;
-      lines[i].endPoint.z--;
+    if (startCorner == 5 && stopCorner == 2) {
+      lines[i].start.y++;
+      lines[i].end.z--;
     }
-    if (startPosition == 5 && stopPosition == 4) {
-      lines[i].startPoint.x++;
-      lines[i].endPoint.z--;
+    if (startCorner == 5 && stopCorner == 4) {
+      lines[i].start.x++;
+      lines[i].end.z--;
     }
-    if (startPosition == 5 && stopPosition == 7) {
-      lines[i].startPoint.y++;
-      lines[i].endPoint.x++;
+    if (startCorner == 5 && stopCorner == 7) {
+      lines[i].start.y++;
+      lines[i].end.x++;
     }
-    if (startPosition == 6 && stopPosition == 1) {
-      lines[i].startPoint.y--;
-      lines[i].endPoint.z--;
+    if (startCorner == 6 && stopCorner == 1) {
+      lines[i].start.y--;
+      lines[i].end.z--;
     }
-    if (startPosition == 6 && stopPosition == 3) {
-      lines[i].startPoint.x++;
-      lines[i].endPoint.z--;
+    if (startCorner == 6 && stopCorner == 3) {
+      lines[i].start.x++;
+      lines[i].end.z--;
     }
-    if (startPosition == 6 && stopPosition == 8) {
-      lines[i].startPoint.x++;
-      lines[i].endPoint.y--;
+    if (startCorner == 6 && stopCorner == 8) {
+      lines[i].start.x++;
+      lines[i].end.y--;
     }
-    if (startPosition == 7 && stopPosition == 2) {
-      lines[i].startPoint.z--;
-      lines[i].endPoint.x--;
+    if (startCorner == 7 && stopCorner == 2) {
+      lines[i].start.z--;
+      lines[i].end.x--;
     }
-    if (startPosition == 7 && stopPosition == 4) {
-      lines[i].startPoint.z--;
-      lines[i].endPoint.y--;
+    if (startCorner == 7 && stopCorner == 4) {
+      lines[i].start.z--;
+      lines[i].end.y--;
     }
-    if (startPosition == 7 && stopPosition == 5) {
-      lines[i].startPoint.y--;
-      lines[i].endPoint.x--;
+    if (startCorner == 7 && stopCorner == 5) {
+      lines[i].start.y--;
+      lines[i].end.x--;
     }
-    if (startPosition == 8 && stopPosition == 1) {
-      lines[i].startPoint.z--;
-      lines[i].endPoint.x--;
+    if (startCorner == 8 && stopCorner == 1) {
+      lines[i].start.z--;
+      lines[i].end.x--;
     }
-    if (startPosition == 8 && stopPosition == 3) {
-      lines[i].startPoint.z--;
-      lines[i].endPoint.y++;
+    if (startCorner == 8 && stopCorner == 3) {
+      lines[i].start.z--;
+      lines[i].end.y++;
     }
-    if (startPosition == 8 && stopPosition == 6) {
-      lines[i].startPoint.y++;
-      lines[i].endPoint.x--;
+    if (startCorner == 8 && stopCorner == 6) {
+      lines[i].start.y++;
+      lines[i].end.x--;
     }
   }
 
+  // When peeling back a face, we want to be moving multiple lines
+  // at once, so that you have an unbroken link between the original
+  // face, and the final face
+
+  // We setup the count array holding a int of when it should start to
+  // be included in the animation. The array is 1, 0, -1, -2 and so on.
   int count[7];
   int startingCount = 1;
   for (byte i = 0; i <= 6; i++) {
@@ -668,72 +692,69 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
     startingCount--;
   }
 
+  // There are a total of 9 animation steps in peeling from one face to
+  // another. The outer loop handles these steps
   for (byte i = 1; i <= 9; i++) {
+
+    // We have 7 diagonal lines that need to be assessed as to whether they
+    // should be moved in this part of the sequence or not.
     for (byte j = 0; j <= 6; j++) {
+
+      // Check whether the count for the line is in the range that we animate
       if (count[j] >= 1 && count[j] <= 3) {
-        drawLine(lines[j].startPoint, lines[j].endPoint, BLACK, 0);
-        if (startPosition >= 5 && stopPosition >= 5) {
-          lines[j].startPoint.z--;
-          lines[j].endPoint.z--;
+
+        // Hide the line in it's current position
+        drawLine(cube, lines[j].start, lines[j].end, BLACK);
+
+        // Update the start and end points of the line so that
+        // it moves one position over on the plane we are moving
+        // along
+        if (startCorner >= 5 && stopCorner >= 5) {
+          lines[j].start.z--;
+          lines[j].end.z--;
         }
-        if (startPosition <= 4 && stopPosition <= 4) {
-          lines[j].startPoint.z++;
-          lines[j].endPoint.z++;
+        if (startCorner <= 4 && stopCorner <= 4) {
+          lines[j].start.z++;
+          lines[j].end.z++;
         }
-        if ((startPosition == 1 && stopPosition == 8) ||
-            (startPosition == 5 && stopPosition == 4) ||
-            (startPosition == 8 && stopPosition == 1) ||
-            (startPosition == 4 && stopPosition == 5)) {
-          lines[j].startPoint.y++;
-          lines[j].endPoint.y++;
+        if ((startCorner == 1 && stopCorner == 8) ||
+            (startCorner == 5 && stopCorner == 4) ||
+            (startCorner == 8 && stopCorner == 1) ||
+            (startCorner == 4 && stopCorner == 5)) {
+          lines[j].start.y++;
+          lines[j].end.y++;
         }
-        if ((startPosition == 2 && stopPosition == 7) ||
-            (startPosition == 6 && stopPosition == 3) ||
-            (startPosition == 7 && stopPosition == 2) ||
-            (startPosition == 3 && stopPosition == 6)) {
-          lines[j].startPoint.y--;
-          lines[j].endPoint.y--;
+        if ((startCorner == 2 && stopCorner == 7) ||
+            (startCorner == 6 && stopCorner == 3) ||
+            (startCorner == 7 && stopCorner == 2) ||
+            (startCorner == 3 && stopCorner == 6)) {
+          lines[j].start.y--;
+          lines[j].end.y--;
         }
-        if ((startPosition == 1 && stopPosition == 6) ||
-            (startPosition == 2 && stopPosition == 5) ||
-            (startPosition == 5 && stopPosition == 2) ||
-            (startPosition == 6 && stopPosition == 1)) {
-          lines[j].startPoint.x++;
-          lines[j].endPoint.x++;
+        if ((startCorner == 1 && stopCorner == 6) ||
+            (startCorner == 2 && stopCorner == 5) ||
+            (startCorner == 5 && stopCorner == 2) ||
+            (startCorner == 6 && stopCorner == 1)) {
+          lines[j].start.x++;
+          lines[j].end.x++;
         }
-        if ((startPosition == 3 && stopPosition == 8) ||
-            (startPosition == 4 && stopPosition == 7) ||
-            (startPosition == 7 && stopPosition == 4) ||
-            (startPosition == 8 && stopPosition == 3)) {
-          lines[j].startPoint.x--;
-          lines[j].endPoint.x--;
+        if ((startCorner == 3 && stopCorner == 8) ||
+            (startCorner == 4 && stopCorner == 7) ||
+            (startCorner == 7 && stopCorner == 4) ||
+            (startCorner == 8 && stopCorner == 3)) {
+          lines[j].start.x--;
+          lines[j].end.x--;
         }
-        drawLine(lines[j].startPoint, lines[j].endPoint, theColour, 0);
+
+        // Draw the line in it's new position
+        drawLine(cube, lines[j].start, lines[j].end, theColour);
       }
 
+      // Increment the count for the line
       count[j]++;
     }
-    delay(theDelay);
-  }
-}
 
-byte getPosition(byte X, byte Y, byte Z) {
-  if (X == 0 && Y == 0 && Z == 0) {
-    return 1;
-  } else if (X == 0 && Y == 3 && Z == 0) {
-    return 2;
-  } else if (X == 3 && Y == 3 && Z == 0) {
-    return 3;
-  } else if (X == 3 && Y == 0 && Z == 0) {
-    return 4;
-  } else if (X == 0 && Y == 0 && Z == 3) {
-    return 5;
-  } else if (X == 0 && Y == 3 && Z == 3) {
-    return 6;
-  } else if (X == 3 && Y == 3 && Z == 3) {
-    return 7;
-  } else if (X == 3 && Y == 0 && Z == 3) {
-    return 8;
+    delay(theDelay);
   }
 }
 
