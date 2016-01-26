@@ -105,7 +105,7 @@ void setup(void) {
   // Random Seed
   // Set this to a static number to get the same sequence each time it starts,
   // otherwise set it to analogRead(Unused Pin) to run a difference sequence
-  // each time it starts (where Unised Pin is an unused analog pin).
+  // each time it starts (where Unused Pin is an unused analog pin).
   int theRandomSeed = analogRead(0);
 
   // Print Debug Info if a serial interface is present
