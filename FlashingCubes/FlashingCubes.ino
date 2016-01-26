@@ -12,7 +12,11 @@
 /*
    User editable variables
 */
+// The colour to use for the animation
+rgb_t theColour = BLUE;
 
+// The delay between each step of an animation
+int theDelay = 500;
 
 /*
    Don't edit these variables
@@ -43,9 +47,6 @@ void setup(void) {
 }
 
 void loop(void) {
-  rgb_t theColour = BLUE;
-  int theDelay = 500;
-
   cube.all(BLACK);
   cube.box(1, 1, 1, 2, 2, 2, theColour);
   delay(theDelay);
