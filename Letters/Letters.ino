@@ -27,6 +27,20 @@ void setup() {
   // -1: Don't attach any serial port to interact with the Cube.
   cube.begin(0, 115200); // Start on serial port 0 (USB) at 115200 baud
 
+  // Wait for the serial interface, to be established, or for a maximum of
+  // 3 seconds.
+  byte waitCounter = 0;
+  while (waitCounter < 30 && !Serial) {
+    delay(100);
+    waitCounter++;
+  }
+
+  // Print Debug Info if a serial interface is present
+  if (Serial)
+  {
+    serial->println("Letters v1.1");
+  }
+
   // Random Seed
   // Set this to a static number to get the same sequence each time it starts,
   // otherwise set it to analogRead(Unused Pin) to run a difference sequence
