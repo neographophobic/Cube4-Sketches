@@ -1,13 +1,16 @@
-Acknowledgments
+# Acknowledgments
 
-* Freetronics Hardware Profile
-The hardware profile was downloaded from https://github.com/freetronics/LeoStickBoardProfile/ as 
-of commit 157a55138128dc2e2c9e4c43e10c561e6ad4ee54.
+The following lists sources for sketches, inspiration, and artefacts that I have used in creating the sketches.
 
-* Freetronics Cube4 Library
-This library is required to run the Cube. The version represented by the Git Hash
-b42ea4d9aee124a8cb19801656326f4eb778986c was cloned on Github, and added to my Arduino Library
-folder. It's Github homepage is https://github.com/freetronics/Cube4.
+## Freetronics 4x4x4 RGB Cube Forum
+The [Freetronics 4x4x4 RGB Cube Forum](http://forum.freetronics.com/viewforum.php?f=32) has been a great source of ideas and sample sketches.
 
-* Freetronics Cube4 Matrix.pdf
-Created by user ponch58, and posted to http://forum.freetronics.com/viewtopic.php?f=32&t=5562
+## Freetronics Cube4 Matrix
+Original version created by user **ponch58**, and posted to [http://forum.freetronics.com/viewtopic.php?f=32&t=5562](). I've modified this version to include the position of each LED and the corners, as I use these features in a number of my sketches.
+
+## Videos
+Numerous videos have been posted that show animations running on a 4x4x4 cube. I used these as inspiration for many of my sketches. Three particularly useful videos are:-
+
+* [4x4x4 Led cube demo](https://www.youtube.com/watch?v=adXXSitxPdo)
+* [Arduino Uno 4x4x4 LED Cube](https://www.youtube.com/watch?v=XplWwPg8Blk)
+* [https://www.youtube.com/watch?v=-jpL6jEuulk](4x4x4 LED Cube Light Show  Tutorial HD)
