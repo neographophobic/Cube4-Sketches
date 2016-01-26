@@ -12,7 +12,14 @@
 /*
    User editable variables
 */
+// The colour to use for the inner square
+rgb_t innerColour = GREEN;
 
+// The colour to use for the outer square
+rgb_t outerColour = RED;
+
+// The delay between each step of an animation
+int theDelay = 150;
 
 /*
    Don't edit these variables
@@ -43,10 +50,6 @@ void setup(void) {
 }
 
 void loop(void) {
-  rgb_t innerColour = GREEN;
-  rgb_t outerColour = RED;
-  int theDelay = 150;
-
   // Move 1
   cube.box(0, 0, 0, 3, 3, 0, outerColour, 2);
 
