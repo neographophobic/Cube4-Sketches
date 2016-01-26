@@ -12,7 +12,11 @@
 /*
    User editable variables
 */
+// The colour to use for the animation
+rgb_t theColour = BLUE;
 
+// The delay between each step of an animation
+int theDelay = 300;
 
 /*
    Don't edit these variables
@@ -43,9 +47,6 @@ void setup(void) {
 }
 
 void loop(void) {
-  rgb_t theColour = BLUE;
-  int theDelay = 300;
-
   // The Zig
   cube.all(BLACK);
   cube.set(0, 3, 0, theColour);
