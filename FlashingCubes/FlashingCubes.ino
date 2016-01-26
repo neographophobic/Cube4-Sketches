@@ -46,6 +46,7 @@ void loop(void) {
   rgb_t theColour = BLUE;
   int theDelay = 500;
 
+  cube.all(BLACK);
   cube.box(1, 1, 1, 2, 2, 2, theColour);
   delay(theDelay);
   cube.box(0, 0, 0, 3, 3, 3, theColour);
@@ -54,7 +55,5 @@ void loop(void) {
   delay(theDelay);
   cube.box(0, 0, 0, 3, 3, 3, theColour);
   delay(theDelay);
-  cube.box(0, 0, 0, 3, 3, 3, BLACK);
-
 }
 
