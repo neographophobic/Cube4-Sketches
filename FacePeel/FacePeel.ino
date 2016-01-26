@@ -320,7 +320,8 @@ void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theCol
       end.y++;
     }
 
-    drawLine(start, end, theColour, theDelay);
+    drawLine(cube, start, end, theColour);
+    delay(theDelay);
   }
 
   // Final 3 steps
@@ -406,26 +407,9 @@ void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theCol
       end.x--;
     }
 
-    drawLine(start, end, theColour, theDelay);
+    drawLine(cube, start, end, theColour);
+    delay(theDelay);
   }
-}
-
-void drawLine(struct coordinate start, struct coordinate end, rgb_t theColour, int theDelay)
-{
-  if (start.y > end.y && start.z < end.z ||
-      start.x > end.x && start.z == end.z ||
-      start.x > end.x && start.y == end.y ||
-      start.y > end.y && start.x == end.x
-     ) {
-    // Work around bug in line drawing code by swapping start and
-    // end point if particular condiations are meet
-    cube.line(end.x, end.y, end.z,
-              start.x, start.y, start.z, theColour);
-  } else {
-    cube.line(start.x, start.y, start.z,
-              end.x, end.y, end.z, theColour);
-  }
-  delay(theDelay);
 }
 
 void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour, int theDelay)
@@ -665,7 +649,7 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
   for (byte i = 1; i <= 9; i++) {
     for (byte j = 0; j <= 6; j++) {
       if (count[j] >= 1 && count[j] <= 3) {
-        drawLine(lines[j].start, lines[j].end, BLACK, 0);
+        drawLine(cube, lines[j].start, lines[j].end, BLACK);
         if (startCorner >= 5 && stopCorner >= 5) {
           lines[j].start.z--;
           lines[j].end.z--;
@@ -702,7 +686,7 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
           lines[j].start.x--;
           lines[j].end.x--;
         }
-        drawLine(lines[j].start, lines[j].end, theColour, 0);
+        drawLine(cube, lines[j].start, lines[j].end, theColour);
       }
 
       count[j]++;
