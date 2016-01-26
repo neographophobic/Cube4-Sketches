@@ -133,61 +133,49 @@ struct endPoints lightUpLEDs(struct coordinate initialPoint, byte animationStep,
 
   // Update the new positions to their new location based on where we
   // started from
-
-  // Initial Point: 000 (Corner 1)
-  if (initialPoint.x == 0 && initialPoint.y == 0 && initialPoint.z == 0) {
-    newPoint1.y = initialPoint.y + animationStep;
-    newPoint2.x = initialPoint.x + animationStep;
-    newPoint3.z = initialPoint.z + animationStep;
-  }
-
-  // Initial Point: 030 (Corner 2)
-  if (initialPoint.x == 0 && initialPoint.y == 3 && initialPoint.z == 0) {
-    newPoint1.y = initialPoint.y - animationStep;
-    newPoint2.x = initialPoint.x + animationStep;
-    newPoint3.z = initialPoint.z + animationStep;
-  }
-
-  // Initial Point: 330 (Corner 3)
-  if (initialPoint.x == 3 && initialPoint.y == 3 && initialPoint.z == 0) {
-    newPoint1.x = initialPoint.x - animationStep;
-    newPoint2.y = initialPoint.y - animationStep;
-    newPoint3.z = initialPoint.z + animationStep;
-  }
-
-  // Initial Point: 300 (Corner 4)
-  if (initialPoint.x == 3 && initialPoint.y == 0 && initialPoint.z == 0) {
-    newPoint1.x = initialPoint.x - animationStep;
-    newPoint2.y = initialPoint.y + animationStep;
-    newPoint3.z = initialPoint.z + animationStep;
-  }
-
-  // Initial Point: 003 (Corner 5)
-  if (initialPoint.x == 0 && initialPoint.y == 0 && initialPoint.z == 3) {
-    newPoint1.y = initialPoint.y + animationStep;
-    newPoint2.x = initialPoint.x + animationStep;
-    newPoint3.z = initialPoint.z - animationStep;
-  }
-
-  // Initial Point: 033 (Corner 6)
-  if (initialPoint.x == 0 && initialPoint.y == 3 && initialPoint.z == 3) {
-    newPoint1.y = initialPoint.y - animationStep;
-    newPoint2.x = initialPoint.x + animationStep;
-    newPoint3.z = initialPoint.z - animationStep;
-  }
-
-  // Initial Point: 333 (Corner 7)
-  if (initialPoint.x == 3 && initialPoint.y == 3 && initialPoint.z == 3) {
-    newPoint1.x = initialPoint.x - animationStep;
-    newPoint2.y = initialPoint.y - animationStep;
-    newPoint3.z = initialPoint.z - animationStep;
-  }
-
-  // Initial Point: 303 (Corner 8)
-  if (initialPoint.x == 3 && initialPoint.y == 0 && initialPoint.z == 3) {
-    newPoint1.x = initialPoint.x - animationStep;
-    newPoint2.y = initialPoint.y + animationStep;
-    newPoint3.z = initialPoint.z - animationStep;
+  byte corner = getCorner(initialPoint);
+  switch (corner)
+  {
+    case 1: // Initial Point: 000 (Corner 1)
+      newPoint1.y = initialPoint.y + animationStep;
+      newPoint2.x = initialPoint.x + animationStep;
+      newPoint3.z = initialPoint.z + animationStep;
+      break;
+    case 2: // Initial Point: 030 (Corner 2)
+      newPoint1.y = initialPoint.y - animationStep;
+      newPoint2.x = initialPoint.x + animationStep;
+      newPoint3.z = initialPoint.z + animationStep;
+      break;
+    case 3: // Initial Point: 330 (Corner 3)
+      newPoint1.x = initialPoint.x - animationStep;
+      newPoint2.y = initialPoint.y - animationStep;
+      newPoint3.z = initialPoint.z + animationStep;
+      break;
+    case 4: // Initial Point: 300 (Corner 4)
+      newPoint1.x = initialPoint.x - animationStep;
+      newPoint2.y = initialPoint.y + animationStep;
+      newPoint3.z = initialPoint.z + animationStep;
+      break;
+    case 5: // Initial Point: 003 (Corner 5)
+      newPoint1.y = initialPoint.y + animationStep;
+      newPoint2.x = initialPoint.x + animationStep;
+      newPoint3.z = initialPoint.z - animationStep;
+      break;
+    case 6: // Initial Point: 033 (Corner 6)
+      newPoint1.y = initialPoint.y - animationStep;
+      newPoint2.x = initialPoint.x + animationStep;
+      newPoint3.z = initialPoint.z - animationStep;
+      break;
+    case 7: // Initial Point: 333 (Corner 7)
+      newPoint1.x = initialPoint.x - animationStep;
+      newPoint2.y = initialPoint.y - animationStep;
+      newPoint3.z = initialPoint.z - animationStep;
+      break;
+    case 8: // Initial Point: 303 (Corner 8)
+      newPoint1.x = initialPoint.x - animationStep;
+      newPoint2.y = initialPoint.y + animationStep;
+      newPoint3.z = initialPoint.z - animationStep;
+      break;
   }
 
   // Light up the required LEDs
