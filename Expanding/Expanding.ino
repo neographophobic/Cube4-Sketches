@@ -8,6 +8,7 @@
 // Include required libraries
 #include <SPI.h>
 #include "Cube.h"
+#include "Cube4_ARUtils.h"
 
 /*
    User editable variables
@@ -71,25 +72,27 @@ void loop(void) {
 void expand(byte x, byte y, byte z, rgb_t theColour, int theDelay)
 {
   // Track the users original starting point
-  byte xOrig = x;
-  byte yOrig = y;
-  byte zOrig = z;
+  struct coordinate origin;
+  origin.x = x;
+  origin.y = y;
+  origin.z = z;
 
   // Track the start and end point for the box we use to create
   // the animation
-  byte startX = x;
-  byte startY = y;
-  byte startZ = z;
-  byte endX = x;
-  byte endY = y;
-  byte endZ = z;
+  struct coordinate start;
+  struct coordinate end;
+  start = origin;
+  end = origin;
 
   // Clear the cube
   cube.all(BLACK);
 
   // Start by animating the starting coordinate
-  cube.set(xOrig, yOrig, zOrig, theColour);
+  cube.set(origin.x, origin.y, origin.z, theColour);
   delay(theDelay);
+
+  // Get the corner we start from
+  byte corner = getCorner(origin);
 
   // Expand
   for (byte i = 1; i <= 3; i++)
@@ -102,66 +105,54 @@ void expand(byte x, byte y, byte z, rgb_t theColour, int theDelay)
        handle the maths.
     */
 
-    // Bottom Front Left Starting Point (Corner 1)
-    if (xOrig == 0 && yOrig == 0 && zOrig == 0) {
-      endX++;
-      endY++;
-      endZ++;
-    }
-
-    // Bottom Back Left Starting Point (Corner 2)
-    if (xOrig == 0 && yOrig == 3 && zOrig == 0) {
-      startY--;
-      endX++;
-      endZ++;
-    }
-
-    // Bottom Back Right Starting Point (Corner 3)
-    if (xOrig == 3 && yOrig == 3 && zOrig == 0) {
-      startX--;
-      startY--;
-      endZ++;
-    }
-
-    // Bottom Front Right Starting Point (Corner 4)
-    if (xOrig == 3 && yOrig == 0 && zOrig == 0) {
-      startX--;
-      endY++;
-      endZ++;
-    }
-
-    // Top Front Left Starting Point (Corner 5)
-    if (xOrig == 0 && yOrig == 0 && zOrig == 3) {
-      startZ--;
-      endX++;
-      endY++;
-    }
-
-    // Top Back Left Starting Point (Corner 6)
-    if (xOrig == 0 && yOrig == 3 && zOrig == 3) {
-      startY--;
-      startZ--;
-      endX++;
-    }
-
-    // Top Back Right Starting Point (Corner 7)
-    if (xOrig == 3 && yOrig == 3 && zOrig == 3) {
-      startX--;
-      startY--;
-      startZ--;
-    }
-
-    // Top Front Right Starting Point (Corner 8)
-    if (xOrig == 3 && yOrig == 0 && zOrig == 3) {
-      startX--;
-      startZ--;
-      endY++;
+    switch (corner)
+    {
+      case 1: // Bottom Front Left Starting Point (Corner 1)
+        end.x++;
+        end.y++;
+        end.z++;
+        break;
+      case 2: // Bottom Back Left Starting Point (Corner 2)
+        start.y--;
+        end.x++;
+        end.z++;
+        break;
+      case 3: // Bottom Back Right Starting Point (Corner 3)
+        start.x--;
+        start.y--;
+        end.z++;
+        break;
+      case 4: // Bottom Front Right Starting Point (Corner 4)
+        start.x--;
+        end.y++;
+        end.z++;
+        break;
+      case 5: // Top Front Left Starting Point (Corner 5)
+        start.z--;
+        end.x++;
+        end.y++;
+        break;
+      case 6: // Top Back Left Starting Point (Corner 6)
+        start.y--;
+        start.z--;
+        end.x++;
+        break;
+      case 7: // Top Back Right Starting Point (Corner 7)
+        start.x--;
+        start.y--;
+        start.z--;
+        break;
+      case 8: // Top Front Right Starting Point (Corner 8)
+        start.x--;
+        start.z--;
+        end.y++;
+        break;
     }
 
     // Draw a filled in box from the calculated start coordinates
     // to the calculated end coordinates in the given colour then
     // pause for the provided delay
-    cube.box(startX, startY, startZ, endX, endY, endZ, theColour);
+    cube.box(start.x, start.y, start.z, end.x, end.y, end.z, theColour);
     delay(theDelay);
   }
 
@@ -176,60 +167,48 @@ void expand(byte x, byte y, byte z, rgb_t theColour, int theDelay)
        to expand from, not where it's contracting from.
     */
 
-    // Bottom Front Left Starting Point (Corner 1)
-    if (xOrig == 0 && yOrig == 0 && zOrig == 0) {
-      endX--;
-      endY--;
-      endZ--;
-    }
-
-    // Bottom Back Left Starting Point (Corner 2)
-    if (xOrig == 0 && yOrig == 3 && zOrig == 0) {
-      startY++;
-      endX--;
-      endZ--;
-    }
-
-    // Bottom Back Right Starting Point (Corner 3)
-    if (xOrig == 3 && yOrig == 3 && zOrig == 0) {
-      startX++;
-      startY++;
-      endZ--;
-    }
-
-    // Bottom Front Right Starting Point (Corner 4)
-    if (xOrig == 3 && yOrig == 0 && zOrig == 0) {
-      startX++;
-      endY--;
-      endZ--;
-    }
-
-    // Top Front Left Starting Point (Corner 5)
-    if (xOrig == 0 && yOrig == 0 && zOrig == 3) {
-      startZ++;
-      endX--;
-      endY--;
-    }
-
-    // Top Back Left Starting Point (Corner 6)
-    if (xOrig == 0 && yOrig == 3 && zOrig == 3) {
-      startY++;
-      startZ++;
-      endX--;
-    }
-
-    // Top Back Right Starting Point (Corner 7)
-    if (xOrig == 3 && yOrig == 3 && zOrig == 3) {
-      startX++;
-      startY++;
-      startZ++;
-    }
-
-    // Top Front Right Starting Point (Corner 8)
-    if (xOrig == 3 && yOrig == 0 && zOrig == 3) {
-      startX++;
-      startZ++;
-      endY--;
+    switch (corner)
+    {
+      case 1: // Bottom Front Left Starting Point (Corner 1)
+        end.x--;
+        end.y--;
+        end.z--;
+        break;
+      case 2: // Bottom Back Left Starting Point (Corner 2)
+        start.y++;
+        end.x--;
+        end.z--;
+        break;
+      case 3: // Bottom Back Right Starting Point (Corner 3)
+        start.x++;
+        start.y++;
+        end.z--;
+        break;
+      case 4: // Bottom Front Right Starting Point (Corner 4)
+        start.x++;
+        end.y--;
+        end.z--;
+        break;
+      case 5: // Top Front Left Starting Point (Corner 5)
+        start.z++;
+        end.x--;
+        end.y--;
+        break;
+      case 6: // Top Back Left Starting Point (Corner 6)
+        start.y++;
+        start.z++;
+        end.x--;
+        break;
+      case 7: // Top Back Right Starting Point (Corner 7)
+        start.x++;
+        start.y++;
+        start.z++;
+        break;
+      case 8: // Top Front Right Starting Point (Corner 8)
+        start.x++;
+        start.z++;
+        end.y--;
+        break;
     }
 
     // Clear the cube, then draw a filled in box from the
@@ -237,7 +216,7 @@ void expand(byte x, byte y, byte z, rgb_t theColour, int theDelay)
     // coordinates in the given colour then pause for the
     // provided delay
     cube.all(BLACK);
-    cube.box(startX, startY, startZ, endX, endY, endZ, theColour);
+    cube.box(start.x, start.y, start.z, end.x, end.y, end.z, theColour);
     delay(theDelay);
   }
 
@@ -245,7 +224,7 @@ void expand(byte x, byte y, byte z, rgb_t theColour, int theDelay)
   // illuminating the original start coordinate for the
   // delay period.
   cube.all(BLACK);
-  cube.set(xOrig, yOrig, zOrig, theColour);
+  cube.set(origin.x, origin.y, origin.z, theColour);
   delay(theDelay);
 }
 
