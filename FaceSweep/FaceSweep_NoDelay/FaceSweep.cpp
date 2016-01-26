@@ -11,9 +11,6 @@
 // Include for Cube Library
 #include "Cube.h"
 
-// Include for helper functions for the cube
-#include "Cube4_ARUtils.h"
-
 // Include the header file for this class
 #include "FaceSweep.h"
 
