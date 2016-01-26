@@ -59,6 +59,7 @@ void setup(void) {
   {
     serial->println("RandomFill v1.0");
   }
+
   // Populate an array of points from 1 to 64, so that we
   // can later shuffle the order
   for (int i = 1; i < TOTAL_LEDS; i++) {
@@ -67,6 +68,15 @@ void setup(void) {
 
   // Build the full array of LEDs so that we have coordinates to match the above points
   buildLEDsArray(leds);
+
+  // Random Seed
+  // Set this to a static number to get the same sequence each time it starts,
+  // otherwise set it to analogRead(Unused Pin) to run a difference sequence
+  // each time it starts (where Unused Pin is an unused analog pin).
+  int theRandomSeed = analogRead(0);
+
+  // Seed the random number generator
+  randomSeed(theRandomSeed);
 }
 
 void loop(void) {
