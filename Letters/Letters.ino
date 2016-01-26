@@ -26,6 +26,15 @@ void setup() {
   // 1: Control via the RXD and TXD pins on the main board.
   // -1: Don't attach any serial port to interact with the Cube.
   cube.begin(0, 115200); // Start on serial port 0 (USB) at 115200 baud
+
+  // Random Seed
+  // Set this to a static number to get the same sequence each time it starts,
+  // otherwise set it to analogRead(Unused Pin) to run a difference sequence
+  // each time it starts (where Unused Pin is an unused analog pin).
+  int theRandomSeed = analogRead(0);
+
+  // Seed the random number generator
+  randomSeed(theRandomSeed);
 }
 
 void loop() {
