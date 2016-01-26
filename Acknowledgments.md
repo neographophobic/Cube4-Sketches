@@ -14,3 +14,8 @@ Numerous videos have been posted that show animations running on a 4x4x4 cube. I
 * [4x4x4 Led cube demo](https://www.youtube.com/watch?v=adXXSitxPdo)
 * [Arduino Uno 4x4x4 LED Cube](https://www.youtube.com/watch?v=XplWwPg8Blk)
 * [https://www.youtube.com/watch?v=-jpL6jEuulk](4x4x4 LED Cube Light Show  Tutorial HD)
+
+## DoubleCube
+Part of the example sketches from the Cube4 Library. The original source of the sketch is by user **sparky-nz** on the Freetronics forums at [http://forum.freetronics.com/viewtopic.php?f=32&t=5579](http://forum.freetronics.com/viewtopic.php?f=32&t=5579). 
+
+I've modified the original to simplify the drawing, and to ensure the random number generator is seeded so that different patterns happen.
