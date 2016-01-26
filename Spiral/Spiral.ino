@@ -23,7 +23,7 @@ Cube cube;
 
 // leds is an array of the x,y,z coordinates of each of the LEDs in our
 // cube.
-struct coordinate leds[64];
+struct coordinate leds[TOTAL_LEDS];
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:

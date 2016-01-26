@@ -46,7 +46,7 @@ class Spiral {
 
     // leds is an array of the x,y,z coordinates of each of the
     // LEDs in our cube.
-    struct coordinate _leds[65];
+    struct coordinate _leds[TOTAL_LEDS];
 
     // How many items there are in the array of coordinates to process
     static const int _itemsToProcess = 48;
