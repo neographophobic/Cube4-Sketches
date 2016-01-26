@@ -127,15 +127,9 @@ struct endPoints lightUpLEDs(struct coordinate initialPoint, byte animationStep,
   struct coordinate newPoint3;
 
   // Default the three new positions to the value we were passed
-  newPoint1.x = initialPoint.x;
-  newPoint1.y = initialPoint.y;
-  newPoint1.z = initialPoint.z;
-  newPoint2.x = initialPoint.x;
-  newPoint2.y = initialPoint.y;
-  newPoint2.z = initialPoint.z;
-  newPoint3.x = initialPoint.x;
-  newPoint3.y = initialPoint.y;
-  newPoint3.z = initialPoint.z;
+  newPoint1 = initialPoint;
+  newPoint2 = initialPoint;
+  newPoint3 = initialPoint;
 
   // Update the new positions to their new location based on where we
   // started from
