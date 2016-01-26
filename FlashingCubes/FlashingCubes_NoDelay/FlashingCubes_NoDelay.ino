@@ -1,6 +1,6 @@
 /*
-   File:      FlashingCubes.ino
-   Purpose:   Flashing Cubes pattern for the Freetronics 4x4x4 Cube
+   File:      FlashingCubes_NoDelay.ino
+   Purpose:   Flashing Cubes pattern for the Freetronics 4x4x4 Cube (non blocking)
    Author:    Adam Reed (adam@secretcode.ninja)
    Licence:   BSD 3-Clause Licence
 */
@@ -8,17 +8,23 @@
 // Include required libraries
 #include <SPI.h>
 #include "Cube.h"
+#include "Cube4_ARUtils.h"
+#include "FlashingCubes.h"
 
 /*
    User editable variables
 */
+// theDelay tracks how long to pause between colour changes
+int theDelay = 500;
 
+// theColour sets the colour that is used as the basis of the effect
+rgb_t theColour = BLUE;
 
-/*
-   Don't edit these variables
-*/
 // Create an instance of the cube class
 Cube cube;
+
+// Create an instance of the FlashingCubes class
+FlashingCubes flashingcubes(cube, theDelay);
 
 void setup(void) {
   // Serial port options for control of the Cube using serial commands are:
@@ -38,22 +44,11 @@ void setup(void) {
   // Print Debug Info if a serial interface is present
   if (Serial)
   {
-    serial->println("Flashing Cubes v1.0");
+    serial->println("FlashingCubes v1.0 (non-blocking)");
   }
 }
 
 void loop(void) {
-  rgb_t theColour = BLUE;
-  int theDelay = 500;
-
-  cube.all(BLACK);
-  cube.box(1, 1, 1, 2, 2, 2, theColour);
-  delay(theDelay);
-  cube.box(0, 0, 0, 3, 3, 3, theColour);
-  delay(theDelay);
-  cube.box(1, 1, 1, 2, 2, 2, BLACK);
-  delay(theDelay);
-  cube.box(0, 0, 0, 3, 3, 3, theColour);
-  delay(theDelay);
+  flashingcubes.update(theColour);
 }
 
