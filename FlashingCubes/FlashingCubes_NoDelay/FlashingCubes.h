@@ -16,9 +16,6 @@
 // Include for Cube Library
 #include "Cube.h"
 
-// Include for helper functions for the cube
-#include "Cube4_ARUtils.h"
-
 // Declare out class, with public and private variables and functions
 class FlashingCubes {
   public:
