@@ -13,7 +13,11 @@
 /*
    User editable variables
 */
+// The colour to use for the animation
+rgb_t theColour = BLUE;
 
+// The delay between each step of an animation
+int theDelay = 100;
 
 /*
    Don't edit these variables
@@ -51,10 +55,6 @@ void setup(void) {
 }
 
 void loop(void) {
-  // Set the delay between each part of the animation, and the colour to use
-  int theDelay = 100;
-  rgb_t theColour = BLUE;
-
   // Illuminate the "odd" directions (rear to front, left to right, top to bottom)
   for (byte i = 1; i <= 6; i = i + 2) {
     spiral(i, theColour, theDelay);
