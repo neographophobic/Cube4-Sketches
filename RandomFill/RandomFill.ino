@@ -32,7 +32,6 @@ int middleDelay = 200;
 /*
    Don't edit these variables
 */
-#define TOTAL_LEDS 65     // Set the total number of LEDs in the cube
 int points[TOTAL_LEDS];
 struct coordinate leds[TOTAL_LEDS];
 
@@ -82,7 +81,7 @@ void setup(void) {
 void loop(void) {
   // Shuffle the array, so that we can illumante all LEDs in
   // a random order
-  shuffle(points, TOTAL_LEDS);
+  shuffle(points, TOTAL_LEDS-1);
 
   // Loop through the shuffled array, turning the LEDs on
   for (int i = 1; i < TOTAL_LEDS; i++) {
