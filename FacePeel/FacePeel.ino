@@ -228,14 +228,10 @@ void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theCol
 
   struct coordinate startPoint;
   struct coordinate endPoint;
-
   startPoint.x = x1;
   startPoint.y = y1;
   startPoint.z = z1;
-
-  endPoint.x = x1;
-  endPoint.y = y1;
-  endPoint.z = z1;
+  endPoint = startPoint;
 
   // First part of the move
   cube.set(startPoint.x, startPoint.y, startPoint.z, theColour);
@@ -444,9 +440,7 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
   lines[0].startPoint.x = x1;
   lines[0].startPoint.y = y1;
   lines[0].startPoint.z = z1;
-  lines[0].endPoint.x = x1;
-  lines[0].endPoint.y = y1;
-  lines[0].endPoint.z = z1;
+  lines[0].endPoint = lines[0].startPoint;
 
   for (byte i = 1; i <= 3; i++) {
     lines[i].startPoint.x = lines[i - 1].startPoint.x;
