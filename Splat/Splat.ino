@@ -12,7 +12,10 @@
 /*
    User editable variables
 */
+// The colour to use for the animation
 rgb_t theColour = BLUE;
+
+// The delay between each step of an animation
 int theDelay = 50;
 
 /*
