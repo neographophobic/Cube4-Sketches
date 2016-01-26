@@ -220,8 +220,8 @@ void test(void) {
 void faceDraw(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour, int theDelay)
 {
   // 8 Corners to the cube. Determine which ones to use
-  byte startPosition = getPosition(x1, y1, z1);
-  byte stopPosition = getPosition(x2, y2, z2);
+  byte startPosition = getCorner(x1, y1, z1);
+  byte stopPosition = getCorner(x2, y2, z2);
 
   // From each of the 8 corners there are 3 valid directions
   // broken into 2 sections (start -> middle -> end)
@@ -435,8 +435,8 @@ void drawLine(struct coordinate startPoint, struct coordinate endPoint, rgb_t th
 void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour, int theDelay)
 {
   // 8 Corners to the cube. Determine which ones to use
-  byte startPosition = getPosition(x1, y1, z1);
-  byte stopPosition = getPosition(x2, y2, z2);
+  byte startPosition = getCorner(x1, y1, z1);
+  byte stopPosition = getCorner(x2, y2, z2);
 
   aLine lines[7];
 
@@ -714,26 +714,6 @@ void peel(byte x1, byte y1, byte z1, byte x2, byte y2, byte z2, rgb_t theColour,
       count[j]++;
     }
     delay(theDelay);
-  }
-}
-
-byte getPosition(byte X, byte Y, byte Z) {
-  if (X == 0 && Y == 0 && Z == 0) {
-    return 1;
-  } else if (X == 0 && Y == 3 && Z == 0) {
-    return 2;
-  } else if (X == 3 && Y == 3 && Z == 0) {
-    return 3;
-  } else if (X == 3 && Y == 0 && Z == 0) {
-    return 4;
-  } else if (X == 0 && Y == 0 && Z == 3) {
-    return 5;
-  } else if (X == 0 && Y == 3 && Z == 3) {
-    return 6;
-  } else if (X == 3 && Y == 3 && Z == 3) {
-    return 7;
-  } else if (X == 3 && Y == 0 && Z == 3) {
-    return 8;
   }
 }
 
