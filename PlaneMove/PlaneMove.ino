@@ -12,7 +12,11 @@
 /*
    User editable variables
 */
+// The colour to use for the animation
+rgb_t theColour = GREEN;
 
+// The delay between each step of an animation
+int theDelay = 150;
 
 /*
    Don't edit these variables
@@ -43,9 +47,6 @@ void setup(void) {
 }
 
 void loop(void) {
-  rgb_t theColour = GREEN;
-  int theDelay = 150;
-
   // Move the X plane left to right then right to left
   cube.all(BLACK);
   planeMove(X, 0, theColour, theDelay);
