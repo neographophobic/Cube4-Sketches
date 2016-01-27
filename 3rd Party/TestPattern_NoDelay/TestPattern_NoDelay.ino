@@ -49,6 +49,21 @@ void setup(void) {
 }
 
 void loop(void) {
-  testpattern.randomPastel();
+  // Only use one of the following options at a time
+  // as due to the non blocking nature of the code
+  // if they are all allowed to run, the results of
+  // the three will blend into one
+
+  // Step Through LEDs
+  testpattern.stepThroughLEDs();
+
+  // Cycle Cube Colours
+  //testpattern.cycleCubeColours();
+
+  // Fade White
+  //testpattern.fadeWhite();
+
+  // Random Pastels
+  //testpattern.randomPastel();
 }
 
