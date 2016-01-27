@@ -40,3 +40,8 @@ I've modified the original to simplify the drawing, and to ensure the random num
 Part of the example sketches from the Cube4 Library. The original source is from the Heartbeat sketch by Jonathan Oxer (jon@freetronics.com) released under the GPLv3.
 
 My modification was to change the drawing of the rise and fall motion from using while loops to using the buildLEDsArray coordinates approach from my library, and to then just use the appropriate index within that array to turn on or off the appropriate LED. This has then allowed me to make it into a non blocking version.
+
+## LaserShow
+Part of the example sketches from the Cube4 Library. The original source is from the LaserShow by Blake Kus (blakekus@gmail.com) released under the GPLv3.
+
+I've modified the sketch to allow user defined colours, removed the second part of the animations (leaving only the lasers moving), and made it into a non blocking version.
