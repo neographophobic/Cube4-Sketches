@@ -1,12 +1,10 @@
 /*
     File:     DoubleCube.cpp
-    Purpose:  DoubleCube pattern for the Freetronics 4x4x4 Cube (non blocking)
+    Purpose:  Double Cube pattern for the Freetronics 4x4x4 Cube (non blocking)
 
     Original Author:   ADA
     This example was contributed by sparky-nz on the Freetronics forums:
-    http://forum.freetronics.com/viewtopic.php?f=32&t=5579. I've made some
-    minor modifications, including simplifying the drawing, and ensuring
-    that the random number generator is seeded.
+    http://forum.freetronics.com/viewtopic.php?f=32&t=5579.
 
     Modified by:       Adam Reed (adam@secretcode.ninja)
 */
