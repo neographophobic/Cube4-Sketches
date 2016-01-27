@@ -45,3 +45,8 @@ My modification was to change the drawing of the rise and fall motion from using
 Part of the example sketches from the Cube4 Library. The original source is from the LaserShow by Blake Kus (blakekus@gmail.com) released under the GPLv3.
 
 I've modified the sketch to allow user defined colours, removed the second part of the animations (leaving only the lasers moving), and made it into a non blocking version.
+
+## RainStorm
+Part of the example sketches from the Cube4 Library. The original source is from the Heartbeat sketch by Jonathan Oxer (jon@freetronics.com) released under the GPLv3.
+
+I have made a non blocking version of this sketch.
