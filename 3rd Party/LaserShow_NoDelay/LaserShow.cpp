@@ -5,7 +5,7 @@
     Original Author:   Blake Kus (blakekus@gmail.com)
     License:           GPLv3
     This example is part of the Cube4 Library from Freetronics
-    https://github.com/freetronics/Cube4. I've made minor modifications.
+    https://github.com/freetronics/Cube4.
 
     Modified by:       Adam Reed (adam@secretcode.ninja)
 */
@@ -15,9 +15,6 @@
 
 // Include for Cube Library
 #include "Cube.h"
-
-// Include for helper functions for the cube
-#include "Cube4_ARUtils.h"
 
 // Include the header file for this class
 #include "LaserShow.h"

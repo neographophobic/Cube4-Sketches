@@ -5,7 +5,7 @@
     Original Author:   Blake Kus (blakekus@gmail.com)
     License:           GPLv3
     This example is part of the Cube4 Library from Freetronics
-    https://github.com/freetronics/Cube4. I've made minor modifications.
+    https://github.com/freetronics/Cube4.
 
     Modified by:       Adam Reed (adam@secretcode.ninja)
 */
@@ -13,7 +13,6 @@
 // Include required libraries
 #include <SPI.h>
 #include "Cube.h"
-#include "Cube4_ARUtils.h"
 #include "LaserShow.h"
 
 /*
