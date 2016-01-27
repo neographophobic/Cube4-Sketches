@@ -50,3 +50,8 @@ I've modified the sketch to allow user defined colours, removed the second part 
 Part of the example sketches from the Cube4 Library. The original source is from the Heartbeat sketch by Jonathan Oxer (jon@freetronics.com) released under the GPLv3.
 
 I have made a non blocking version of this sketch.
+
+# Test Pattern
+Part of the example sketches from the Cube4 Library. The original source is from the Test Pattern sketch by Jonathan Oxer (jon@freetronics.com) released under the GPLv3.
+
+I have made a non blocking version of this sketch. Unlike the original, my version doesn't move from one type of test to the next. It's up to the user to pick which pattern to run.
