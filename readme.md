@@ -1,13 +1,13 @@
 # Cube4 Sketches
 
-This repository is a place for me to publish sketches that I or others have worked on for the [Freetronics 4x4x4 RGB LED Cube](http://www.freetronics.com.au/collections/kits/products/cube4-4x4x4-rgb-led-cube).
+This repository is a place for me to publish sketches that I worked on for the [Freetronics 4x4x4 RGB LED Cube](http://www.freetronics.com.au/collections/kits/products/cube4-4x4x4-rgb-led-cube).
 
-Please see the **Acknowledgments.txt** file for information on where I have sourced items from if I haven't created them myself.
+All sketches have been tested using the Arduino IDE v1.6.7 on MacOS X 10.10.
 
 ## Non Blocking Versions
-Typically sketches use delay() to add a pause between light patters in an animation. The problem with this is that while the sketch is running, and particularly during a delay no other pieces of code run. This is problematic with things like serial input, as the cube will not respond to it while in a delay, meaning that the command is missed.
+Typically sketches use delay() to add a pause between patters in an animation. The problem with this is that while the sketch is running, and particularly during a delay no other pieces of code run. This is problematic with things like serial input, as the cube will not respond to it while in a delay, meaning that the command is missed.
 
-A different approach is to use a state machine, that is called frequently, but only does actions if it is in the correct state, and if an appropriate amount of time has passed. This approach removes the need for a delay, and allows items like serial input to still occur.
+A different approach is to use a state machine, that is called roughly every millisecond, but only does actions if it is in the correct state, and if an appropriate amount of time has passed. This approach removes the need for a delay, and allows items like serial input to still occur.
 
 A number of the following sketches include both the "traditional" approach using delay(), and versions that are built using a state machine.
 
@@ -15,6 +15,8 @@ A number of the following sketches include both the "traditional" approach using
 These sketches require a Freetronics 4x4x4 RGB LED Cube. In addition they all require the [Cube4 Library](https://github.com/neographophobic/Cube4) (that link is to my modified version of the library). The original version can be found at [Freetronics Cube4 Library](https://github.com/freetronics/Cube4). 
 
 Some sketches also require a helper library that I've written. The library is available from [Cube4_ARUtils](https://github.com/neographophobic/Cube4_ARUtils).
+
+To install these libraries, click on the "Download ZIP" link on the Github page, and then in the Arduino IDE, open a new blank sketch, then select "Sketch" -> "Include Library" -> "Add .ZIP Library".
 
 # Sketches
 ## Blank
@@ -119,4 +121,59 @@ Creates a Zig / Zag style pattern.
 
 *There is a non blocking version of this sketch.*
 
+# 3rd Party Sketches
+Please see the **Acknowledgments.txt** file for information on where I have sourced these from.
 
+## Colour Fader
+Fades the cube through a series of colours. 
+
+*This sketch is a non blocking version of the original sketch.*
+
+## Cubes
+Demonstrates different cube styles.
+
+*This sketch is a non blocking version of the original sketch.*
+
+## DoubleCube
+Places a 2x2x2 cube within the larger 4x4x4 cube, and picks random colours for both.
+
+*This sketch is a non blocking version of the original sketch.*
+
+## Emergency Flashing
+Simulates the red / blue flashing lights of an emergency vehicle.
+
+*There is a "traditional" and non blocking version of the original sketch.*
+
+## Heartbeat
+Simulates a heart beat.
+
+*This sketch is a non blocking version of the original sketch, and requires the Cube4_ARUtils library.*
+
+## LaserShow
+Draw a series of laser lights from the bottom corners, then from the top corners. I've removed the second part of the original sketch that resulted in a solid red cube.
+
+*This sketch is a non blocking version of the original sketch.*
+
+## RainStorm
+Simulates a rain storm, with the option of clouds and lightning.
+
+*This sketch is a non blocking version of the original sketch.*
+
+## Random Colours
+Set each LED in the cube to a constantly changing random colour. There are three different options (due to combining the 3 Random Colour example sketches). Only one option can be used at a time.
+
+* Random Colour = Any possible colour
+* Random Pastels = Any pastel colour
+* Random Primaries = Red, Green, or Blue
+
+*This sketch is a non blocking version of the original sketches.*
+
+## Test Pattern
+The test pattern that ships with each cube, with each "stage" of it broken up into a different function. Only one option can be used at a time.
+
+* Step Through LEDs
+* Cycle Cube Colours
+* Fade White
+* Random Pastels (same as from Random Colours above)
+
+*This sketch is a non blocking version of the original sketch, and requires the Cube4_ARUtils library.*
