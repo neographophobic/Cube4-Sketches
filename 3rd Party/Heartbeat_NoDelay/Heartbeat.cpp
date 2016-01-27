@@ -142,7 +142,7 @@ void Heartbeat::update()
     // Long pause between beat. Do nothing.
 
     // Remember the time for future reference, and move to the
-    // next state
+    // first state
     _previousMillis = currentMillis;
     _state = 1;
   }
