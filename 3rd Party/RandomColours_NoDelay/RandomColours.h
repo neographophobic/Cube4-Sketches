@@ -5,9 +5,7 @@
    Original Author:   Jonathan Oxer (jon@freetronics.com)
    License:           GPLv3
    These examples are part of the Cube4 Library from Freetronics
-   https://github.com/freetronics/Cube4. I've made minor modifications
-   and combined the RandomColours, RandomPastels, and RandomPrimaries
-   sketches.
+   https://github.com/freetronics/Cube4.
 
    Modified by:       Adam Reed (adam@secretcode.ninja)
 */
@@ -20,7 +18,7 @@
 /*==========================================================================
     APPLICATION SETTINGS (USER EDITABLE)
 
-    RANDOM_PIN          An unused analog pin that is used as a seed for the
+    UNUSED_ANALOG_PIN   An unused analog pin that is used as a seed for the
                         random number generator to ensure that the random
                         pattern is different each time the cube is started
   ============================================================================ */

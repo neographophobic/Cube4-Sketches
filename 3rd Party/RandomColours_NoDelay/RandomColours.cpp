@@ -5,9 +5,7 @@
    Original Author:   Jonathan Oxer (jon@freetronics.com)
    License:           GPLv3
    These examples are part of the Cube4 Library from Freetronics
-   https://github.com/freetronics/Cube4. I've made minor modifications
-   and combined the RandomColours, RandomPastels, and RandomPrimaries
-   sketches.
+   https://github.com/freetronics/Cube4.
 
    Modified by:       Adam Reed (adam@secretcode.ninja)
 */
