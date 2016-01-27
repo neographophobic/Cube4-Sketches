@@ -15,4 +15,7 @@ Numerous videos have been posted that show animations running on a 4x4x4 cube. I
 * [Arduino Uno 4x4x4 LED Cube](https://www.youtube.com/watch?v=XplWwPg8Blk)
 * [https://www.youtube.com/watch?v=-jpL6jEuulk](4x4x4 LED Cube Light Show  Tutorial HD)
 ## Cubes
-Part of the example sketches from the Cube4 Library. The original source is from the Cubes by Blake Kus (blakekus@gmail.com) released under the GPLv3.
+Part of the example sketches from the Cube4 Library. The original source is from the [Cubes](https://github.com/freetronics/Cube4/blob/master/examples/Cubes/Cubes.ino) sketch  **Blake Kus** (blakekus@gmail.com) released under the GPLv3.
+
+My modification was to make a non blocking version.
+
