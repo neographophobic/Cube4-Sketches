@@ -36,6 +36,11 @@ Part of the example sketches from the Cube4 Library. The original source of the 
 
 I've modified the original to simplify the drawing, and to ensure the random number generator is seeded so that different patterns happen.
 
+## Emergency Flashing
+Original sketch by user **yatto** on the Freetronics forums at http://forum.freetronics.com/viewtopic.php?f=32&t=6507. 
+
+I've modified the original to simplify the code, and added a non blocking version.
+
 ## Heartbeat
 Part of the example sketches from the Cube4 Library. The original source is from the Heartbeat sketch by Jonathan Oxer (jon@freetronics.com) released under the GPLv3.
 
