@@ -30,3 +30,8 @@ My modification was to combine the three sketches and make that into a non block
 
 ## Cubes
 Part of the example sketches from the Cube4 Library. The original source is from the Cubes by Blake Kus (blakekus@gmail.com) released under the GPLv3.
+
+## DoubleCube
+Part of the example sketches from the Cube4 Library. The original source of the sketch is by user **sparky-nz** on the Freetronics forums at [http://forum.freetronics.com/viewtopic.php?f=32&t=5579](http://forum.freetronics.com/viewtopic.php?f=32&t=5579). 
+
+I've modified the original to simplify the drawing, and to ensure the random number generator is seeded so that different patterns happen.
