@@ -14,3 +14,8 @@ Numerous videos have been posted that show animations running on a 4x4x4 cube. I
 * [4x4x4 Led cube demo](https://www.youtube.com/watch?v=adXXSitxPdo)
 * [Arduino Uno 4x4x4 LED Cube](https://www.youtube.com/watch?v=XplWwPg8Blk)
 * [https://www.youtube.com/watch?v=-jpL6jEuulk](4x4x4 LED Cube Light Show  Tutorial HD)
+
+## LaserShow
+Part of the example sketches from the Cube4 Library. The original source is from the LaserShow by Blake Kus (blakekus@gmail.com) released under the GPLv3.
+
+I've modified the sketch to allow user defined colours, removed the second part of the animations (leaving only the lasers moving), and made it into a non blocking version.
