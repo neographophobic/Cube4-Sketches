@@ -6,9 +6,6 @@
    This sketch was contributed by yatto on the Freetronics forums:
    http://forum.freetronics.com/viewtopic.php?f=32&t=6507.
 
-   I've simplified the sketch, and formatted it to match my style
-   but the effect is the same.
-
    Modified by:       Adam Reed (adam@secretcode.ninja)
 */
 
