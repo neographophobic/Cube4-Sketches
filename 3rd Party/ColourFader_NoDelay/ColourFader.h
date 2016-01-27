@@ -1,6 +1,6 @@
 /*
-    File:     ColourFader.h
-    Purpose:  Colour Fader pattern for the Freetronics 4x4x4 Cube (non blocking)
+   File:      ColourFader.h
+   Purpose:   Colour Fader pattern for the Freetronics 4x4x4 Cube (non blocking)
 
    Original Author:   ADA/THOMAS
    This example was contributed by sparky-nz on the Freetronics forums:
