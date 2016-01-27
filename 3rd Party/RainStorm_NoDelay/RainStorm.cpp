@@ -136,13 +136,13 @@ void RainStorm::update()
 
     // Increment the number of lightning flashes shown
     _lightningFlashesShown++;
-    
+
     if (_lightningFlashesShown < _lightningFlashes)
     {
-       // Start the lightning display again
+      // Start the lightning display again
       _state = 2;
-    } 
-    else 
+    }
+    else
     {
       // Go back to raining
       _state = 1;

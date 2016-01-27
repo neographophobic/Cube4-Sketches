@@ -1,6 +1,6 @@
 /*
-   File:      RainStorm_NoDelay.ino
-   Purpose:   RainStorm pattern for the Freetronics 4x4x4 Cube (non blocking)
+    File:     RainStorm_NoDelay.ino
+    Purpose:  RainStorm pattern for the Freetronics 4x4x4 Cube (non blocking)
 
     Original Author:   Jonathan Oxer (jon@freetronics.com)
     License:           GPLv3
@@ -24,11 +24,11 @@ int rainDropDelay = 50;
 // showClouds displays a "cloud" layer at the top
 bool showClouds = true;
 
-// lightingInterval is how many raindrops between random 
+// lightingInterval is how many raindrops between random
 // lightning strikes, on average
 int lightingInterval = 20;
 
-// maxLightningBolts is maximum number of lightning flashes 
+// maxLightningBolts is maximum number of lightning flashes
 // per strick
 int maxLightningBolts = 2;
 

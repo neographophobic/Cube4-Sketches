@@ -63,7 +63,7 @@ class RainStorm {
     // many have been shown
     int _lightningFlashes;
     int _lightningFlashesShown;
-    
+
     // Rain drop locations
     byte _drop1XPos;
     byte _drop1YPos;
