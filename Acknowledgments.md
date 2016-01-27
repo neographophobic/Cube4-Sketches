@@ -14,3 +14,8 @@ Numerous videos have been posted that show animations running on a 4x4x4 cube. I
 * [4x4x4 Led cube demo](https://www.youtube.com/watch?v=adXXSitxPdo)
 * [Arduino Uno 4x4x4 LED Cube](https://www.youtube.com/watch?v=XplWwPg8Blk)
 * [https://www.youtube.com/watch?v=-jpL6jEuulk](4x4x4 LED Cube Light Show  Tutorial HD)
+
+# Test Pattern
+Part of the example sketches from the Cube4 Library. The original source is from the Test Pattern sketch by Jonathan Oxer (jon@freetronics.com) released under the GPLv3.
+
+I have made a non blocking version of this sketch. Unlike the original, my version doesn't move from one type of test to the next. It's up to the user to pick which pattern to run.
