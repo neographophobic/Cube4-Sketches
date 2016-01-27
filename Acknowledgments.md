@@ -35,3 +35,8 @@ Part of the example sketches from the Cube4 Library. The original source is from
 Part of the example sketches from the Cube4 Library. The original source of the sketch is by user **sparky-nz** on the Freetronics forums at [http://forum.freetronics.com/viewtopic.php?f=32&t=5579](http://forum.freetronics.com/viewtopic.php?f=32&t=5579). 
 
 I've modified the original to simplify the drawing, and to ensure the random number generator is seeded so that different patterns happen.
+
+## Heartbeat
+Part of the example sketches from the Cube4 Library. The original source is from the Heartbeat sketch by Jonathan Oxer (jon@freetronics.com) released under the GPLv3.
+
+My modification was to change the drawing of the rise and fall motion from using while loops to using the buildLEDsArray coordinates approach from my library, and to then just use the appropriate index within that array to turn on or off the appropriate LED. This has then allowed me to make it into a non blocking version.
