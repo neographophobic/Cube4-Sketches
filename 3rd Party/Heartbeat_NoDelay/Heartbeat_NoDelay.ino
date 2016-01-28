@@ -13,7 +13,6 @@
 */
 
 // Include required libraries
-#include <SPI.h>
 #include "Cube.h"
 #include "Cube4_ARUtils.h"
 #include "Heartbeat.h"
