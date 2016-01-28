@@ -26,7 +26,7 @@ bool showClouds = true;
 
 // lightingInterval is how many raindrops between random
 // lightning strikes, on average
-int lightingInterval = 20;
+int lightingInterval = 40;
 
 // maxLightningBolts is maximum number of lightning flashes
 // per strick
