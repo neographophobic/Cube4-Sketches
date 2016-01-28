@@ -1,12 +1,11 @@
 /*
    File:      .ino
-   Purpose:   pattern for the Freetronics 4x4x4 Cube
+   Purpose:   Blank pattern for the Freetronics 4x4x4 Cube
    Author:    Adam Reed (adam@secretcode.ninja)
    Licence:   BSD 3-Clause Licence
 */
 
 // Include required libraries
-#include <SPI.h>
 #include "Cube.h"
 #include "Cube4_ARUtils.h"
 
@@ -15,6 +14,9 @@
 */
 
 
+/*
+   Don't edit these variables
+*/
 // Create an instance of the cube class
 Cube cube;
 
