@@ -10,7 +10,6 @@
 */
 
 // Include required libraries
-#include <SPI.h>
 #include "Cube.h"
 
 /*
