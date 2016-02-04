@@ -64,35 +64,42 @@ void ColourPulse::update(rgb_t theColour)
 
   if ((_state == 1) && (currentMillis - _previousMillis >= _theDelay))
   {
-    // Update the cube with the given brightness for the provided colour
-    updateCubeColour(theColourInHSV, _brightness);
-
-    // Update the brightness by the previously provided increment value
-    _brightness = _brightness + _brightnessIncrement;
-
-    if (_brightness > initialBrightness)
+    if (_brightness >= initialBrightness)
     {
       // We have hit the maximum brightness for this colour, so
       // move to the other state
       _state = 2;
-    }
 
+      // Reset brigtness
+      _brightness = initialBrightness;
+    } else {
+
+      // Update the cube with the given brightness for the provided colour
+      updateCubeColour(theColourInHSV, _brightness);
+
+      // Update the brightness by the previously provided increment value
+      _brightness = _brightness + _brightnessIncrement;
+    }
     // Remember the time for future reference
     _previousMillis = currentMillis;
   }
   else if ((_state == 2) && (currentMillis - _previousMillis >= _theDelay))
   {
-    // Update the cube with the given brightness for the provided colour
-    updateCubeColour(theColourInHSV, _brightness);
-
-    // Update the brightness by the previously provided increment value
-    _brightness = _brightness - _brightnessIncrement;
-
     if (_brightness <= 1)
     {
       // We have hit the minimum brightness for this colour, so
       // move to the other state
       _state = 1;
+
+      // Reset brigtness
+      _brightness = 0;
+    } else {
+
+      // Update the cube with the given brightness for the provided colour
+      updateCubeColour(theColourInHSV, _brightness);
+
+      // Update the brightness by the previously provided increment value
+      _brightness = _brightness - _brightnessIncrement;
     }
 
     // Remember the time for future reference
