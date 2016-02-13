@@ -14,11 +14,27 @@ A different approach is to use a state machine, that is called roughly every mil
 A number of the following sketches include both the "traditional" approach using delay(), and versions that are built using a state machine.
 
 # Installation
+## Libraries
 These sketches require the [Cube4 Library](https://github.com/neographophobic/Cube4) (that link is to my modified version of the library). The original version can be found at [Freetronics Cube4 Library](https://github.com/freetronics/Cube4). 
 
 Some sketches also require a helper library that I've written. The library is available from [Cube4_ARUtils](https://github.com/neographophobic/Cube4_ARUtils).
 
-To install these libraries, click on the "Download ZIP" link on the Github page, and then in the Arduino IDE, open a new blank sketch, then select "Sketch" -> "Include Library" -> "Add .ZIP Library".
+Instructions on installing these libraries are available at the above links.
+
+## Sketches
+### Step 1: Download
+* To get the latest released version, goto the [Releases](https://github.com/neographophobic/Cube4-Sketches/releases) page, and then click the "Source Code (zip)" link for the latest release.
+![Download Releases Link](http://secretcode.ninja/github_readme_resources/Cube4-Sketches/Step1-Download_Release.png)
+
+* To get the latest development version, click on the "Download ZIP" button on the Github page for this [library](https://github.com/neographophobic/Cube4-Sketches). If you are unsure which version to get, get the one from the "Releases" page as it is the latest stable release.
+![Download Link](http://secretcode.ninja/github_readme_resources/Cube4-Sketches/Step1-Download.png)
+
+### Step 2: Unzip
+Once the file has downloaded, browse to it on your computer and unzip it.
+![Unzip](http://secretcode.ninja/github_readme_resources/Cube4-Sketches/Step2-Unzip.png)
+
+### Step 3: Rename and Move
+Feel free to rename the newly unzipped folder to whatever you would like, and to move it to any appropriate location. From here you can double click on any of the sketches to open them in the Arduino IDE.
 
 # Sketches
 ## Blank
