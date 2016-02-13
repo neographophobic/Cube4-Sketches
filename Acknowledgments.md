@@ -5,10 +5,6 @@ The following lists sources for sketches, inspiration, and artefacts that I have
 ## Freetronics Cube4 Matrix PDF
 Original version created by user **ponch58**, and posted to [http://forum.freetronics.com/viewtopic.php?f=32&t=5562](http://forum.freetronics.com/viewtopic.php?f=32&t=5562). I've modified this version to include the position of each LED and the corners, as I use these features in a number of my sketches.
 
-
-## Freetronics Cube4 Matrix
-Original version created by user **ponch58**, and posted to [http://forum.freetronics.com/viewtopic.php?f=32&t=5562](). I've modified this version to include the position of each LED and the corners, as I use these features in a number of my sketches.
-
 ## Videos
 Numerous videos have been posted that show animations running on a 4x4x4 cube. I used these as inspiration for many of my sketches. Three particularly useful videos are:-
 

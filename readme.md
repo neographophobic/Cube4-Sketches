@@ -1,20 +1,20 @@
 # Cube4 Sketches
 
-This repository is a place for me to publish sketches that I worked on for the [Freetronics 4x4x4 RGB LED Cube](http://www.freetronics.com.au/collections/kits/products/cube4-4x4x4-rgb-led-cube).
+This repository is a place for me to publish sketches that I have worked on for the [Freetronics 4x4x4 RGB LED Cube](http://www.freetronics.com.au/collections/kits/products/cube4-4x4x4-rgb-led-cube).
 
 All sketches have been tested using the Arduino IDE v1.6.7 on MacOS X 10.10.
 
 Click on any of the thumbnails to view a video of the animation.
 
 ## Non Blocking Versions
-Typically sketches use delay() to add a pause between patters in an animation. The problem with this is that while the sketch is running, and particularly during a delay no other pieces of code run. This is problematic with things like serial input, as the cube will not respond to it while in a delay, meaning that the command is missed.
+Typically sketches use delay() to add a pause between frames in an animation. The problem with this is that while the sketch is running, and particularly during a delay no other pieces of code run. This is problematic with things like serial input, as the cube will not respond to it while in a delay, meaning that the command is missed.
 
 A different approach is to use a state machine, that is called roughly every millisecond, but only does actions if it is in the correct state, and if an appropriate amount of time has passed. This approach removes the need for a delay, and allows items like serial input to still occur.
 
 A number of the following sketches include both the "traditional" approach using delay(), and versions that are built using a state machine.
 
 # Installation
-These sketches require a Freetronics 4x4x4 RGB LED Cube. In addition they all require the [Cube4 Library](https://github.com/neographophobic/Cube4) (that link is to my modified version of the library). The original version can be found at [Freetronics Cube4 Library](https://github.com/freetronics/Cube4). 
+These sketches require the [Cube4 Library](https://github.com/neographophobic/Cube4) (that link is to my modified version of the library). The original version can be found at [Freetronics Cube4 Library](https://github.com/freetronics/Cube4). 
 
 Some sketches also require a helper library that I've written. The library is available from [Cube4_ARUtils](https://github.com/neographophobic/Cube4_ARUtils).
 
@@ -22,10 +22,9 @@ To install these libraries, click on the "Download ZIP" link on the Github page,
 
 # Sketches
 ## Blank
-A template I use as a starting point for new sketches. There is also a non blocking version available. To use it do a Find and Replace on "Blank" to the name you wish, and then modify as appropriate.
+A template I use as a starting point for new sketches. There is also a non blocking version available. To use it do a "Find and Replace" on "Blank", and then modify each occurrence as appropriate.
 
 *There is a non blocking version of this template, and it includes the Cube4_ARUtils library (which can be removed if not required).*
-
 
 ## Colour Pulse
 [![Colour Pulse Video](https://i.ytimg.com/s_vi/u5nLpMrX5ck/2.jpg?sqp=CKz127UF&rs=AOn4CLCInfmBBG-x3zsayztbIiBJQXqIBA&time=1454832559358)](https://youtu.be/u5nLpMrX5ck "Colour Pulse Video")
@@ -74,7 +73,7 @@ In this sketch, we illuminate a face, and then sweep it from that face, to anoth
 ## Flashing Cubes
 [![Flashing Cubes Video](https://i.ytimg.com/s_vi/vNLTxzmsADM/1.jpg?sqp=CLD827UF&rs=AOn4CLD5A90l7TJ4bvZssSSnQTZet-fIkw&time=1454833270652)](https://youtu.be/vNLTxzmsADM "Flashing Cubes Video")
 
-This sketch will flash in "inner" and "outer" cube.
+This sketch will flash the "inner" and "outer" cubes.
 
 *There is a non blocking version of this sketch.*
 
@@ -83,12 +82,12 @@ This sketch will flash in "inner" and "outer" cube.
 
 This sketch will attempt to draw letters or numbers on the Y 0 plane of the cube. A 4x4 grid is limiting, so some of the text isn't the clearest but it works as a proof of concept.
 
-If you set the colour of the letters to BLACK, the sketch will pick a random colour colour to use for each letter of a given message.
+If you set the colour of the letters to BLACK, the sketch will pick a random colour to use for each letter of a given message.
 
 ## Looping Boxes
 [![Looping Boxes Video](https://i.ytimg.com/s_vi/dJm4NXJt7sg/2.jpg?sqp=CLD827UF&rs=AOn4CLBWrltKDvSpYvCHqAkw3EG8fyydbQ&time=1454833379513)](https://youtu.be/dJm4NXJt7sg "Looping Boxes Video")
 
-This sketch has a small inner square, and a larger outer square that is hollow. The inner square passes through the outer square, and then the squares move along a face and then process repeats.
+This sketch has a small inner square, and a larger outer square that is hollow. The inner square passes through the outer square, and then the squares move along a face and then the process repeats.
 
 *There is a non blocking version of this sketch.*
 
