@@ -23,14 +23,14 @@ Instructions on installing these libraries are available at the above links.
 
 ## Sketches
 ### Step 1: Download
-* To get the latest released version, goto the [Releases](https://github.com/neographophobic/Cube4-Sketches/releases) page, and then click the "Source Code (zip)" link for the latest release.
+* To get the latest released version, goto the [Releases](https://github.com/neographophobic/Cube4-Sketches/releases) page, and then click the "Source Code (zip)" link for the latest release.  
 ![Download Releases Link](http://secretcode.ninja/github_readme_resources/Cube4-Sketches/Step1-Download_Release.png)
 
-* To get the latest development version, click on the "Download ZIP" button on the Github page for this [library](https://github.com/neographophobic/Cube4-Sketches). If you are unsure which version to get, get the one from the "Releases" page as it is the latest stable release.
+* To get the latest development version, click on the "Download ZIP" button on the Github page for this [library](https://github.com/neographophobic/Cube4-Sketches). If you are unsure which version to get, get the one from the "Releases" page as it is the latest stable release.  
 ![Download Link](http://secretcode.ninja/github_readme_resources/Cube4-Sketches/Step1-Download.png)
 
 ### Step 2: Unzip
-Once the file has downloaded, browse to it on your computer and unzip it.
+Once the file has downloaded, browse to it on your computer and unzip it.  
 ![Unzip](http://secretcode.ninja/github_readme_resources/Cube4-Sketches/Step2-Unzip.png)
 
 ### Step 3: Rename and Move
