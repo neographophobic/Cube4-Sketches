@@ -24,14 +24,14 @@ Instructions on installing these libraries are available at the above links.
 ## Sketches
 ### Step 1: Download
 * To get the latest released version, goto the [Releases](https://github.com/neographophobic/Cube4-Sketches/releases) page, and then click the "Source Code (zip)" link for the latest release.  
-![Download Releases Link](http://secretcode.ninja/github_readme_resources/Cube4-Sketches/Step1-Download_Release.png)
+![Download Releases Link](https://secretcodeninja-public.s3-ap-southeast-2.amazonaws.com/github_readme_resources/Cube4-Sketches/Step1-Download_Release.png)
 
 * To get the latest development version, click on the "Download ZIP" button on the Github page for this [library](https://github.com/neographophobic/Cube4-Sketches). If you are unsure which version to get, get the one from the "Releases" page as it is the latest stable release.  
-![Download Link](http://secretcode.ninja/github_readme_resources/Cube4-Sketches/Step1-Download.png)
+![Download Link](https://secretcodeninja-public.s3-ap-southeast-2.amazonaws.com/github_readme_resources/Cube4-Sketches/Step1-Download.png)
 
 ### Step 2: Unzip
 Once the file has downloaded, browse to it on your computer and unzip it.  
-![Unzip](http://secretcode.ninja/github_readme_resources/Cube4-Sketches/Step2-Unzip.png)
+![Unzip](https://secretcodeninja-public.s3-ap-southeast-2.amazonaws.com/github_readme_resources/Cube4-Sketches/Step2-Unzip.png)
 
 ### Step 3: Rename and Move
 Feel free to rename the newly unzipped folder to whatever you would like, and to move it to any appropriate location. From here you can double click on any of the sketches to open them in the Arduino IDE.
